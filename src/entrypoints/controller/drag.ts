@@ -1,4 +1,5 @@
 import { EventEmitter } from "../utils/emitter";
+import { isEditableOrDraggable } from "../utils/others";
 
 type Callback = (buf: DragEvent[], e: DragEvent) => void;
 
@@ -31,6 +32,8 @@ class DragController {
 
   private state = State.PASSIVE;
   private buffer: DragEvent[] = [];
+  private endElement: Element | null = null;
+  private moveElement: Element | null = null;
 
   private initialize(e: DragEvent) {
     this.buffer.push(e);
@@ -39,6 +42,7 @@ class DragController {
 
     this.target.addEventListener("dragover", this.handleDragOver, true);
     this.target.addEventListener("dragend", this.handleDragEnd, true);
+    this.target.addEventListener("drop", this.handleDrop, true);
     this.target.addEventListener("dragleave", this.handleDragLeave, true);
     this.target.addEventListener("visibilitychange", this.handleVisibilityChange, true);
   }
@@ -52,9 +56,12 @@ class DragController {
   }
 
   private handleDragEnd = (e: DragEvent) => {
-    if (this.checkIfOnInput(e)) {
-      this.abort();
-    }
+    this.endElement = this.target.elementFromPoint(e.clientX, e.clientY);
+    this.terminate(e);
+  }
+
+  private handleDrop = (e: DragEvent) => {
+    this.endElement = e.target as Element;
     this.terminate(e);
   }
 
@@ -81,19 +88,29 @@ class DragController {
       }
       case State.ACTIVE: {
         this.events.dispatchEvent("update", this.buffer, e);
-        if (!this.checkIfOnInput(e)) {
-          this.preventDefault(e);
+        this.moveElement = e.composedPath()[0] as Element;
+
+        // during dragover, we can detect that the cursor
+        // is over an element that should be ignore
+        if (this.shouldIgnore(e)) {
+          return;
         }
+
+        this.preventDefault(e);
         break;
       }
     }
   }
 
   private terminate(e?: DragEvent) {
+    // end will be called when drop already called terminate
+    if (this.state === State.PASSIVE) return;
+
     if (e) this.buffer.push(e);
 
-    // NOTE: dragmove and dragleave compete for the state;
-    // whichever fires last determines the current state.
+    if (isEditableOrDraggable(this.endElement)
+      || isEditableOrDraggable(this.moveElement)) this.abort();
+
     if (e && this.state === State.ACTIVE) {
       this.events.dispatchEvent("end", this.buffer, e);
     } else if (this.state === State.ABORTED) {
@@ -110,11 +127,13 @@ class DragController {
   private reset() {
     this.target.removeEventListener("dragover", this.handleDragOver, true);
     this.target.removeEventListener("dragend", this.handleDragEnd, true);
+    this.target.removeEventListener("drop", this.handleDrop, true);
     this.target.removeEventListener("dragleave", this.handleDragLeave, true);
     this.target.removeEventListener("visibilitychange", this.handleVisibilityChange, true);
 
     this.buffer = [];
     this.state = State.PASSIVE;
+    this.endElement = null;
   }
 
   private preventDefault(e: Event) {
@@ -122,11 +141,10 @@ class DragController {
     e.stopPropagation();
   }
 
-  private checkIfOnInput(e: DragEvent) {
-    const t1 = e.composedPath()[0] as Element;
-    const t2 = this.target.elementFromPoint(e.clientX, e.clientY);
-    return t1 instanceof HTMLInputElement || t1 instanceof HTMLTextAreaElement ||
-      t2 instanceof HTMLInputElement || t2 instanceof HTMLTextAreaElement;
+  private shouldIgnore(e: DragEvent) {
+    const el1 = e.composedPath()[0] as Element | null;
+    const el2 = this.target.elementFromPoint(e.clientX, e.clientY);
+    return isEditableOrDraggable(el1) || isEditableOrDraggable(el2);
   }
 }
 
