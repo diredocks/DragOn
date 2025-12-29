@@ -14,7 +14,7 @@ interface SelectEvents {
   start: Callback;
   update: Callback;
   end: Callback;
-  abort: (buf: Event[]) => void;
+  abort: Callback;
 }
 
 class SelectController {
@@ -22,8 +22,8 @@ class SelectController {
   private constructor() { }
 
   private target = document;
-  enable = () => this.target.addEventListener("selectstart", this.handleSelectStart);
-  disable = () => this.target.removeEventListener("selectstart", this.handleSelectStart);
+  enable = () => this.target.addEventListener("mousedown", this.handleMoudeDown);
+  disable = () => this.target.removeEventListener("mousedown", this.handleMoudeDown);
 
   private events = new EventEmitter<SelectEvents>();
   addEventListener = this.events.addEventListener.bind(this.events);
@@ -31,7 +31,6 @@ class SelectController {
 
   private state = State.PASSIVE;
   private buffer: Event[] = [];
-  private selectedText = () => this.target.getSelection()?.toString();
 
   private initialize(e: Event) {
     this.buffer.push(e);
@@ -42,7 +41,7 @@ class SelectController {
     this.target.addEventListener("mouseup", this.handleMouseUp);
   }
 
-  private handleSelectStart = (e: Event) => {
+  private handleMoudeDown = (e: Event) => {
     this.initialize(e);
   }
 
@@ -73,10 +72,10 @@ class SelectController {
   private terminate(e: Event) {
     this.buffer.push(e);
 
-    if (this.state === State.ACTIVE && this.selectedText()) {
+    if (this.state === State.ACTIVE && window.getSelection()?.toString()) {
       this.events.dispatchEvent("end", this.buffer, e);
     } else {
-      this.events.dispatchEvent("abort", this.buffer);
+      this.events.dispatchEvent("abort", this.buffer, e);
     }
 
     this.reset();

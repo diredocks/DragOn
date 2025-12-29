@@ -7,7 +7,7 @@ interface DragEvents {
   register: Callback;
   start: Callback;
   update: Callback;
-  end: Callback;
+  end: (buf: DragEvent[], e: DragEvent, startEle: Element) => void;
   abort: (buf: DragEvent[]) => void;
 };
 
@@ -34,9 +34,11 @@ class DragController {
   private buffer: DragEvent[] = [];
   private endElement: Element | null = null;
   private moveElement: Element | null = null;
+  private startElement: Element | null = null;
 
   private initialize(e: DragEvent) {
     this.buffer.push(e);
+    this.startElement = e.composedPath()[0] as Element;
     this.events.dispatchEvent("register", this.buffer, e);
     this.state = State.PENDING;
 
@@ -112,7 +114,7 @@ class DragController {
       || isEditableOrDraggable(this.moveElement)) this.abort();
 
     if (e && this.state === State.ACTIVE) {
-      this.events.dispatchEvent("end", this.buffer, e);
+      this.events.dispatchEvent("end", this.buffer, e, this.startElement!);
     } else if (this.state === State.ABORTED) {
       this.events.dispatchEvent("abort", this.buffer);
     }
