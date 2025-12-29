@@ -1,23 +1,23 @@
 export const isEditableOrDraggable = (el: Element | null): boolean => {
-  while (el) {
-    // input / textarea
-    if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-      return !el.disabled && el.type !== "hidden";
-    }
+  if (!el) return false;
 
-    // contenteditable
-    if (el instanceof HTMLElement && el.isContentEditable) return true;
+  // input / textarea
+  const input = el.closest<HTMLInputElement | HTMLTextAreaElement>(
+    'input:not([type="hidden"]):not([disabled]), textarea:not([disabled])'
+  );
+  if (input) return true;
 
-    // draggable elements
-    if (el instanceof HTMLElement && el.draggable) {
-      // don't abort when dragging link or images
-      if (el instanceof HTMLAnchorElement && el.href) return false;
-      if (el instanceof HTMLImageElement) return false;
-      // abort when dragging other draggable elements
-      return true;
-    }
+  // contenteditable
+  const editable = el.closest<HTMLElement>('[contenteditable=""], [contenteditable="true"]');
+  if (editable) return true;
 
-    el = el.parentElement;
-  }
-  return false;
+  // draggable
+  const draggable = el.closest<HTMLElement>('[draggable="true"]');
+  if (!draggable) return false;
+
+  // ignore link / image
+  if (draggable.closest('a[href]')) return false;
+  if (draggable.closest('img')) return false;
+
+  return true;
 };
