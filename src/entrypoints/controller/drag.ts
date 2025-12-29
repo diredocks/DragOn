@@ -7,7 +7,7 @@ interface DragEvents {
   register: Callback;
   start: Callback;
   update: Callback;
-  end: (buf: DragEvent[], e: DragEvent, startEle: Element) => void;
+  end: (buf: DragEvent[], e: DragEvent, startPath: EventTarget[]) => void;
   abort: (buf: DragEvent[]) => void;
 };
 
@@ -34,11 +34,11 @@ class DragController {
   private buffer: DragEvent[] = [];
   private endElement: Element | null = null;
   private moveElement: Element | null = null;
-  private startElement: Element | null = null;
+  private startPath: EventTarget[] | null = null;
 
   private initialize(e: DragEvent) {
     this.buffer.push(e);
-    this.startElement = e.composedPath()[0] as Element;
+    this.startPath = e.composedPath();
     this.events.dispatchEvent("register", this.buffer, e);
     this.state = State.PENDING;
 
@@ -114,7 +114,7 @@ class DragController {
       || isEditableOrDraggable(this.moveElement)) this.abort();
 
     if (e && this.state === State.ACTIVE) {
-      this.events.dispatchEvent("end", this.buffer, e, this.startElement!);
+      this.events.dispatchEvent("end", this.buffer, e, this.startPath!);
     } else if (this.state === State.ABORTED) {
       this.events.dispatchEvent("abort", this.buffer);
     }
@@ -133,9 +133,11 @@ class DragController {
     this.target.removeEventListener("dragleave", this.handleDragLeave, true);
     this.target.removeEventListener("visibilitychange", this.handleVisibilityChange, true);
 
-    this.buffer = [];
     this.state = State.PASSIVE;
+    this.buffer = [];
     this.endElement = null;
+    this.moveElement = null;
+    this.startPath = [];
   }
 
   private preventDefault(e: Event) {
