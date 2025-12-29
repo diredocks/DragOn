@@ -1,6 +1,7 @@
 // import { sendMessage } from './utils/messaging';
 
 import { dragController } from "./controller/drag";
+import { selectController } from "./controller/select";
 
 export default defineContentScript({
   matches: ['<all_urls>'],
@@ -13,14 +14,25 @@ export default defineContentScript({
     // document.addEventListener('drop', dropHandler, { capture: false });
     // document.addEventListener('selectionchange', selectionHandler, { capture: false });
 
-    dragController.enable();
+    // dragController.enable();
     dragController.addEventListener('register', () => { console.log("Registered"); });
     dragController.addEventListener('start', () => { console.log("Started"); });
     dragController.addEventListener('update', () => { console.log("Updated"); });
-    dragController.addEventListener('end', () => { console.log("Ended"); });
+    dragController.addEventListener('end', handleDragEnd);
     dragController.addEventListener('abort', () => { console.log("Aborted"); });
+
+    selectController.enable();
+    selectController.addEventListener('register', () => { console.log("Registered"); });
+    selectController.addEventListener('start', () => { console.log("Started"); });
+    selectController.addEventListener('update', () => { console.log("Updated"); });
+    selectController.addEventListener('end', () => { console.log("End") });
+    selectController.addEventListener('abort', () => { console.log("Aborted"); });
   },
 });
+
+const handleDragEnd = async (buf: DragEvent[]) => {
+  console.log("Ended from element", buf[0].target, "to element", buf[buf.length - 1].target);
+}
 
 // let currentElement: Element;
 // let currentTextSelection: string;
