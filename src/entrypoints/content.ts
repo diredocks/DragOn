@@ -1,5 +1,4 @@
-// import { sendMessage } from './utils/messaging';
-
+import { sendMessage } from "./utils/messaging";
 import { dragController } from "./controller/drag";
 import { selectController } from "./controller/select";
 
@@ -8,80 +7,66 @@ export default defineContentScript({
   allFrames: true,
   runAt: 'document_start',
   main() {
-    // document.addEventListener('dragstart', dragStartHandler, { capture: false });
-    // document.addEventListener('dragover', dragOverHandler, { capture: false });
-    // document.addEventListener('dragend', dragEndHandler, { capture: false });
-    // document.addEventListener('drop', dropHandler, { capture: false });
-    // document.addEventListener('selectionchange', selectionHandler, { capture: false });
-
-    // dragController.enable();
-    dragController.addEventListener('register', () => { console.log("Registered"); });
-    dragController.addEventListener('start', () => { console.log("Started"); });
-    dragController.addEventListener('update', () => { console.log("Updated"); });
+    dragController.enable();
     dragController.addEventListener('end', handleDragEnd);
-    dragController.addEventListener('abort', () => { console.log("Aborted"); });
-
     selectController.enable();
-    selectController.addEventListener('register', () => { console.log("Registered"); });
-    selectController.addEventListener('start', () => { console.log("Started"); });
-    selectController.addEventListener('update', () => { console.log("Updated"); });
-    selectController.addEventListener('end', () => { console.log("End") });
-    selectController.addEventListener('abort', () => { console.log("Aborted"); });
+    selectController.addEventListener('end', () => { selectedText = window.getSelection()?.toString(); })
+    selectController.addEventListener('abort', () => { selectedText = window.getSelection()?.toString(); })
   },
 });
 
-const handleDragEnd = async (buf: DragEvent[]) => {
-  console.log("Ended from element", buf[0].target, "to element", buf[buf.length - 1].target);
-}
+let selectedText: string | undefined;
 
-// let currentElement: Element;
-// let currentTextSelection: string;
-//
-// const dragStartHandler = async (e: DragEvent) => {
-//   currentElement = e.composedPath()[0] as Element;
-// }
-//
-// const selectionHandler = async () => {
-//   currentTextSelection = document.getSelection()!.toString();
-// }
-//
-// const dragOverHandler = async (e: DragEvent) => {
-//   const target = e.composedPath()[0] as Element;
-//   if (target instanceof HTMLInputElement
-//     || target instanceof HTMLTextAreaElement) {
-//     return;
-//   }
-//   if (!e.altKey) e.preventDefault();
-// }
-//
-// const dragEndHandler = async (e: DragEvent) => {
-//   if (!e.altKey) e.preventDefault();
-// }
-//
-// const dropHandler = async (e: Event) => {
-//   const target = e.composedPath()[0] as Element;
-//   if (target instanceof HTMLInputElement
-//     || target instanceof HTMLTextAreaElement) {
-//     return;
-//   }
-//
-//   if (currentTextSelection &&
-//     (currentElement?.nodeType === Node.TEXT_NODE
-//       || currentElement instanceof HTMLInputElement
-//       || currentElement instanceof HTMLTextAreaElement
-//       || currentElement.contains(document.getSelection()!.anchorNode))
-//   ) {
-//     // Search Text
-//     sendMessage('Search', currentTextSelection);
-//     return;
-//   }
-//   // Open link or download image
-//   const link =
-//     // First we find link in child
-//     currentElement.querySelector("a")?.href
-//     // Then we find link to parent
-//     ?? currentElement.closest("a")?.href;
-//   const img = currentElement.parentElement?.querySelector("img")?.src;
-//   if (link) sendMessage('Open', link);
-//   if (img) sendMessage('Download', img);
-// }
+const handleDragEnd = async (_buf: DragEvent[], _e: DragEvent, startEle: Element) => {
+  const rawTarget = _buf[0].target;
+
+  const hitEl =
+    rawTarget instanceof Text
+      ? rawTarget.parentElement
+      : rawTarget instanceof Element
+        ? rawTarget
+        : null;
+
+  const semanticEl = startEle instanceof Text
+    ? startEle.parentElement
+    : startEle;
+
+  const link =
+    hitEl?.closest('a')?.href ??
+    semanticEl?.closest('a')?.href;
+
+  if (link) {
+    sendMessage('Open', link);
+    return;
+  }
+
+  const img =
+    hitEl?.closest('img')?.src ??
+    semanticEl?.closest('img')?.src;
+
+  if (img) {
+    sendMessage('Download', img);
+    return;
+  }
+
+  if (selectedText || startEle.nodeType === Node.TEXT_NODE) {
+    let searchText = selectedText?.trim();
+
+    // dirty hack for bilibili comments
+    if (!searchText) {
+      searchText =
+        semanticEl?.textContent ||
+        semanticEl
+          ?.querySelector('bili-rich-text')
+          ?.shadowRoot
+          ?.querySelector('#contents')
+          ?.textContent ||
+        '';
+    }
+
+    if (searchText != '') {
+      sendMessage('Search', searchText);
+      return;
+    }
+  }
+}
