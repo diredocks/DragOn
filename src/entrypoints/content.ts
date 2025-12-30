@@ -38,18 +38,13 @@ const handleDragEnd = async (_buf: DragEvent[], _e: DragEvent, startPath: EventT
     hitEl?.closest('a')?.href ??
     semanticEl?.closest('a')?.href;
 
+  const dropData = _buf[_buf.length - 1]?.dataTransfer?.getData('text');
+
   if (selectedText && selectionEl && semanticEl?.contains(selectionEl)) {
     sendMessage('Search', selectedText);
     return;
-  } else if (
-    selectedText &&
-    (semanticEl?.textContent.includes(selectedText)
-      || selectedText.includes(semanticEl!.textContent)
-      || semanticEl?.id === "content") // if semanticEl is selection
-    && startPath.includes(semanticEl!) // if start from semanticEl
-    && hitEl?.nodeName === "BILI-COMMENTS" // dirty hack for bilibili comments
-  ) {
-    sendMessage('Search', selectedText);
+  } else if (selectedText && dropData && !URL.canParse(dropData)) {
+    sendMessage('Search', dropData);
     return;
   }
 
