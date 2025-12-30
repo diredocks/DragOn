@@ -1,6 +1,7 @@
 import { sendMessage } from "./utils/messaging";
 import { dragController } from "./controller/drag";
 import { selectController } from "./controller/select";
+import { Context } from "./models/context";
 
 export default defineContentScript({
   matches: ['<all_urls>'],
@@ -10,55 +11,31 @@ export default defineContentScript({
     dragController.enable();
     dragController.addEventListener('end', handleDragEnd);
     selectController.enable();
-    selectController.addEventListener('end', () => { selectedText = window.getSelection()?.toString(); })
-    selectController.addEventListener('abort', () => { selectedText = window.getSelection()?.toString(); })
+    selectController.addEventListener('end', () => { selectedText = window.getSelection()?.toString() ?? ""; })
+    selectController.addEventListener('abort', () => { selectedText = window.getSelection()?.toString() ?? ""; })
   },
 });
 
-let selectedText: string | undefined;
+let selectedText: string;
 
-const handleDragEnd = async (buf: DragEvent[], _e: DragEvent) => {
-  const rawTarget = buf[0].target;
-  const startEl = buf[0].composedPath()[0] as Element;
+const handleDragEnd = async (buf: DragEvent[]) => {
+  const ctx = new Context(buf, selectedText);
 
-  const hitEl =
-    rawTarget instanceof Text
-      ? rawTarget.parentElement
-      : rawTarget instanceof Element
-        ? rawTarget
-        : null;
-
-  const semanticEl = startEl instanceof Text
-    ? startEl.parentElement
-    : startEl;
-
-  const selectionEl = window.getSelection()?.anchorNode?.parentElement;
-
-  const link =
-    hitEl?.closest('a')?.href ??
-    semanticEl?.closest('a')?.href;
-
-  const dropData = buf[buf.length - 1]?.dataTransfer?.getData('text');
-
-  if (selectedText && selectionEl && semanticEl?.contains(selectionEl)) {
-    sendMessage('Search', selectedText);
+  if (ctx.selectedText && ctx.semanticEl && ctx.semanticEl?.contains(ctx.selectionEl)) {
+    sendMessage('Search', ctx.selectedText);
     return;
-  } else if (selectedText && dropData && !URL.canParse(dropData)) {
-    sendMessage('Search', dropData);
+  } else if (ctx.selectedText && ctx.dropText && !URL.canParse(ctx.dropText)) {
+    sendMessage('Search', ctx.dropText);
     return;
   }
 
-  if (link) {
-    sendMessage('Open', link);
+  if (ctx.link) {
+    sendMessage('Open', ctx.link);
     return;
   }
 
-  const img =
-    hitEl?.closest('img')?.src ??
-    semanticEl?.closest('img')?.src;
-
-  if (img) {
-    sendMessage('Download', img);
+  if (ctx.img) {
+    sendMessage('Download', ctx.img);
     return;
   }
 }
