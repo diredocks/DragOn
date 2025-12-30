@@ -17,9 +17,9 @@ export default defineContentScript({
 
 let selectedText: string | undefined;
 
-const handleDragEnd = async (_buf: DragEvent[], _e: DragEvent, startPath: EventTarget[]) => {
-  const rawTarget = _buf[0].target;
-  const startEle = startPath[0] as Element;
+const handleDragEnd = async (buf: DragEvent[], _e: DragEvent) => {
+  const rawTarget = buf[0].target;
+  const startEl = buf[0].composedPath()[0] as Element;
 
   const hitEl =
     rawTarget instanceof Text
@@ -28,9 +28,9 @@ const handleDragEnd = async (_buf: DragEvent[], _e: DragEvent, startPath: EventT
         ? rawTarget
         : null;
 
-  const semanticEl = startEle instanceof Text
-    ? startEle.parentElement
-    : startEle;
+  const semanticEl = startEl instanceof Text
+    ? startEl.parentElement
+    : startEl;
 
   const selectionEl = window.getSelection()?.anchorNode?.parentElement;
 
@@ -38,7 +38,7 @@ const handleDragEnd = async (_buf: DragEvent[], _e: DragEvent, startPath: EventT
     hitEl?.closest('a')?.href ??
     semanticEl?.closest('a')?.href;
 
-  const dropData = _buf[_buf.length - 1]?.dataTransfer?.getData('text');
+  const dropData = buf[buf.length - 1]?.dataTransfer?.getData('text');
 
   if (selectedText && selectionEl && semanticEl?.contains(selectionEl)) {
     sendMessage('Search', selectedText);

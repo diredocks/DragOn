@@ -7,7 +7,7 @@ interface DragEvents {
   register: Callback;
   start: Callback;
   update: Callback;
-  end: (buf: DragEvent[], e: DragEvent, startPath: EventTarget[]) => void;
+  end: Callback;
   abort: (buf: DragEvent[]) => void;
 };
 
@@ -34,11 +34,13 @@ class DragController {
   private buffer: DragEvent[] = [];
   private endElement: Element | null = null;
   private moveElement: Element | null = null;
-  private startPath: EventTarget[] | null = null;
 
   private initialize(e: DragEvent) {
+    // cache composedPath at dragstart because it becomes unreliable later.
+    // override e.composedPath() so we can always get the original event path.
+    const savePath = e.composedPath();
+    e.composedPath = () => savePath;
     this.buffer.push(e);
-    this.startPath = e.composedPath();
     this.events.dispatchEvent("register", this.buffer, e);
     this.state = State.PENDING;
 
@@ -114,7 +116,7 @@ class DragController {
       || isEditableOrDraggable(this.moveElement)) this.abort();
 
     if (e && this.state === State.ACTIVE) {
-      this.events.dispatchEvent("end", this.buffer, e, this.startPath!);
+      this.events.dispatchEvent("end", this.buffer, e);
     } else if (this.state === State.ABORTED) {
       this.events.dispatchEvent("abort", this.buffer);
     }
@@ -137,7 +139,6 @@ class DragController {
     this.buffer = [];
     this.endElement = null;
     this.moveElement = null;
-    this.startPath = [];
   }
 
   private preventDefault(e: Event) {
