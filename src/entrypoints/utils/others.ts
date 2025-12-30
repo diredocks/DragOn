@@ -13,14 +13,18 @@ export const isEditableOrDraggable = (el: Element | null): boolean => {
 
   // draggable
   const draggable = el.closest<HTMLElement>('[draggable="true"]');
-  if (!draggable) return false;
-
-  // ignore link / image / video
-  for (const ignoreSelector of ['a[href]', 'img', 'video']) {
-    if (draggable.closest(ignoreSelector)
-      || draggable.querySelector(ignoreSelector))
-      return false;
+  if (draggable) {
+    // ignore link / image / video
+    for (const ignoreSelector of ['a[href]', 'img', 'video']) {
+      if (draggable.closest(ignoreSelector)
+        || draggable.querySelector(ignoreSelector))
+        return false;
+    }
+    return true;
   }
 
-  return true;
+  const onDrop = el.hasAttribute('ondrop');
+  if (onDrop) return true;
+
+  return false;
 };
