@@ -1,3 +1,4 @@
+import { Context } from './models/context';
 import { onMessage } from './utils/messaging';
 
 export default defineBackground(() => {
@@ -14,10 +15,23 @@ const nextTabPosition = async () => {
   return tab.index;
 };
 
-const handleSearch = async (text: string) => {
-  browser.tabs.create({ url: `https://google.com/search?q=${encodeURIComponent(text)}`, active: false, index: await nextTabPosition() + 1 });
+const handleSearch = async (ctx: Context) => {
+  const text = ctx.selectedText || ctx.dropText;
+  if (!text) return false;
+  browser.tabs.create({
+    active: false,
+    index: await nextTabPosition() + 1,
+    url: `https://google.com/search?q=${encodeURIComponent(text)}`,
+  });
+  return true;
 }
-const handleOpen = async (link: string) => {
-  browser.tabs.create({ url: link, active: false, index: await nextTabPosition() + 1 });
+
+const handleOpen = async (ctx: Context) => {
+  if (!ctx.link) return false;
+  browser.tabs.create({ url: ctx.link, active: false, index: await nextTabPosition() + 1 });
+  return true;
 }
-const handleDownload = async () => { }
+
+const handleDownload = async () => {
+  return true;
+}

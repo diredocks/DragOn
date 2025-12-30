@@ -1,4 +1,4 @@
-import { sendMessage } from "./utils/messaging";
+import { ProtocolMap, sendMessage } from "./utils/messaging";
 import { dragController } from "./controller/drag";
 import { selectController } from "./controller/select";
 import { Context } from "./models/context";
@@ -20,22 +20,8 @@ let selectedText: string;
 
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
-
-  if (ctx.selectedText) {
-    sendMessage('Search', ctx.selectedText);
-    return;
-  } else if (ctx.dropText) {
-    sendMessage('Search', ctx.dropText);
-    return;
-  }
-
-  if (ctx.link) {
-    sendMessage('Open', ctx.link);
-    return;
-  }
-
-  if (ctx.img) {
-    sendMessage('Download', ctx.img);
-    return;
+  const priority: (keyof ProtocolMap)[] = ['Search', 'Open', 'Download'];
+  for (let action of priority) {
+    if (await sendMessage(action, ctx)) break; // action success
   }
 }

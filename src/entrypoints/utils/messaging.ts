@@ -1,9 +1,5 @@
 import { defineExtensionMessaging } from '@webext-core/messaging';
+import { Context } from '../models/context';
 
-interface ProtocolMap {
-  Search(text: string): void;
-  Open(link: string): void;
-  Download(image: string): void;
-}
-
+export type ProtocolMap = Record<'Search' | 'Open' | 'Download', (ctx: Context) => boolean>;
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
