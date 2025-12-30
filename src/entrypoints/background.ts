@@ -15,7 +15,7 @@ const nextTabPosition = async () => {
 };
 
 const handleSearch = async (text: string) => {
-  browser.tabs.create({ url: `https://google.com/search?q=${encodeURI(text)}`, active: false, index: await nextTabPosition() + 1 });
+  browser.tabs.create({ url: `https://google.com/search?q=${encodeURIComponent(text)}`, active: false, index: await nextTabPosition() + 1 });
 }
 const handleOpen = async (link: string) => {
   browser.tabs.create({ url: link, active: false, index: await nextTabPosition() + 1 });
