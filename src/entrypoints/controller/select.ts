@@ -22,8 +22,8 @@ class SelectController {
   private constructor() { }
 
   private target = document;
-  enable = () => this.target.addEventListener("mousedown", this.handleMoudeDown);
-  disable = () => this.target.removeEventListener("mousedown", this.handleMoudeDown);
+  enable = () => this.target.addEventListener("mousedown", this.handleMoudeDown, true);
+  disable = () => this.target.removeEventListener("mousedown", this.handleMoudeDown, true);
 
   private events = new EventEmitter<SelectEvents>();
   addEventListener = this.events.addEventListener.bind(this.events);
@@ -37,8 +37,8 @@ class SelectController {
     this.events.dispatchEvent("register", this.buffer, e);
     this.state = State.PENDING;
 
-    this.target.addEventListener("selectionchange", this.handleSelectionChange);
-    this.target.addEventListener("mouseup", this.handleMouseUp);
+    this.target.addEventListener("selectionchange", this.handleSelectionChange, true);
+    this.target.addEventListener("mouseup", this.handleMouseUp, true);
   }
 
   private handleMoudeDown = (e: Event) => {
@@ -82,8 +82,8 @@ class SelectController {
   }
 
   private reset() {
-    this.target.removeEventListener("selectionchange", this.handleSelectionChange);
-    this.target.removeEventListener("mouseup", this.handleMouseUp);
+    this.target.removeEventListener("selectionchange", this.handleSelectionChange, true);
+    this.target.removeEventListener("mouseup", this.handleMouseUp, true);
 
     this.buffer = [];
     this.state = State.PASSIVE;
