@@ -15,9 +15,12 @@ export const isEditableOrDraggable = (el: Element | null): boolean => {
   const draggable = el.closest<HTMLElement>('[draggable="true"]');
   if (!draggable) return false;
 
-  // ignore link / image
-  if (draggable.closest('a[href]')) return false;
-  if (draggable.closest('img')) return false;
+  // ignore link / image / video
+  for (const ignoreSelector of ['a[href]', 'img', 'video']) {
+    if (draggable.closest(ignoreSelector)
+      || draggable.querySelector(ignoreSelector))
+      return false;
+  }
 
   return true;
 };
