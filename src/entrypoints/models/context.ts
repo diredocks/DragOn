@@ -9,8 +9,6 @@ export class Context {
   #selectedText?: string;
 
   constructor(endBuffer: DragEvent[], selectedText: string) {
-    this.#selectedText = selectedText;
-
     const first = endBuffer[0];
     const last = endBuffer[endBuffer.length - 1];
 
@@ -45,6 +43,21 @@ export class Context {
 
     this.#dropText =
       last?.dataTransfer?.getData('text');
+
+    // selectedText is valid only if it comes from the same element
+    // that started the drag, which avoids using unrelated page selections.
+    if (selectedText && this.#semanticEl && this.#semanticEl.contains(this.#selectionEl)) {
+      this.#selectedText = selectedText;
+    }
+
+    // keep dropped text only when it represents plain text.
+    // if it’s a URL (or missing), ignore it to avoid false positives.
+    if (selectedText && this.#dropText && !URL.canParse(this.#dropText)) {
+      // keep dropText
+    } else {
+      // FIXME: what if dropText is URL?
+      this.#dropText = undefined;
+    }
   }
 
   get hitEl() {

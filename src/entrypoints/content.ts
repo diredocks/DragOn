@@ -21,10 +21,10 @@ let selectedText: string;
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
 
-  if (ctx.selectedText && ctx.semanticEl && ctx.semanticEl?.contains(ctx.selectionEl)) {
+  if (ctx.selectedText) {
     sendMessage('Search', ctx.selectedText);
     return;
-  } else if (ctx.selectedText && ctx.dropText && !URL.canParse(ctx.dropText)) {
+  } else if (ctx.dropText) {
     sendMessage('Search', ctx.dropText);
     return;
   }
