@@ -23,8 +23,8 @@ class DragController {
   private constructor() { }
 
   private target = document;
-  enable = () => this.target.addEventListener("dragstart", this.handleDragStart);
-  disable = () => this.target.removeEventListener("dragstart", this.handleDragStart);
+  enable = () => this.target.addEventListener("dragstart", this.handleDragStart, true);
+  disable = () => this.target.removeEventListener("dragstart", this.handleDragStart, true);
 
   private events = new EventEmitter<DragEvents>();
   addEventListener = this.events.addEventListener.bind(this.events);
