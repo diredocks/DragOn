@@ -2,9 +2,9 @@ import { Context } from './models/context';
 import { onMessage } from './utils/messaging';
 
 export default defineBackground(() => {
-  onMessage('Search', m => handleSearch(m.data, m.sender));
-  onMessage('Open', m => handleOpen(m.data, m.sender));
-  onMessage('Download', handleDownload);
+  onMessage('Text', m => handleText(m.data, m.sender));
+  onMessage('Link', m => handleLink(m.data, m.sender));
+  onMessage('Image', m => handleImage(m.data, m.sender));
 });
 
 const nextTabPosition = async () => {
@@ -15,7 +15,7 @@ const nextTabPosition = async () => {
   return tab.index;
 };
 
-const handleSearch = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
+const handleText = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
   const text = ctx.selectedText || ctx.dropText;
   if (!text) return false;
   browser.tabs.create({
@@ -27,7 +27,7 @@ const handleSearch = async (ctx: Context, sender: Browser.runtime.MessageSender)
   return true;
 }
 
-const handleOpen = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
+const handleLink = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
   if (!ctx.link) return false;
   browser.tabs.create({
     url: ctx.link,
@@ -38,6 +38,8 @@ const handleOpen = async (ctx: Context, sender: Browser.runtime.MessageSender) =
   return true;
 }
 
-const handleDownload = async () => {
+const handleImage = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
+  if (!ctx.img) return false;
+  console.log(ctx.img);
   return true;
 }

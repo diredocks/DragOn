@@ -20,7 +20,7 @@ let selectedText: string;
 
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
-  const priority: (keyof ProtocolMap)[] = ['Search', 'Open', 'Download'];
+  const priority: (keyof ProtocolMap)[] = ['Text', 'Link', 'Image'];
   for (let action of priority) {
     if (await sendMessage(action, ctx)) break; // action success
   }
