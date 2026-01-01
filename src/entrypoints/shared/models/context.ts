@@ -33,7 +33,9 @@ export class Context {
       semanticEl?.closest('a')?.href;
     this.img =
       hitEl?.closest('img')?.src ??
-      semanticEl?.closest('img')?.src;
+      semanticEl?.closest('img')?.src ??
+      hitEl?.querySelector('img')?.src ??
+      semanticEl?.querySelector('img')?.src;
     this.dropText =
       last?.dataTransfer?.getData('text');
 
