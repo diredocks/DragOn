@@ -1,5 +1,5 @@
-import { Context } from './models/context';
-import { onMessage } from './utils/messaging';
+import { Context } from '@/entrypoints/shared/models/context';
+import { onMessage } from '@/entrypoints/shared/utils/messaging';
 
 export default defineBackground(() => {
   onMessage('Text', m => handleText(m.data, m.sender));

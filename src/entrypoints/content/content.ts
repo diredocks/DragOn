@@ -1,7 +1,7 @@
-import { ProtocolMap, sendMessage } from "./utils/messaging";
-import { dragController } from "./controller/drag";
-import { selectController } from "./controller/select";
-import { Context } from "./models/context";
+import { ProtocolMap, sendMessage } from "@/entrypoints/shared/utils/messaging";
+import { dragController } from "@/entrypoints/shared/controller/drag";
+import { selectController } from "@/entrypoints/shared/controller/select";
+import { Context } from "@/entrypoints/shared/models/context";
 
 export default defineContentScript({
   matches: ['<all_urls>'],

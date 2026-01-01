@@ -1,5 +1,5 @@
-import { EventEmitter } from "../utils/emitter";
-import { isEditableOrDraggable } from "../utils/is-editable-draggable";
+import { EventEmitter } from "@/entrypoints/shared/utils/emitter";
+import { isEditableOrDraggable } from "@/entrypoints/shared/utils/is-editable-draggable";
 
 type Callback = (buf: DragEvent[], e: DragEvent) => void;
 
