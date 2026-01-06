@@ -1,8 +1,6 @@
 import { Context } from '@/entrypoints/shared/models/context';
 import { onMessage } from '@/entrypoints/shared/utils/messaging';
-import * as textActions from './actions/text';
-import * as linkActions from './actions/link';
-import * as imageActions from './actions/image';
+import { actions } from './actions';
 
 export default defineBackground(() => {
   onMessage('Text', m => handleText(m.data, m.sender));
@@ -12,13 +10,16 @@ export default defineBackground(() => {
 
 const handleText = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
   // TODO: can we just check if text exists here?
-  return textActions.search(ctx, sender);
+  const search = new actions.text.Search();
+  return search.execute(ctx, sender);
 }
 
 const handleLink = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
-  return linkActions.open(ctx, sender);
+  const open = new actions.link.Open();
+  return open.execute(ctx, sender);
 }
 
 const handleImage = async (ctx: Context, sender: Browser.runtime.MessageSender) => {
-  return imageActions.copy(ctx, sender);
+  const copy = new actions.image.Copy();
+  return copy.execute(ctx, sender);
 }
