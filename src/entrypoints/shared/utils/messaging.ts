@@ -1,7 +1,10 @@
 import { defineExtensionMessaging } from '@webext-core/messaging';
 import { Context } from '@/entrypoints/shared/models/context';
+import { Vector } from './type';
 
-export type ProtocolMap = Record<'DragEnd', (ctx: Context) => boolean>;
+export type ProtocolMap = {
+  dragEnd(data: { ctx: Context, pattern: Vector[] }): boolean;
+}
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
 
 export type ProtocolMapTab = {
