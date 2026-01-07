@@ -1,8 +1,8 @@
 export class Context {
-  public img?: string;
-  public link?: string;
-  public dropText?: string;
-  public selectedText?: string;
+  readonly img?: string;
+  readonly link?: string;
+  readonly dropText?: string;
+  readonly selectedText?: string;
 
   constructor(endBuffer: DragEvent[], selectedText: string) {
     const first = endBuffer[0];
