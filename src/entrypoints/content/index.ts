@@ -2,6 +2,9 @@ import { onMessageTab, sendMessage } from "@/entrypoints/shared/utils/messaging"
 import { dragController } from "@/entrypoints/shared/controller/drag";
 import { selectController } from "@/entrypoints/shared/controller/select";
 import { Context } from "@/entrypoints/shared/models/context";
+import { pattern } from "@/entrypoints/shared/utils/pattern";
+import { Point } from "@/entrypoints/shared/utils/type";
+import { interactionOverlay } from "./view/interaction-overlay";
 
 export default defineContentScript({
   matches: ['<all_urls>'],
@@ -9,7 +12,10 @@ export default defineContentScript({
   runAt: 'document_start',
   main() {
     dragController.enable();
+    dragController.addEventListener('start', handleDragStart);
+    dragController.addEventListener('update', handleDragUpdate);
     dragController.addEventListener('end', handleDragEnd);
+    dragController.addEventListener('abort', handleDragAbort);
     selectController.enable();
     selectController.addEventListener('end', () => { selectedText = window.getSelection()?.toString() ?? ""; })
     selectController.addEventListener('abort', () => { selectedText = window.getSelection()?.toString() ?? ""; })
@@ -18,10 +24,35 @@ export default defineContentScript({
 
 let selectedText: string;
 
+const updateDrag = (e: DragEvent) => {
+  const point: Point = [e.clientX, e.clientY];
+  interactionOverlay.updateTrace(point);
+  pattern.addPoint(point);
+};
+
+const clearDrag = () => {
+  interactionOverlay.terminate();
+  pattern.clear();
+};
+
+const handleDragStart = async (_buf: DragEvent[], e: DragEvent) => {
+  interactionOverlay.initialize([e.clientX, e.clientY]);
+  updateDrag(e);
+};
+
+const handleDragUpdate = async (_buf: DragEvent[], e: DragEvent) => {
+  updateDrag(e);
+};
+
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
-  await sendMessage('DragEnd', ctx);
-}
+  await sendMessage("DragEnd", ctx);
+  clearDrag();
+};
+
+const handleDragAbort = async () => {
+  clearDrag();
+};
 
 onMessageTab('clipboardWriteText', m => {
   navigator.clipboard.writeText(m.data);
