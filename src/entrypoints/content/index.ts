@@ -1,4 +1,4 @@
-import { onMessageTab, ProtocolMap, sendMessage } from "@/entrypoints/shared/utils/messaging";
+import { onMessageTab, sendMessage } from "@/entrypoints/shared/utils/messaging";
 import { dragController } from "@/entrypoints/shared/controller/drag";
 import { selectController } from "@/entrypoints/shared/controller/select";
 import { Context } from "@/entrypoints/shared/models/context";
@@ -20,10 +20,7 @@ let selectedText: string;
 
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
-  const priority: (keyof ProtocolMap)[] = ['Text', 'Link', 'Image'];
-  for (let action of priority) {
-    if (await sendMessage(action, ctx)) break; // action success
-  }
+  await sendMessage('DragEnd', ctx);
 }
 
 onMessageTab('clipboardWriteText', m => {
