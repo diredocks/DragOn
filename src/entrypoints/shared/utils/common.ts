@@ -1,3 +1,22 @@
+import { Point, Vector } from "./type";
+
+export function getDistance(x: Point, y: Point) {
+  return Math.hypot(y[0] - x[0], y[1] - x[1]);
+}
+
+export function vectorDirectionDifference(V1: Vector, V2: Vector): number {
+  let angleDifference =
+    Math.atan2(V1[0], V1[1]) - Math.atan2(V2[0], V2[1]);
+
+  if (angleDifference > Math.PI) {
+    angleDifference -= 2 * Math.PI;
+  } else if (angleDifference <= -Math.PI) {
+    angleDifference += 2 * Math.PI;
+  }
+
+  return angleDifference / Math.PI;
+}
+
 export const isEditableOrDraggable = (el: Element | null): boolean => {
   if (!el) return false;
 
@@ -27,4 +46,12 @@ export const isEditableOrDraggable = (el: Element | null): boolean => {
   if (onDrop) return true;
 
   return false;
+};
+
+export const nextTabIndex = async () => {
+  const [tab] = await browser.tabs.query({
+    active: true,
+    currentWindow: true
+  });
+  return tab.index;
 };

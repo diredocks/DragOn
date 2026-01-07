@@ -1,5 +1,5 @@
 import { Action, ActionRun } from "@/entrypoints/shared/models/action";
-import { nextTabIndex } from "@/entrypoints/shared/utils/next-tab-index";
+import { nextTabIndex } from "@/entrypoints/shared/utils/common";
 
 interface Options {
   engine: 'bing' | 'baidu' | 'google' | 'duckduckgo';

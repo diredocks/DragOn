@@ -1,6 +1,6 @@
 import { Rule } from "@/entrypoints/shared/models/rule";
 import { Vector } from "./type";
-import { vectorDirectionDifference } from "./vector-direction-difference";
+import { vectorDirectionDifference } from "./common";
 
 export type MatchingAlgorithm = "Strict" | "ShapeIndependent" | "Combined";
 

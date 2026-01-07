@@ -1,4 +1,4 @@
-import { getDistance } from "@/entrypoints/shared/utils/get-distance";
+import { getDistance } from "@/entrypoints/shared/utils/common";
 import { Point } from "@/entrypoints/shared/utils/type";
 
 export class Interaction {
