@@ -30,7 +30,9 @@ export class Context {
 
     this.link =
       hitEl?.closest('a')?.href ??
-      semanticEl?.closest('a')?.href;
+      semanticEl?.closest('a')?.href ??
+      hitEl?.querySelector('a')?.href ??
+      semanticEl?.querySelector('a')?.href;
     this.img =
       hitEl?.closest('img')?.src ??
       semanticEl?.closest('img')?.src ??
