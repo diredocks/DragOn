@@ -24,10 +24,14 @@ export default defineContentScript({
 
 let selectedText: string;
 
-const updateDrag = (e: DragEvent) => {
+const updateDrag = async (buf: DragEvent[], e: DragEvent) => {
   const point: Point = [e.clientX, e.clientY];
   interactionOverlay.updateTrace(point);
   pattern.addPoint(point);
+
+  const ctx = new Context(buf, selectedText);
+  const matchedAction = await sendMessage("dragUpdate", { ctx, pattern: pattern.pattern });
+  interactionOverlay.updateAction(matchedAction);
 };
 
 const clearDrag = () => {
@@ -35,13 +39,13 @@ const clearDrag = () => {
   pattern.clear();
 };
 
-const handleDragStart = async (_buf: DragEvent[], e: DragEvent) => {
+const handleDragStart = async (buf: DragEvent[], e: DragEvent) => {
   interactionOverlay.initialize([e.clientX, e.clientY]);
-  updateDrag(e);
+  updateDrag(buf, e);
 };
 
-const handleDragUpdate = async (_buf: DragEvent[], e: DragEvent) => {
-  updateDrag(e);
+const handleDragUpdate = async (buf: DragEvent[], e: DragEvent) => {
+  updateDrag(buf, e);
 };
 
 const handleDragEnd = async (buf: DragEvent[]) => {

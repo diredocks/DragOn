@@ -5,7 +5,10 @@ import { getRuleByPattern } from '@/entrypoints/shared/utils/matcher';
 
 export default defineBackground(() => {
   onMessage('dragEnd', m => {
-    return getRuleByPattern(m.data.pattern, rules)?.execute(m.data.ctx, m.sender) ?? false;
+    return getRuleByPattern(m.data.pattern, rules())?.execute(m.data.ctx, m.sender) ?? false;
+  });
+  onMessage('dragUpdate', m => {
+    return getRuleByPattern(m.data.pattern, rules())?.match(m.data.ctx)?.toString() ?? null;
   });
 });
 

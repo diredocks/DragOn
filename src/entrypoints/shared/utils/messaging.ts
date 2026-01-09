@@ -3,6 +3,7 @@ import { Context } from '@/entrypoints/shared/models/context';
 import { Vector } from './type';
 
 export type ProtocolMap = {
+  dragUpdate(data: { ctx: Context, pattern: Vector[] }): string | null;
   dragEnd(data: { ctx: Context, pattern: Vector[] }): boolean;
 }
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
