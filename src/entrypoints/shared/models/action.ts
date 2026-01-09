@@ -10,6 +10,7 @@ export type ActionRun<TOptions> = (
 
 export abstract class Action<TOptions> {
   abstract type: ActionType;
+  abstract name: string;
   abstract fn: ActionRun<TOptions>;
   abstract defaultSettings: TOptions;
   permissions?: Browser.permissions.Permissions[];
@@ -17,6 +18,10 @@ export abstract class Action<TOptions> {
 
   constructor(settings?: Partial<TOptions>) {
     this.settings = settings;
+  }
+
+  toString(): string {
+    return `${this.type}.${this.name}`;
   }
 
   execute(ctx: Context, sender: Browser.runtime.MessageSender) {

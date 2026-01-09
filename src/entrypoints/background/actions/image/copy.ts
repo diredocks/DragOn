@@ -9,6 +9,7 @@ const fn: ActionRun<Options> = async (ctx, sender) => {
 };
 
 export class Copy extends Action<Options> {
+  name = 'copy' as const;
   type = 'image' as const;
   defaultSettings: Options = {};
   fn = fn;
