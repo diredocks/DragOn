@@ -46,7 +46,7 @@ const handleDragUpdate = async (_buf: DragEvent[], e: DragEvent) => {
 
 const handleDragEnd = async (buf: DragEvent[]) => {
   const ctx = new Context(buf, selectedText);
-  await sendMessage("dragEnd", { ctx, pattern: pattern.pattern });
+  sendMessage("dragEnd", { ctx, pattern: pattern.pattern });
   clearDrag();
 };
 
