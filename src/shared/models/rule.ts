@@ -1,6 +1,6 @@
-import { Action } from "@/entrypoints/shared/models/action";
-import { Vector } from "@/entrypoints/shared/utils/type";
-import { Context } from "@/entrypoints/shared/models/context";
+import { Action } from "@/shared/models/action";
+import { Vector } from "@/shared/utils/type";
+import { Context } from "@/shared/models/context";
 
 export class Rule {
   readonly pattern: Vector[];

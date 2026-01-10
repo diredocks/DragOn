@@ -1,4 +1,4 @@
-import { EventEmitter } from "@/entrypoints/shared/utils/emitter";
+import { EventEmitter } from "@/shared/utils/emitter";
 
 type Callback = (buf: Event[], e: Event) => void;
 

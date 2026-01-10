@@ -1,5 +1,5 @@
-import { Action, ActionRun } from "@/entrypoints/shared/models/action";
-import { nextTabIndex } from "@/entrypoints/shared/utils/common";
+import { Action, ActionRun } from "@/shared/models/action";
+import { nextTabIndex } from "@/shared/utils/common";
 
 interface Options {
   openInBackground: boolean;

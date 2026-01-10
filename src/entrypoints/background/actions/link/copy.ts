@@ -1,5 +1,5 @@
-import { Action, ActionRun } from "@/entrypoints/shared/models/action";
-import { sendMessageTab } from "@/entrypoints/shared/utils/messaging";
+import { Action, ActionRun } from "@/shared/models/action";
+import { sendMessageTab } from "@/shared/utils/messaging";
 
 interface Options { }
 

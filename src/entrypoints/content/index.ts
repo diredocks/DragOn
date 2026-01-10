@@ -1,9 +1,9 @@
-import { onMessageTab, sendMessage } from "@/entrypoints/shared/utils/messaging";
-import { dragController } from "@/entrypoints/shared/controller/drag";
-import { selectController } from "@/entrypoints/shared/controller/select";
-import { Context } from "@/entrypoints/shared/models/context";
-import { pattern } from "@/entrypoints/shared/utils/pattern";
-import { Point } from "@/entrypoints/shared/utils/type";
+import { onMessageTab, sendMessage } from "@/shared/utils/messaging";
+import { dragController } from "@/shared/controller/drag";
+import { selectController } from "@/shared/controller/select";
+import { Context } from "@/shared/models/context";
+import { pattern } from "@/shared/utils/pattern";
+import { Point } from "@/shared/utils/type";
 import { interactionOverlay } from "./view/interaction-overlay";
 
 export default defineContentScript({

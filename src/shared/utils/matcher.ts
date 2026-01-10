@@ -1,4 +1,4 @@
-import { Rule } from "@/entrypoints/shared/models/rule";
+import { Rule } from "@/shared/models/rule";
 import { Vector } from "./type";
 import { vectorDirectionDifference } from "./common";
 

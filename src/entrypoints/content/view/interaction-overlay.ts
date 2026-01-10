@@ -1,5 +1,5 @@
-import { getDistance } from "@/entrypoints/shared/utils/common";
-import { Point } from "@/entrypoints/shared/utils/type";
+import { getDistance } from "@/shared/utils/common";
+import { Point } from "@/shared/utils/type";
 
 export class Interaction {
   static readonly instance = new Interaction();

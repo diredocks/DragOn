@@ -1,5 +1,5 @@
 import { defineExtensionMessaging } from '@webext-core/messaging';
-import { Context } from '@/entrypoints/shared/models/context';
+import { Context } from '@/shared/models/context';
 import { Vector } from './type';
 
 export type ProtocolMap = {

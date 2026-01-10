@@ -1,7 +1,7 @@
-import { Rule } from '@/entrypoints/shared/models/rule';
-import { onMessage } from '@/entrypoints/shared/utils/messaging';
+import { Rule } from '@/shared/models/rule';
+import { onMessage } from '@/shared/utils/messaging';
+import { getRuleByPattern } from '@/shared/utils/matcher';
 import { actions } from './actions';
-import { getRuleByPattern } from '@/entrypoints/shared/utils/matcher';
 
 export default defineBackground(() => {
   onMessage('dragEnd', m => {

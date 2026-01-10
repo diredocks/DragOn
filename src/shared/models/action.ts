@@ -1,4 +1,4 @@
-import { Context } from "@/entrypoints/shared/models/context";
+import { Context } from "@/shared/models/context";
 
 export type ActionType = 'text' | 'link' | 'image';
 
