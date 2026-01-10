@@ -1,5 +1,8 @@
 import { getDistance } from "@/shared/utils/common";
 import { Point } from "@/shared/utils/type";
+import type { Trace, Action } from "@/shared/settings/schema";
+import { defaultSettings } from "@/shared/settings/default";
+import { actionSettingsStorage, traceSettingsStorage } from "@/shared/settings/storage";
 
 export class Interaction {
   static readonly instance = new Interaction();
@@ -12,9 +15,11 @@ export class Interaction {
   private action = document.createElement("div");
   private context: CanvasRenderingContext2D;
 
-  private traceLineWidth = 10;
-  private traceLineGrowth = true;
-  private actionFollowCursor = false;
+  private traceLineWidth = defaultSettings.trace.style.lineWidth;
+  private traceLineGrowth = defaultSettings.trace.style.lineGrowth;
+  private actionFollowCursor = defaultSettings.action.followCursor;
+  private traceDisplay = defaultSettings.trace.display;
+  private actionDisplay = defaultSettings.action.display;
 
   private lastTraceWidth = 0;
   private lastPoint: Point = [0, 0];
@@ -54,8 +59,8 @@ export class Interaction {
     this.context = this.canvas.getContext("2d")!;
 
     this.action.style.cssText = `
-      --horizontalPosition: 50;
-      --verticalPosition: 40;
+      --horizontalPosition: ${defaultSettings.action.style.horizontalPosition};
+      --verticalPosition: ${defaultSettings.action.style.verticalPosition};
       position: absolute;
       top: calc(var(--verticalPosition) * 1%);
       left: calc(var(--horizontalPosition) * 1%);
@@ -72,13 +77,39 @@ export class Interaction {
       width: max-content;
       max-width: 50vw;
       pointer-events: none;
-      font-size: 7vh;
-      color: #ffffffff;
-      background-color: #00000080;
+      font-size: ${defaultSettings.action.style.fontSize};
+      color: ${defaultSettings.action.style.fontColor};
+      background-color: ${defaultSettings.action.style.backgroundColor};
     `;
+    this.gestureTraceLineColor = defaultSettings.trace.style.strokeStyle;
 
     window.addEventListener("resize", this.maximizeCanvas, true);
     this.maximizeCanvas();
+    this.watchSettings();
+  }
+
+  private async watchSettings() {
+    this.applyTraceSettings(await traceSettingsStorage.getValue());
+    this.applyActionSettings(await actionSettingsStorage.getValue());
+    traceSettingsStorage.watch(t => this.applyTraceSettings(t));
+    actionSettingsStorage.watch(a => this.applyActionSettings(a));
+  }
+
+  private applyTraceSettings(settings: Trace) {
+    this.traceDisplay = settings.display;
+    this.traceLineWidth = settings.style.lineWidth;
+    this.traceLineGrowth = settings.style.lineGrowth;
+    this.gestureTraceLineColor = settings.style.strokeStyle;
+  }
+
+  private applyActionSettings(settings: Action) {
+    this.actionDisplay = settings.display;
+    this.actionFollowCursor = settings.followCursor;
+    this.action.style.fontSize = settings.style.fontSize;
+    this.action.style.color = settings.style.fontColor;
+    this.action.style.backgroundColor = settings.style.backgroundColor;
+    this.action.style.setProperty("--horizontalPosition", String(settings.style.horizontalPosition));
+    this.action.style.setProperty("--verticalPosition", String(settings.style.verticalPosition));
   }
 
   initialize(point: Point) {
@@ -109,6 +140,11 @@ export class Interaction {
   }
 
   updateTrace(point: Point) {
+    if (!this.traceDisplay) {
+      this.canvas.remove();
+      return;
+    }
+
     if (!this.overlay.contains(this.canvas)) {
       this.overlay.appendChild(this.canvas);
     }
@@ -144,7 +180,7 @@ export class Interaction {
   }
 
   updateAction(text: string | null) {
-    if (text === null || !this.overlay.isConnected) {
+    if (text === null || !this.actionDisplay || !this.overlay.isConnected) {
       this.action.remove();
       return;
     }
@@ -165,7 +201,7 @@ export class Interaction {
     }
   }
 
-  private maximizeCanvas = () => {
+  private maximizeCanvas() {
     const { lineCap, lineJoin, fillStyle, strokeStyle, lineWidth } = this.context;
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
@@ -214,4 +250,3 @@ export class Interaction {
 }
 
 export const interactionOverlay = Interaction.instance;
-interactionOverlay.gestureTraceLineColor = "#0046ffcc";
