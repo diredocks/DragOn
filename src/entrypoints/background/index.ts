@@ -12,21 +12,20 @@ export default defineBackground(() => {
   });
 });
 
-const rules = [
-  new Rule(
-    [[-1, 0]],
-    [
-      new actions.link.Open(),
-      new actions.text.Search({ engine: 'baidu' }),
-      new actions.image.Copy(),
-    ]
-  ),
-  new Rule(
-    [[1, 0]],
-    [
-      new actions.text.Search({ engine: 'bing' }),
-      new actions.link.Open(),
-      new actions.image.Copy(),
-    ]
-  )
-];
+const rules = () => {
+  const rules: Rule[] = [];
+  for (const i of [-1, 0, 1]) {
+    for (const j of [-1, 0, 1]) {
+      if (i === 0 && j === 0) continue;
+      rules.push(new Rule(
+        [[i, j]],
+        [
+          new actions.text.Search({ engine: 'bing' }),
+          new actions.link.Open(),
+          new actions.image.Copy(),
+        ]
+      ))
+    }
+  }
+  return rules;
+};

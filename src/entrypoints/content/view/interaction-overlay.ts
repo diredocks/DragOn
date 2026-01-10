@@ -54,8 +54,8 @@ export class Interaction {
     this.context = this.canvas.getContext("2d")!;
 
     this.action.style.cssText = `
-      --horizontalPosition: 0;
-      --verticalPosition: 0;
+      --horizontalPosition: 50;
+      --verticalPosition: 40;
       position: absolute;
       top: calc(var(--verticalPosition) * 1%);
       left: calc(var(--horizontalPosition) * 1%);
@@ -69,10 +69,12 @@ export class Interaction {
       text-align: center;
       text-shadow: 0.01em 0.01em 0.01em rgba(0,0,0,0.5);
       padding: 0.4em 0.4em 0.3em;
-      background-color: transparent;
       width: max-content;
       max-width: 50vw;
       pointer-events: none;
+      font-size: 7vh;
+      color: #ffffffff;
+      background-color: #00000080;
     `;
 
     window.addEventListener("resize", this.maximizeCanvas, true);
@@ -137,8 +139,7 @@ export class Interaction {
       )
     );
 
-    this.lastPoint = { ...point };
-
+    this.lastPoint = point;
     this.context.fill(path);
   }
 
