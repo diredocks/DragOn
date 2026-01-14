@@ -48,9 +48,11 @@ export class Context {
     }
 
     // keep dropped text only when it represents plain text.
-    // if it’s a URL, ignore it to avoid false positives.
-    if (this.dropText && URL.canParse(this.dropText)) {
-      this.link = this.dropText;
+    // if it’s a URL (or missing), ignore it to avoid false positives.
+    if (this.dropText && !URL.canParse(this.dropText)) {
+      // keep dropText
+    } else {
+      // FIXME: what if dropText is URL?
       this.dropText = undefined;
     }
   }
