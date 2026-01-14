@@ -39,20 +39,18 @@ export class Context {
       hitEl?.querySelector('img')?.src ??
       semanticEl?.querySelector('img')?.src;
     this.dropText =
-      last?.dataTransfer?.getData('text');
+      last?.dataTransfer?.getData('text/plain');
 
     // selectedText is valid only if it comes from the same element
     // that started the drag, which avoids using unrelated page selections.
-    if (selectedText && semanticEl && semanticEl.contains(selectionEl)) {
+    if (semanticEl && semanticEl.contains(selectionEl)) {
       this.selectedText = selectedText;
     }
 
     // keep dropped text only when it represents plain text.
-    // if it’s a URL (or missing), ignore it to avoid false positives.
-    if (selectedText && this.dropText && !URL.canParse(this.dropText)) {
-      // keep dropText
-    } else {
-      // FIXME: what if dropText is URL?
+    // if it’s a URL, ignore it to avoid false positives.
+    if (this.dropText && URL.canParse(this.dropText)) {
+      this.link = this.dropText;
       this.dropText = undefined;
     }
   }

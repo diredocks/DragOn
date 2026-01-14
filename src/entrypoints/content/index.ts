@@ -17,12 +17,16 @@ export default defineContentScript({
     dragController.addEventListener('end', handleDragEnd);
     dragController.addEventListener('abort', handleDragAbort);
     selectController.enable();
-    selectController.addEventListener('end', () => { selectedText = window.getSelection()?.toString() ?? ""; })
-    selectController.addEventListener('abort', () => { selectedText = window.getSelection()?.toString() ?? ""; })
+    selectController.addEventListener('end', updateSelection);
+    selectController.addEventListener('abort', updateSelection);
   },
 });
 
 let selectedText: string;
+
+const updateSelection = async () => {
+  selectedText = window.getSelection()?.toString() ?? "";
+}
 
 const updateDrag = async (buf: DragEvent[], e: DragEvent) => {
   const point: Point = [e.clientX, e.clientY];

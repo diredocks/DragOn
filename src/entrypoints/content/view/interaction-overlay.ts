@@ -83,7 +83,7 @@ export class Interaction {
     `;
     this.gestureTraceLineColor = defaultSettings.trace.style.strokeStyle;
 
-    window.addEventListener("resize", this.maximizeCanvas, true);
+    window.addEventListener("resize", () => this.maximizeCanvas, true);
     this.maximizeCanvas();
     this.watchSettings();
   }
