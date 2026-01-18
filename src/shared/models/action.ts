@@ -21,7 +21,8 @@ export abstract class Action<TOptions> {
   }
 
   toString(): string {
-    return `${this.type}.${this.name}`;
+    // @ts-expect-error
+    return i18n.t(`actions.${this.type}.${this.name}.label`);
   }
 
   execute(ctx: Context, sender: Browser.runtime.MessageSender) {

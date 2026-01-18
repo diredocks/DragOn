@@ -17,8 +17,8 @@ function TraceSettings() {
 
   return (
     <CollapsibleItem
-      name={i18n.t("settingLabelTraceenable")}
-      description={i18n.t("settingDescriptionTraceenable")}
+      name={i18n.t("settings.trace.enable.label")}
+      description={i18n.t("settings.trace.enable.description")}
       checked={settings.enable}
       onChange={(e) => handleInput("enable", e)}
     >
@@ -28,8 +28,8 @@ function TraceSettings() {
           const t = typeof settings[f];
           return (
             <SettingItem
-              name={i18n.t(`settingLabelAction${f}`)}
-              description={i18n.t(`settingDescriptionAction${f}`)}
+              name={i18n.t(`settings.trace.${f}.label`)}
+              description={i18n.t(`settings.trace.${f}.description`)}
             >
               <Switch>
                 <Match when={t === "boolean"}>
@@ -77,8 +77,8 @@ function ActionSettings() {
 
   return (
     <CollapsibleItem
-      name={i18n.t("settingLabelActionenable")}
-      description={i18n.t("settingDescriptionActionenable")}
+      name={i18n.t("settings.action.enable.label")}
+      description={i18n.t("settings.action.enable.description")}
       checked={settings.enable}
       onChange={(e) => handleInput("enable", e)}
     >
@@ -88,8 +88,8 @@ function ActionSettings() {
           const t = typeof settings[f];
           return (
             <SettingItem
-              name={i18n.t(`settingLabelAction${f}`)}
-              description={i18n.t(`settingDescriptionAction${f}`)}
+              name={i18n.t(`settings.action.${f}.label`)}
+              description={i18n.t(`settings.action.${f}.description`)}
             >
               <Switch>
                 <Match when={t === "boolean"}>
@@ -112,7 +112,7 @@ function ActionSettings() {
 
                 <Match when={t === "string" && !f.includes("Color")}>
                   <input
-                    type={f.includes("Color") ? "input" : "input"}
+                    type="input"
                     value={settings[f] as string}
                     onInput={(e) => handleInput(f, e.target.value)}
                   />

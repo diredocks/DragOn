@@ -1,0 +1,78 @@
+{
+  "actions": {
+    "text": {
+      "copy": {
+        "label": "Copy Text"
+      },
+      "openAsLink": {
+        "label": "Open as Link"
+      },
+      "search": {
+        "label": "Search"
+      }
+    },
+    "link": {
+      "copy": {
+        "label": "Copy Link"
+      },
+      "open": {
+        "label": "Open Link"
+      }
+    },
+    "image": {
+      "copy": {
+        "label": "Copy Image"
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "Display Action",
+        "description": "Displays action currently matching if available."
+      },
+      "followCursor": {
+        "label": "Follow Cursor",
+        "description": "Determines if the action should follow cursor."
+      },
+      "fontColor": {
+        "label": "Font color",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "Background color",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "Font size",
+        "description": "Accepts every CSS Unit like: em, px, pt, %, vh etc."
+      },
+      "horizontalPosition": {
+        "label": "Horizontal position",
+        "description": "Horizontal screen position from 0 (left) to 100 (right)."
+      },
+      "verticalPosition": {
+        "label": "Vertical position",
+        "description": "Vertical screen position from 0 (top) to 100 (bottom)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "Display trace",
+        "description": "Displays a trace along the mouse movement."
+      },
+      "strokeColor": {
+        "label": "Line color",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "Line growth",
+        "description": "Determines if the line thickness should grow."
+      },
+      "lineWidth": {
+        "label": "Line width",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}
