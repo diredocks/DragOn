@@ -30,7 +30,6 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 };
 
 export class Search extends Action<Options> {
-  name = "search" as const;
   type = "text" as const;
   defaultSettings: Options = {
     engine: "google",

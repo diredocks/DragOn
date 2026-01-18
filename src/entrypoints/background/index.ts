@@ -5,19 +5,12 @@ import { actions } from "./actions";
 
 export default defineBackground(() => {
   onMessage("dragEnd", (m) => {
-    return (
-      getRuleByPattern(m.data.pattern, rules())?.execute(
-        m.data.ctx,
-        m.sender,
-      ) ?? false
-    );
+    const rule = getRuleByPattern(m.data.pattern, rules());
+    return rule?.execute(m.data.ctx, m.sender) ?? false;
   });
   onMessage("dragUpdate", (m) => {
-    return (
-      getRuleByPattern(m.data.pattern, rules())
-        ?.match(m.data.ctx)
-        ?.toString() ?? null
-    );
+    const rule = getRuleByPattern(m.data.pattern, rules());
+    return rule?.match(m.data.ctx)?.toString() ?? null;
   });
 });
 

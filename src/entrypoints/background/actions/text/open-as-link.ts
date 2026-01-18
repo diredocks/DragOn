@@ -20,7 +20,6 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 };
 
 export class OpenAsLink extends Action<Options> {
-  name = "openAsLink" as const;
   type = "text" as const;
   defaultSettings: Options = {
     openInBackground: true,
