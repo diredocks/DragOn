@@ -8,51 +8,39 @@ const maxDeviation: number = 0.15;
 const algorithm: MatchingAlgorithm = "Combined";
 
 export function getRuleByPattern(pattern: Vector[], rules: Rule[]) {
-  let matchedRule;
+  let bestRule: Rule | undefined;
+  let bestScore =
+    algorithm === "Strict" || algorithm === "ShapeIndependent"
+      ? maxDeviation
+      : Infinity;
 
-  switch (algorithm) {
-    case "Strict": {
-      let lowestMismatchRatio = maxDeviation;
-      for (const r of rules) {
-        const diff = patternSimilarityByProportion(pattern, r.pattern);
-        if (diff < lowestMismatchRatio) {
-          lowestMismatchRatio = diff;
-          matchedRule = r;
-        }
+  const getScore = (r: Rule): number | undefined => {
+    switch (algorithm) {
+      case "Strict": {
+        return patternSimilarityByProportion(pattern, r.pattern);
       }
-      break;
-    }
 
-    case "ShapeIndependent": {
-      let lowestMismatchRatio = maxDeviation;
-      for (const r of rules) {
-        const diff = patternSimilarityByDTW(pattern, r.pattern);
-        if (diff < lowestMismatchRatio) {
-          lowestMismatchRatio = diff;
-          matchedRule = r;
-        }
+      case "ShapeIndependent": {
+        return patternSimilarityByDTW(pattern, r.pattern);
       }
-      break;
-    }
-    default: {
-      let lowestMismatchRatio = Infinity;
-      for (const r of rules) {
-        const diffDTW = patternSimilarityByDTW(pattern, r.pattern);
-        if (diffDTW > maxDeviation) continue;
-        const diffProportion = patternSimilarityByProportion(
-          pattern,
-          r.pattern,
-        );
-        const diff = diffDTW + diffProportion;
-        if (diff < lowestMismatchRatio) {
-          lowestMismatchRatio = diff;
-          matchedRule = r;
-        }
+
+      default: {
+        const dtw = patternSimilarityByDTW(pattern, r.pattern);
+        if (dtw > maxDeviation) return;
+        return dtw + patternSimilarityByProportion(pattern, r.pattern);
       }
     }
+  };
+
+  for (const r of rules) {
+    const score = getScore(r);
+    if (score == null || score >= bestScore) continue;
+
+    bestScore = score;
+    bestRule = r;
   }
 
-  return matchedRule;
+  return bestRule;
 }
 
 function patternSimilarityByProportion(

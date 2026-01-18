@@ -4,7 +4,10 @@ export class EventEmitter<
   private events: { [K in keyof Events]?: Set<Events[K]> } = {};
 
   addEventListener<K extends keyof Events>(eventName: K, callback: Events[K]) {
-    (this.events[eventName] ??= new Set()).add(callback);
+    if (!this.events[eventName]) {
+      this.events[eventName] = new Set();
+    }
+    this.events[eventName].add(callback);
   }
 
   removeEventListener<K extends keyof Events>(
@@ -18,6 +21,8 @@ export class EventEmitter<
     eventName: K,
     ...args: Parameters<Events[K]>
   ) {
-    this.events[eventName]?.forEach((cb) => cb(...args));
+    this.events[eventName]?.forEach((cb) => {
+      cb(...args);
+    });
   }
 }
