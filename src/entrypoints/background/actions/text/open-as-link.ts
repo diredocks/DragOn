@@ -1,4 +1,4 @@
-import { Action, ActionRun } from "@/shared/models/action";
+import { Action, type ActionRun } from "@/shared/models/action";
 import { nextTabIndex } from "@/shared/utils/common";
 
 interface Options {
@@ -20,8 +20,8 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 };
 
 export class OpenAsLink extends Action<Options> {
-  name = 'openAsLink' as const;
-  type = 'text' as const;
+  name = "openAsLink" as const;
+  type = "text" as const;
   defaultSettings: Options = {
     openInBackground: true,
   };

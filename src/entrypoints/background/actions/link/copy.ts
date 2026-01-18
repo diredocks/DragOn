@@ -1,7 +1,7 @@
-import { Action, ActionRun } from "@/shared/models/action";
+import { Action, type ActionRun } from "@/shared/models/action";
 import { sendMessageTab } from "@/shared/utils/messaging";
 
-interface Options { }
+type Options = {};
 
 const fn: ActionRun<Options> = async (ctx, sender) => {
   if (!ctx.link) return false;
@@ -11,9 +11,8 @@ const fn: ActionRun<Options> = async (ctx, sender) => {
 };
 
 export class Copy extends Action<Options> {
-  name = 'copy' as const;
-  type = 'link' as const;
+  name = "copy" as const;
+  type = "link" as const;
   defaultSettings: Options = {};
   fn = fn;
 }
-

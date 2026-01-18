@@ -1,5 +1,5 @@
 export class EventEmitter<
-  Events extends { [K in keyof Events]: (...args: any[]) => void }
+  Events extends { [K in keyof Events]: (...args: any[]) => void },
 > {
   private events: { [K in keyof Events]?: Set<Events[K]> } = {};
 
@@ -18,6 +18,6 @@ export class EventEmitter<
     eventName: K,
     ...args: Parameters<Events[K]>
   ) {
-    this.events[eventName]?.forEach(cb => cb(...args));
+    this.events[eventName]?.forEach((cb) => cb(...args));
   }
 }

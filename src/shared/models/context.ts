@@ -29,21 +29,20 @@ export class Context {
       window.getSelection()?.anchorNode?.parentElement ?? null;
 
     this.link =
-      hitEl?.closest('a')?.href ??
-      semanticEl?.closest('a')?.href ??
-      hitEl?.querySelector('a')?.href ??
-      semanticEl?.querySelector('a')?.href;
+      hitEl?.closest("a")?.href ??
+      semanticEl?.closest("a")?.href ??
+      hitEl?.querySelector("a")?.href ??
+      semanticEl?.querySelector("a")?.href;
     this.img =
-      hitEl?.closest('img')?.src ??
-      semanticEl?.closest('img')?.src ??
-      hitEl?.querySelector('img')?.src ??
-      semanticEl?.querySelector('img')?.src;
-    this.dropText =
-      last?.dataTransfer?.getData('text/plain');
+      hitEl?.closest("img")?.src ??
+      semanticEl?.closest("img")?.src ??
+      hitEl?.querySelector("img")?.src ??
+      semanticEl?.querySelector("img")?.src;
+    this.dropText = last?.dataTransfer?.getData("text/plain");
 
     // selectedText is valid only if it comes from the same element
     // that started the drag, which avoids using unrelated page selections.
-    if (semanticEl && semanticEl.contains(selectionEl)) {
+    if (semanticEl?.contains(selectionEl)) {
       this.selectedText = selectedText;
     }
 

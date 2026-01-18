@@ -1,24 +1,24 @@
-import { onMessageTab, sendMessage } from "@/shared/utils/messaging";
 import { dragController } from "@/shared/controller/drag";
 import { selectController } from "@/shared/controller/select";
 import { Context } from "@/shared/models/context";
+import { onMessageTab, sendMessage } from "@/shared/utils/messaging";
 import { pattern } from "@/shared/utils/pattern";
-import { Point } from "@/shared/utils/type";
+import type { Point } from "@/shared/utils/type";
 import { interactionOverlay } from "./view/interaction-overlay";
 
 export default defineContentScript({
-  matches: ['<all_urls>'],
+  matches: ["<all_urls>"],
   allFrames: true,
-  runAt: 'document_start',
+  runAt: "document_start",
   main() {
     dragController.enable();
-    dragController.addEventListener('start', handleDragStart);
-    dragController.addEventListener('update', handleDragUpdate);
-    dragController.addEventListener('end', handleDragEnd);
-    dragController.addEventListener('abort', handleDragAbort);
+    dragController.addEventListener("start", handleDragStart);
+    dragController.addEventListener("update", handleDragUpdate);
+    dragController.addEventListener("end", handleDragEnd);
+    dragController.addEventListener("abort", handleDragAbort);
     selectController.enable();
-    selectController.addEventListener('end', updateSelection);
-    selectController.addEventListener('abort', updateSelection);
+    selectController.addEventListener("end", updateSelection);
+    selectController.addEventListener("abort", updateSelection);
   },
 });
 
@@ -26,7 +26,7 @@ let selectedText: string;
 
 const updateSelection = async () => {
   selectedText = window.getSelection()?.toString() ?? "";
-}
+};
 
 const updateDrag = async (buf: DragEvent[], e: DragEvent) => {
   const point: Point = [e.clientX, e.clientY];
@@ -34,7 +34,10 @@ const updateDrag = async (buf: DragEvent[], e: DragEvent) => {
   pattern.addPoint(point);
 
   const ctx = new Context(buf, selectedText);
-  const matchedAction = await sendMessage("dragUpdate", { ctx, pattern: pattern.pattern });
+  const matchedAction = await sendMessage("dragUpdate", {
+    ctx,
+    pattern: pattern.pattern,
+  });
   interactionOverlay.updateAction(matchedAction);
 };
 
@@ -62,9 +65,9 @@ const handleDragAbort = async () => {
   clearDrag();
 };
 
-onMessageTab('clipboardWriteText', m => {
+onMessageTab("clipboardWriteText", (m) => {
   navigator.clipboard.writeText(m.data);
-})
+});
 
 const fetchImage = async (link: string) => {
   const response = await fetch(link);
@@ -93,10 +96,10 @@ const fetchImage = async (link: string) => {
   }
 
   return blob;
-}
+};
 
-onMessageTab('clipboardWriteImage', async (m) => {
+onMessageTab("clipboardWriteImage", async (m) => {
   const blob = await fetchImage(m.data);
   await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]);
   return true;
-})
+});

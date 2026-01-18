@@ -1,11 +1,11 @@
-import { Context } from "@/shared/models/context";
+import type { Context } from "@/shared/models/context";
 
-export type ActionType = 'text' | 'link' | 'image';
+export type ActionType = "text" | "link" | "image";
 
 export type ActionRun<TOptions> = (
   ctx: Context,
   sender: Browser.runtime.MessageSender,
-  options: TOptions
+  options: TOptions,
 ) => Promise<boolean> | boolean;
 
 export abstract class Action<TOptions> {

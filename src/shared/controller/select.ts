@@ -19,11 +19,13 @@ interface SelectEvents {
 
 class SelectController {
   static readonly instance = new SelectController();
-  private constructor() { }
+  private constructor() {}
 
   private target = document;
-  enable = () => this.target.addEventListener("mousedown", this.handleMoudeDown, true);
-  disable = () => this.target.removeEventListener("mousedown", this.handleMoudeDown, true);
+  enable = () =>
+    this.target.addEventListener("mousedown", this.handleMoudeDown, true);
+  disable = () =>
+    this.target.removeEventListener("mousedown", this.handleMoudeDown, true);
 
   private events = new EventEmitter<SelectEvents>();
   addEventListener = this.events.addEventListener.bind(this.events);
@@ -37,21 +39,25 @@ class SelectController {
     this.events.dispatchEvent("register", this.buffer, e);
     this.state = State.PENDING;
 
-    this.target.addEventListener("selectionchange", this.handleSelectionChange, true);
+    this.target.addEventListener(
+      "selectionchange",
+      this.handleSelectionChange,
+      true,
+    );
     this.target.addEventListener("mouseup", this.handleMouseUp, true);
   }
 
   private handleMoudeDown = (e: Event) => {
     this.initialize(e);
-  }
+  };
 
   private handleSelectionChange = (e: Event) => {
     this.update(e);
-  }
+  };
 
   private handleMouseUp = (e: Event) => {
     this.terminate(e);
-  }
+  };
 
   private update(e: Event) {
     this.buffer.push(e);
@@ -82,7 +88,11 @@ class SelectController {
   }
 
   private reset() {
-    this.target.removeEventListener("selectionchange", this.handleSelectionChange, true);
+    this.target.removeEventListener(
+      "selectionchange",
+      this.handleSelectionChange,
+      true,
+    );
     this.target.removeEventListener("mouseup", this.handleMouseUp, true);
 
     this.buffer = [];

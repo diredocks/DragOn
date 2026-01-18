@@ -1,14 +1,14 @@
-import { Rule } from "@/shared/models/rule";
-import { Vector } from "./type";
+import type { Rule } from "@/shared/models/rule";
 import { vectorDirectionDifference } from "./common";
+import type { Vector } from "./type";
 
 export type MatchingAlgorithm = "Strict" | "ShapeIndependent" | "Combined";
 
-let maxDeviation: number = 0.15;
-let algorithm: MatchingAlgorithm = 'Combined';
+const maxDeviation: number = 0.15;
+const algorithm: MatchingAlgorithm = "Combined";
 
 export function getRuleByPattern(pattern: Vector[], rules: Rule[]) {
-  let matchedRule = undefined;
+  let matchedRule;
 
   switch (algorithm) {
     case "Strict": {
@@ -34,8 +34,6 @@ export function getRuleByPattern(pattern: Vector[], rules: Rule[]) {
       }
       break;
     }
-
-    case "Combined":
     default: {
       let lowestMismatchRatio = Infinity;
       for (const r of rules) {
@@ -57,13 +55,17 @@ export function getRuleByPattern(pattern: Vector[], rules: Rule[]) {
   return matchedRule;
 }
 
-function patternSimilarityByProportion(patternA: Vector[], patternB: Vector[]): number {
+function patternSimilarityByProportion(
+  patternA: Vector[],
+  patternB: Vector[],
+): number {
   const totalAMagnitude = patternMagnitude(patternA);
   const totalBMagnitude = patternMagnitude(patternB);
 
   let totalDifference = 0;
 
-  let a = 0, b = 0;
+  let a = 0,
+    b = 0;
 
   let vectorAMagnitudeProportionStart = 0;
   let vectorBMagnitudeProportionStart = 0;
@@ -112,7 +114,10 @@ function patternSimilarityByProportion(patternA: Vector[], patternB: Vector[]): 
   return totalDifference;
 }
 
-function patternSimilarityByDTW(patternA: Vector[], patternB: Vector[]): number {
+function patternSimilarityByDTW(
+  patternA: Vector[],
+  patternB: Vector[],
+): number {
   const rows = patternA.length;
   const columns = patternB.length;
 
@@ -123,10 +128,7 @@ function patternSimilarityByDTW(patternA: Vector[], patternB: Vector[]): number 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
       const cost = Math.abs(
-        vectorDirectionDifference(
-          patternA[i],
-          patternB[j]
-        ),
+        vectorDirectionDifference(patternA[i], patternB[j]),
       );
 
       if (i !== 0 && j !== 0) {

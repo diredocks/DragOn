@@ -1,8 +1,8 @@
-import { Action, ActionRun } from "@/shared/models/action";
+import { Action, type ActionRun } from "@/shared/models/action";
 import { nextTabIndex } from "@/shared/utils/common";
 
 interface Options {
-  engine: 'bing' | 'baidu' | 'google' | 'duckduckgo';
+  engine: "bing" | "baidu" | "google" | "duckduckgo";
   openInBackground: boolean;
 }
 
@@ -10,11 +10,11 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
   const text = ctx.selectedText || ctx.dropText;
   if (!text) return false;
 
-  const engineMap: Record<Options['engine'], string> = {
-    google: 'https://google.com/search?q=',
-    bing: 'https://bing.com/search?q=',
-    baidu: 'https://www.baidu.com/s?wd=',
-    duckduckgo: 'https://duckduckgo.com/?q=',
+  const engineMap: Record<Options["engine"], string> = {
+    google: "https://google.com/search?q=",
+    bing: "https://bing.com/search?q=",
+    baidu: "https://www.baidu.com/s?wd=",
+    duckduckgo: "https://duckduckgo.com/?q=",
   };
 
   const url = `${engineMap[options.engine]}${encodeURIComponent(text)}`;
@@ -30,10 +30,10 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 };
 
 export class Search extends Action<Options> {
-  name = 'search' as const;
-  type = 'text' as const;
+  name = "search" as const;
+  type = "text" as const;
   defaultSettings: Options = {
-    engine: 'google',
+    engine: "google",
     openInBackground: true,
   };
   fn = fn;

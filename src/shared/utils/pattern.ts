@@ -1,5 +1,5 @@
-import { Point, Vector } from "./type";
 import { vectorDirectionDifference } from "./common";
+import type { Point, Vector } from "./type";
 
 export enum PatternStatus {
   PASSED_NO_THRESHOLD = 0,

@@ -1,5 +1,5 @@
-import { EventEmitter } from "@/shared/utils/emitter";
 import { isEditableOrDraggable } from "@/shared/utils/common";
+import { EventEmitter } from "@/shared/utils/emitter";
 
 type Callback = (buf: DragEvent[], e: DragEvent) => void;
 
@@ -9,7 +9,7 @@ interface DragEvents {
   update: Callback;
   end: Callback;
   abort: (buf: DragEvent[]) => void;
-};
+}
 
 enum State {
   PASSIVE,
@@ -20,11 +20,13 @@ enum State {
 
 class DragController {
   static readonly instance = new DragController();
-  private constructor() { }
+  private constructor() {}
 
   private target = document;
-  enable = () => this.target.addEventListener("dragstart", this.handleDragStart, true);
-  disable = () => this.target.removeEventListener("dragstart", this.handleDragStart, true);
+  enable = () =>
+    this.target.addEventListener("dragstart", this.handleDragStart, true);
+  disable = () =>
+    this.target.removeEventListener("dragstart", this.handleDragStart, true);
 
   private events = new EventEmitter<DragEvents>();
   addEventListener = this.events.addEventListener.bind(this.events);
@@ -48,38 +50,46 @@ class DragController {
     this.target.addEventListener("dragend", this.handleDragEnd, true);
     this.target.addEventListener("drop", this.handleDrop, true);
     this.target.addEventListener("dragleave", this.handleDragLeave, true);
-    this.target.addEventListener("visibilitychange", this.handleVisibilityChange, true);
+    this.target.addEventListener(
+      "visibilitychange",
+      this.handleVisibilityChange,
+      true,
+    );
   }
 
   private handleDragStart = (e: DragEvent) => {
     this.initialize(e);
-  }
+  };
 
   private handleDragOver = (e: DragEvent) => {
     this.update(e);
-  }
+  };
 
   private handleDragEnd = (e: DragEvent) => {
     this.endElement = this.target.elementFromPoint(e.clientX, e.clientY);
     this.terminate(e);
-  }
+  };
 
   private handleDrop = (e: DragEvent) => {
     this.endElement = e.target as Element;
     this.terminate(e);
-  }
+  };
 
   private handleDragLeave = (e: DragEvent) => {
-    if (e.clientX <= 0 || e.clientY <= 0 ||
-      e.clientX >= window.innerWidth || e.clientY >= window.innerHeight) {
+    if (
+      e.clientX <= 0 ||
+      e.clientY <= 0 ||
+      e.clientX >= window.innerWidth ||
+      e.clientY >= window.innerHeight
+    ) {
       this.abort();
     }
-  }
+  };
 
   private handleVisibilityChange = () => {
     this.abort();
     this.terminate();
-  }
+  };
 
   private update(e: DragEvent) {
     this.buffer.push(e);
@@ -112,8 +122,11 @@ class DragController {
 
     if (e) this.buffer.push(e);
 
-    if (isEditableOrDraggable(this.endElement)
-      || isEditableOrDraggable(this.moveElement)) this.abort();
+    if (
+      isEditableOrDraggable(this.endElement) ||
+      isEditableOrDraggable(this.moveElement)
+    )
+      this.abort();
 
     if (e && this.state === State.ACTIVE) {
       this.events.dispatchEvent("end", this.buffer, e);
@@ -133,7 +146,11 @@ class DragController {
     this.target.removeEventListener("dragend", this.handleDragEnd, true);
     this.target.removeEventListener("drop", this.handleDrop, true);
     this.target.removeEventListener("dragleave", this.handleDragLeave, true);
-    this.target.removeEventListener("visibilitychange", this.handleVisibilityChange, true);
+    this.target.removeEventListener(
+      "visibilitychange",
+      this.handleVisibilityChange,
+      true,
+    );
 
     this.state = State.PASSIVE;
     this.buffer = [];

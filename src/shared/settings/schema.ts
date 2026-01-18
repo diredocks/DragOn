@@ -1,22 +1,18 @@
 export interface Trace {
-  display: boolean;
-  style: {
-    strokeStyle: string;
-    lineWidth: number;
-    lineGrowth: boolean;
-  };
+  enable: boolean;
+  strokeColor: string;
+  lineWidth: number;
+  lineGrowth: boolean;
 }
 
 export interface Action {
-  display: boolean;
+  enable: boolean;
   followCursor: boolean;
-  style: {
-    fontColor: string;
-    backgroundColor: string;
-    fontSize: string;
-    horizontalPosition: number;
-    verticalPosition: number;
-  };
+  fontColor: string;
+  backgroundColor: string;
+  fontSize: string;
+  horizontalPosition: number;
+  verticalPosition: number;
 }
 
 export interface Settings {

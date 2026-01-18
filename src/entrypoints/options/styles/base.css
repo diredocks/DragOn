@@ -1,0 +1,27 @@
+@import "./theme.css";
+
+/* Input styles */
+input {
+  @apply border-outline outline-accent inline-block;
+  @apply rounded-sm border bg-white py-1.5 text-center text-base;
+  @apply appearance-none transition-all duration-500;
+  @apply hover:shadow-sm;
+
+  @apply w-16;
+  @apply invalid:border-danger invalid:text-danger invalid:outline-danger;
+}
+
+input[type="checkbox"] {
+  @apply w-12 cursor-pointer;
+  @apply before:content-['Off'];
+  @apply checked:border-accent checked:bg-accent checked:text-content-inverse checked:before:content-['On'];
+}
+
+input[type="input"] {
+  @apply w-28;
+}
+
+section {
+  @apply py-2 my-2 border-t border-outline-light;
+  @apply first:m-0 first:border-0 first:p-0;
+}
