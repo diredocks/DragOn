@@ -2,8 +2,8 @@ import { defaultSettings } from "./default";
 
 export const traceSettingsStorage = storage.defineItem<
   typeof defaultSettings.trace
->("local:traceSettings", { defaultValue: defaultSettings.trace });
+>("local:settings.trace", { fallback: defaultSettings.trace });
 
 export const actionSettingsStorage = storage.defineItem<
   typeof defaultSettings.action
->("local:actionSettings", { defaultValue: defaultSettings.action });
+>("local:settings.action", { fallback: defaultSettings.action });
