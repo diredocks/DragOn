@@ -31,7 +31,7 @@ const App: Component = () => {
   });
 
   return (
-    <div class="flex min-h-screen text-base text-content">
+    <div class="flex min-h-screen bg-neutral-50 text-base text-content">
       <aside class="w-54 border-outline-light border-r p-6">
         <ul class="sticky top-0 pt-2">
           {Object.entries(pages).map(([key, page]) => (
@@ -50,7 +50,9 @@ const App: Component = () => {
         </ul>
       </aside>
 
-      <main class="max-w-2xl flex-1 px-8 py-4">
+      <main
+        class={`${currentPage() === "rules" ? "" : "max-w-2xl"} flex-1 px-8 py-4`}
+      >
         <header class="mb-5 border-outline-light border-b py-3 text-2xl">
           {pages[currentPage()].label}
         </header>
