@@ -52,9 +52,8 @@ export function getCatmullRomPathData(points: Point[], alpha = 0.5): string {
 }
 
 export function PatternThumbnail(props: { pattern: Vector[] }) {
-  // aspect-4/5
-  const viewBoxWidth = 96;
-  const viewBoxHeight = 120;
+  const viewBoxWidth = 100;
+  const viewBoxHeight = 100;
 
   const points = createMemo<Point[]>(() => {
     return props.pattern.reduce<Point[]>(
@@ -72,6 +71,7 @@ export function PatternThumbnail(props: { pattern: Vector[] }) {
   const [transform, setTransform] = createSignal("");
   const [pathStyles, setPathStyles] = createSignal<Record<string, string>>({});
 
+  let svgRef: SVGSVGElement | undefined;
   let pathRef: SVGPathElement | undefined;
 
   createEffect(() => {
@@ -81,7 +81,6 @@ export function PatternThumbnail(props: { pattern: Vector[] }) {
     if (!pathEl || !currentD) return;
 
     const bbox = pathEl.getBBox();
-
     if (bbox.width === 0 && bbox.height === 0) return;
 
     const scale =
@@ -97,40 +96,92 @@ export function PatternThumbnail(props: { pattern: Vector[] }) {
     setPathStyles({
       "--pathLength": pathLength.toString(),
       "--pathScale": scale.toString(),
+      "--animationDuration": `${pathLength * scale * 4}ms`,
     });
   });
 
+  const handleMouseEnter = () => {
+    svgRef?.classList.add("demo");
+  };
+
+  const handleMouseLeave = () => {
+    if (!svgRef || !pathRef) return;
+
+    const isRunning = pathRef
+      .getAnimations()
+      .some((a) => a.playState === "running");
+
+    if (isRunning) {
+      pathRef.addEventListener(
+        "animationend",
+        () => svgRef?.classList.remove("demo"),
+        { once: true },
+      );
+    } else {
+      svgRef.classList.remove("demo");
+    }
+  };
+
   return (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: pass it
-    <svg
-      preserveAspectRatio="xMidYMid meet"
-      viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-      class="p-3.75"
-      style={{ ...pathStyles() }}
-    >
-      <g transform={transform()}>
-        <path
-          ref={pathRef}
-          d={d()}
-          class="fill-none stroke-neutral-600 transition-colors duration-300 group-hover:stroke-accent"
-          style={{
-            "stroke-width": "calc(5px / var(--pathScale))",
-            "stroke-dasharray": "var(--pathLength)",
-            "stroke-linecap": "round",
-            "stroke-linejoin": "round",
-          }}
-        />
-        <path
-          d="M0,-7 L14,0 L0,7 z"
-          class="fill-neutral-600 transition-colors duration-300 group-hover:fill-accent"
-          style={{
-            "offset-path": `path('${d()}')`,
-            "offset-distance": "100%",
-            transform:
-              "scale(calc(1 / var(--pathScale) * var(--arrowScale, 1)))",
-          }}
-        />
-      </g>
-    </svg>
+    <>
+      <style>
+        {`
+          @keyframes drawPath {
+            0% { stroke-dashoffset: var(--pathLength); }
+            to { stroke-dashoffset: 0; }
+          }
+          @keyframes moveAlongPath {
+            0% { offset-distance: 0%; }
+            to { offset-distance: 100%; }
+          }
+          .pattern-thumbnail.demo .path-trail {
+            animation: drawPath linear var(--animationDuration);
+            stroke: var(--color-accent);
+            transition: none;
+          }
+          .pattern-thumbnail.demo .path-arrow {
+            animation: moveAlongPath linear var(--animationDuration);
+            fill: var(--color-accent);
+            transition: none;
+          }
+        `}
+      </style>
+
+      {/** biome-ignore lint/a11y/noSvgWithoutTitle: pass it */}
+      <svg
+        ref={svgRef}
+        preserveAspectRatio="xMidYMid meet"
+        viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
+        class="pattern-thumbnail h-full cursor-pointer p-3.75"
+        style={{ ...pathStyles() }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <g transform={transform()}>
+          <path
+            ref={pathRef}
+            d={d()}
+            class="path-trail fill-none stroke-neutral-600 transition-colors duration-300"
+            style={{
+              "stroke-width": "calc(5px / var(--pathScale))",
+              "stroke-dasharray": "var(--pathLength)",
+              "stroke-dashoffset": "0",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+            }}
+          />
+          <path
+            d="M0,-7 L14,0 L0,7 z"
+            class="path-arrow fill-neutral-600 transition-colors duration-300"
+            style={{
+              "offset-path": `path('${d()}')`,
+              "offset-distance": "100%",
+              transform:
+                "scale(calc(1 / var(--pathScale) * var(--arrowScale, 1)))",
+            }}
+          />
+        </g>
+      </svg>
+    </>
   );
 }

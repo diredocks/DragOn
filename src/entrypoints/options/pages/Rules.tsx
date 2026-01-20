@@ -16,7 +16,7 @@ export function Rules() {
       </li>
       <Index each={patterns}>
         {(each) => (
-          <li class="group flex aspect-4/5 cursor-pointer flex-col rounded-sm border border-outline bg-white transition-all duration-300 hover:shadow-sm">
+          <li class="flex aspect-4/5 cursor-pointer flex-col rounded-sm border border-outline bg-white transition-all duration-300 hover:shadow-sm">
             <PatternThumbnail pattern={each() as Vector[]} />
           </li>
         )}
