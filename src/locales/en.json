@@ -1,26 +1,26 @@
 {
   "actions": {
     "text": {
-      "copy": {
+      "Copy": {
         "label": "Copy Text"
       },
-      "openAsLink": {
+      "OpenAsLink": {
         "label": "Open as Link"
       },
-      "search": {
+      "Search": {
         "label": "Search"
       }
     },
     "link": {
-      "copy": {
+      "Copy": {
         "label": "Copy Link"
       },
-      "open": {
+      "Open": {
         "label": "Open Link"
       }
     },
     "image": {
-      "copy": {
+      "Copy": {
         "label": "Copy Image"
       }
     }

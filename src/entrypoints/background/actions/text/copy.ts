@@ -13,6 +13,7 @@ const fn: ActionRun<Options> = async (ctx, sender) => {
 
 export class Copy extends Action<Options> {
   type = "text" as const;
+  name = "Copy" as const;
   defaultSettings: Options = {};
   fn = fn;
 }

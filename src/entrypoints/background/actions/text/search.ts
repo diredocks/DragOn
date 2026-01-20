@@ -31,6 +31,7 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 
 export class Search extends Action<Options> {
   type = "text" as const;
+  name = "Search" as const;
   defaultSettings: Options = {
     engine: "google",
     openInBackground: true,

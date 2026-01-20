@@ -15,25 +15,13 @@ export type ActionSerialized = {
   settings?: Record<string, unknown>;
 };
 
-export type ActionRegistry = {
-  [K in ActionType]: Record<
-    string,
-    new (
-      settings?: Record<string, unknown>,
-    ) => Action<any>
-  >;
-};
-
 export abstract class Action<TOptions> {
   abstract type: ActionType;
+  abstract name: string;
   abstract fn: ActionRun<TOptions>;
   abstract defaultSettings: TOptions;
   permissions?: Browser.permissions.Permissions[];
   settings?: Partial<TOptions>;
-
-  get name(): string {
-    return this.constructor.name;
-  }
 
   constructor(settings?: Partial<TOptions>) {
     this.settings = settings;
@@ -58,6 +46,7 @@ export abstract class Action<TOptions> {
   }
 
   static fromJSON(data: ActionSerialized): Action<unknown> {
+    // @ts-expect-error
     const ActionClass = actions[data.type][data.name];
     if (!ActionClass) {
       throw new Error(`Unknown action: ${data.type}.${data.name}`);
