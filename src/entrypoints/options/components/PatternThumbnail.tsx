@@ -1,4 +1,5 @@
 import type { Point, Vector } from "@/shared/utils/type";
+import "@/entrypoints/options/styles/pattern.css";
 
 export function getCatmullRomPathData(points: Point[], alpha = 0.5): string {
   if (points.length < 2) return "";
@@ -51,9 +52,13 @@ export function getCatmullRomPathData(points: Point[], alpha = 0.5): string {
   return d;
 }
 
-export function PatternThumbnail(props: { pattern: Vector[] }) {
-  const viewBoxWidth = 100;
-  const viewBoxHeight = 100;
+export function PatternThumbnail(props: {
+  pattern: Vector[];
+  showAnimation: boolean;
+  viewBox: number;
+}) {
+  const viewBoxWidth = props.viewBox;
+  const viewBoxHeight = props.viewBox;
 
   const points = createMemo<Point[]>(() => {
     return props.pattern.reduce<Point[]>(
@@ -101,11 +106,11 @@ export function PatternThumbnail(props: { pattern: Vector[] }) {
   });
 
   const handleMouseEnter = () => {
-    svgRef?.classList.add("demo");
+    if (props.showAnimation) svgRef?.classList.add("demo");
   };
 
   const handleMouseLeave = () => {
-    if (!svgRef || !pathRef) return;
+    if (!svgRef || !pathRef || !props.showAnimation) return;
 
     const isRunning = pathRef
       .getAnimations()
@@ -124,35 +129,12 @@ export function PatternThumbnail(props: { pattern: Vector[] }) {
 
   return (
     <>
-      <style>
-        {`
-          @keyframes drawPath {
-            0% { stroke-dashoffset: var(--pathLength); }
-            to { stroke-dashoffset: 0; }
-          }
-          @keyframes moveAlongPath {
-            0% { offset-distance: 0%; }
-            to { offset-distance: 100%; }
-          }
-          .pattern-thumbnail.demo .path-trail {
-            animation: drawPath linear var(--animationDuration);
-            stroke: var(--color-accent);
-            transition: none;
-          }
-          .pattern-thumbnail.demo .path-arrow {
-            animation: moveAlongPath linear var(--animationDuration);
-            fill: var(--color-accent);
-            transition: none;
-          }
-        `}
-      </style>
-
       {/** biome-ignore lint/a11y/noSvgWithoutTitle: pass it */}
       <svg
         ref={svgRef}
         preserveAspectRatio="xMidYMid meet"
         viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
-        class="pattern-thumbnail h-full cursor-pointer p-3.75"
+        class="pattern-thumbnail h-full p-3.75"
         style={{ ...pathStyles() }}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}

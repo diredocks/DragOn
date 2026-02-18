@@ -1,4 +1,5 @@
 import type { JSXElement } from "solid-js";
+import "@/entrypoints/options/styles/popup.css";
 
 type PopupBoxProps = {
   trigger: JSXElement;
@@ -7,19 +8,36 @@ type PopupBoxProps = {
 
 export function PopupBox(props: PopupBoxProps) {
   let dialogRef!: HTMLDialogElement;
+  let closing = false;
 
   const openModal = () => {
+    if (closing) return;
     dialogRef.showModal();
   };
 
   const closeModal = () => {
-    dialogRef.close();
+    if (closing) return;
+    closing = true;
+
+    dialogRef.setAttribute("data-closing", "");
+
+    // 等动画结束再真正 close
+    setTimeout(() => {
+      dialogRef.removeAttribute("data-closing");
+      dialogRef.close();
+      closing = false;
+    }, 250); // 与 CSS transition 时间一致
   };
 
   const onDialogClick = (e: MouseEvent) => {
     if (e.target === dialogRef) {
       closeModal();
     }
+  };
+
+  const onCancel = (e: Event) => {
+    e.preventDefault();
+    closeModal();
   };
 
   return (
@@ -31,59 +49,15 @@ export function PopupBox(props: PopupBoxProps) {
       <dialog
         ref={dialogRef}
         onclick={onDialogClick}
-        class="popup-dialog h-full w-full bg-transparent backdrop:bg-black/30"
+        oncancel={onCancel}
+        class="popup-dialog invisible flex h-full max-h-screen w-full max-w-full items-center justify-center bg-transparent outline-0 open:visible"
       >
         <div
-          class="popup-panel rounded bg-white p-5 shadow"
+          class="popup-panel rounded-sm bg-white p-5 text-content shadow"
           onclick={(e) => e.stopPropagation()}
         >
           {props.children}
         </div>
-
-        <style>
-          {`
-						.popup-dialog {
-							display: none;
-							align-items: center;
-							justify-content: center;
-							border: none;
-							transition: display 0.4s allow-discrete, overlay 0.4s allow-discrete;
-						}
-
-						.popup-dialog[open] {
-							display: flex;
-						}
-
-						.popup-dialog::backdrop {
-							background-color: rgba(0, 0, 0, 0);
-							transition: background-color 0.3s;
-						}
-						.popup-dialog[open]::backdrop {
-							background-color: rgba(0, 0, 0, 0.3);
-						}
-
-						.popup-panel {
-							opacity: 0;
-							transform: scale(0.9);
-							transition: opacity 0.3s, transform 0.3s;
-						}
-
-						.popup-dialog[open] .popup-panel {
-							opacity: 1;
-							transform: scale(1);
-						}
-
-						@starting-style {
-							.popup-dialog[open] .popup-panel {
-								opacity: 0;
-								transform: scale(0.9);
-							}
-							.popup-dialog[open]::backdrop {
-								background-color: rgba(0, 0, 0, 0);
-							}
-						}
-					`}
-        </style>
       </dialog>
     </>
   );

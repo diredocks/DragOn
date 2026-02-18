@@ -1,0 +1,52 @@
+.popup-dialog {
+  transition:
+    display 0.3s allow-discrete,
+    overlay 0.3s allow-discrete;
+}
+
+/* backdrop */
+.popup-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+  transition: background-color 0.3s ease;
+}
+
+.popup-dialog[open]::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* panel base */
+.popup-panel {
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+/* open state */
+.popup-dialog[open] .popup-panel {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* closing state */
+.popup-dialog[data-closing] .popup-panel {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.popup-dialog[data-closing]::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* entry animation */
+@starting-style {
+  .popup-dialog[open] .popup-panel {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .popup-dialog[open]::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}

@@ -1,7 +1,7 @@
 import type { Vector } from "@/shared/utils/type";
-import { PatternThumbnail } from "../components";
+import { RuleCard } from "../components";
 
-const patterns = [[[0, 1]], [[1, 0]], [[-1, 0]]];
+const [patterns, setPatterns] = createStore([[[0, 1]], [[1, 0]], [[-1, 0]]]);
 
 export function Rules() {
   return (
@@ -15,10 +15,11 @@ export function Rules() {
         </button>
       </li>
       <Index each={patterns}>
-        {(each) => (
-          <li class="flex aspect-4/5 cursor-pointer flex-col rounded-sm border border-outline bg-white transition-all duration-300 hover:shadow-sm">
-            <PatternThumbnail pattern={each() as Vector[]} />
-          </li>
+        {(each, index) => (
+          <RuleCard
+            pattern={each() as Vector[]}
+            onPatternChange={(newPattern) => setPatterns(index, newPattern)}
+          />
         )}
       </Index>
     </ul>

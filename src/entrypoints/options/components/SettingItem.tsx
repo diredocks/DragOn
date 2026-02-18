@@ -1,4 +1,5 @@
 import type { JSX } from "solid-js";
+import "@/entrypoints/options/styles/collapsible.css";
 
 type SettingItemProps = {
   name: string;
@@ -17,8 +18,7 @@ export function SettingItem(props: SettingItemProps) {
           hasDescription() ? "justify-start" : "justify-center"
         }`}
       >
-        <p class="m-0">{props.name}</p>
-
+        <span>{props.name}</span>
         <Show when={hasDescription()}>
           <p class="text-sm opacity-50 transition-opacity duration-300 group-hover:opacity-100">
             {props.description}

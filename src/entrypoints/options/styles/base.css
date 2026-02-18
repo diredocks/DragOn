@@ -1,11 +1,10 @@
 @import "./theme.css";
 
-/* Input styles */
+/* input styles */
 input {
   @apply border-outline outline-accent inline-block;
   @apply rounded-sm border bg-white py-1.5 text-center text-base;
   @apply appearance-none transition-all duration-500;
-  @apply hover:shadow-sm;
 
   @apply w-16;
   @apply invalid:border-danger invalid:text-danger invalid:outline-danger;
