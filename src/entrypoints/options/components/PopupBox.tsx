@@ -5,7 +5,9 @@ import "@/entrypoints/options/styles/popup.css";
 type PopupBoxProps = {
   trigger: JSXElement;
   children: JSXElement;
-  title: string;
+  title?: string;
+  onOpen?: () => void;
+  onClose?: () => void;
 };
 
 export function PopupBox(props: PopupBoxProps) {
@@ -20,15 +22,15 @@ export function PopupBox(props: PopupBoxProps) {
   const closeModal = () => {
     if (closing) return;
     closing = true;
-
     dialogRef.setAttribute("data-closing", "");
 
-    // 等动画结束再真正 close
+    // Wait for animation
     setTimeout(() => {
       dialogRef.removeAttribute("data-closing");
       dialogRef.close();
       closing = false;
-    }, 250); // 与 CSS transition 时间一致
+      props.onClose?.();
+    }, 250); // Same time as css transition
   };
 
   const onDialogClick = (e: MouseEvent) => {
@@ -42,6 +44,12 @@ export function PopupBox(props: PopupBoxProps) {
     closeModal();
   };
 
+  const onToggle = () => {
+    if (dialogRef.open) {
+      props.onOpen?.();
+    }
+  };
+
   return (
     <>
       <div class="inline-block cursor-pointer" onclick={openModal}>
@@ -52,13 +60,14 @@ export function PopupBox(props: PopupBoxProps) {
         ref={dialogRef}
         onclick={onDialogClick}
         oncancel={onCancel}
-        class="popup-dialog invisible flex h-full max-h-screen w-full max-w-full items-center justify-center bg-transparent outline-0 open:visible"
+        ontoggle={onToggle}
+        class="popup-dialog invisible m-auto block rounded-sm bg-transparent shadow outline-0 open:visible"
       >
         <div
-          class="popup-panel flex flex-col rounded-sm bg-white text-content shadow"
-          onclick={(e) => e.stopPropagation()}
+          class="popup-panel flex flex-col bg-white text-content"
+          // onclick={(e) => e.stopPropagation()}
         >
-          <div class="flex items-center border-[#eaeaea] border-b bg-[#fbfbfb] px-5 py-3.75 text-lg">
+          <div class="flex items-center border-gray-200 border-b bg-[#fbfbfb] px-5 py-3.75 text-lg">
             <span>{props.title}</span>
             <Icon
               onclick={closeModal}

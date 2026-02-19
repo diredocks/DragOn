@@ -1,3 +1,5 @@
+// TODO: One Popup to Multiple Cards
+
 import type { Vector } from "@/shared/utils/type";
 import { RuleCard } from "../components";
 
