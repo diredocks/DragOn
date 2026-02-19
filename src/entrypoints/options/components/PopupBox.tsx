@@ -1,9 +1,11 @@
+import { Icon } from "@iconify-icon/solid";
 import type { JSXElement } from "solid-js";
 import "@/entrypoints/options/styles/popup.css";
 
 type PopupBoxProps = {
   trigger: JSXElement;
   children: JSXElement;
+  title: string;
 };
 
 export function PopupBox(props: PopupBoxProps) {
@@ -53,10 +55,20 @@ export function PopupBox(props: PopupBoxProps) {
         class="popup-dialog invisible flex h-full max-h-screen w-full max-w-full items-center justify-center bg-transparent outline-0 open:visible"
       >
         <div
-          class="popup-panel rounded-sm bg-white p-5 text-content shadow"
+          class="popup-panel flex flex-col rounded-sm bg-white text-content shadow"
           onclick={(e) => e.stopPropagation()}
         >
-          {props.children}
+          <div class="flex items-center border-[#eaeaea] border-b bg-[#fbfbfb] px-5 py-3.75 text-lg">
+            <span>{props.title}</span>
+            <Icon
+              onclick={closeModal}
+              class="ml-auto hover:cursor-pointer hover:text-red-400"
+              icon="mdi:close"
+              width="22"
+              height="22"
+            />
+          </div>
+          <div class="p-5">{props.children}</div>
         </div>
       </dialog>
     </>
