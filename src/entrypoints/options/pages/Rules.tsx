@@ -1,14 +1,31 @@
+import { actions } from "@/entrypoints/background/actions";
+import type { RuleSerialized } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
 import { PopupBox, RuleCard, RuleEditor } from "../components";
 
-const [patterns, setPatterns] = createStore([[[0, 1]], [[1, 0]], [[-1, 0]]]);
+const rulesRaw = [];
+for (const i of [-1, 0, 1]) {
+  for (const j of [-1, 0, 1]) {
+    if (i === 0 && j === 0) continue;
+    rulesRaw.push({
+      pattern: [[i, j]],
+      actions: [
+        new actions.text.Search({ engine: "bing" }).toJSON(),
+        new actions.link.Open().toJSON(),
+        new actions.image.Copy().toJSON(),
+      ],
+    });
+  }
+}
+
+const [rules, setRules] = createStore(rulesRaw);
 
 export function Rules() {
   const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
 
-  const selectedPattern = () => {
+  const selectedRule = () => {
     const idx = selectedIndex();
-    return idx !== null ? patterns[idx] : null;
+    return idx !== null ? rules[idx] : null;
   };
 
   return (
@@ -22,10 +39,10 @@ export function Rules() {
             New Rule
           </button>
         </li>
-        <Index each={patterns}>
+        <Index each={rules}>
           {(_each, index) => (
             <RuleCard
-              pattern={patterns[index] as Vector[]}
+              pattern={rules[index].pattern as Vector[]}
               onSelect={() => setSelectedIndex(index)}
             />
           )}
@@ -39,11 +56,11 @@ export function Rules() {
       >
         <RuleEditor
           isOpen={selectedIndex() !== null}
-          pattern={(selectedPattern() as Vector[]) || null}
+          rule={selectedRule() as RuleSerialized}
           onPatternChange={(newPattern) => {
             const idx = selectedIndex();
             if (idx !== null) {
-              setPatterns(idx, newPattern);
+              setRules(idx, "pattern", newPattern);
             }
           }}
         />

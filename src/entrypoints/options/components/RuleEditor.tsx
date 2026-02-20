@@ -1,12 +1,13 @@
 import dino from "@/assets/dino.svg";
 import { dragController } from "@/shared/controller/drag";
+import type { RuleSerialized } from "@/shared/models/rule";
 import { pattern } from "@/shared/utils/pattern";
 import type { Point, Vector } from "@/shared/utils/type";
 import { PatternThumbnail } from "./index";
 
 type RuleEditorProps = {
   isOpen: boolean;
-  pattern: Vector[] | null;
+  rule: RuleSerialized | null;
   onPatternChange: (pattern: Vector[]) => void;
 };
 
@@ -135,7 +136,7 @@ export function RuleEditor(props: RuleEditorProps) {
           }}
         >
           <PatternThumbnail
-            pattern={(props.pattern as Vector[]) || []}
+            pattern={props.rule?.pattern || []}
             showAnimation={false}
             viewBox={150}
           />

@@ -9,7 +9,7 @@ type RulePanelProps = {
 export function RuleCard(props: RulePanelProps) {
   return (
     <li
-      onClick={props.onSelect}
+      onclick={props.onSelect}
       class="flex aspect-4/5 cursor-pointer flex-col rounded-sm border border-outline bg-white transition-all duration-300 hover:shadow-sm"
     >
       <PatternThumbnail
