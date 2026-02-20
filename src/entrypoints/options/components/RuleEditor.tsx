@@ -114,10 +114,14 @@ export function RuleEditor(props: RuleEditorProps) {
             <img src={dino} alt="Dino illustration" class="mb-3 p-4" />
           </a>
 
-          <p class="mb-1 text-xl">If you serious you lose</p>
+          <p class="mb-1 text-xl">Drag the elements here</p>
 
           <p class="text-gray-500">
-            Zhang ZhengKai (born 2002), professionally known as jackzebra...
+            Drag the image, selected text, or{" "}
+            <a href="/" class="text-accent">
+              a link
+            </a>{" "}
+            here. We’ll generate the matching pattern for this rule.
           </p>
         </div>
 
@@ -139,7 +143,7 @@ export function RuleEditor(props: RuleEditorProps) {
       <div class="flex min-w-0 grow basis-62.5 flex-col gap-10">
         <div class="group block">
           <span>Command</span>
-          <p class="text-sm opacity-50 transition-opacity duration-300 group-hover:opacity-100">
+          <p class="pb-2.5 text-sm opacity-50 transition-opacity duration-300 group-hover:opacity-100">
             Choose a command that should be assigned to this gesture.
           </p>
         </div>

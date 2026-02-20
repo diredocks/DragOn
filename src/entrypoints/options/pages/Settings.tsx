@@ -3,7 +3,7 @@ import {
   traceSettingsStorage,
 } from "@/shared/settings/storage";
 import { CollapsibleItem, ColorPicker, SettingItem } from "../components";
-import "../styles/base.css";
+import "@/entrypoints/options/styles/settings.css";
 
 function TraceSettings() {
   const [settings, setSettings] = createStore(traceSettingsStorage.fallback);
@@ -135,7 +135,7 @@ function ActionSettings() {
 
 export function Settings() {
   return (
-    <div>
+    <div class="settings">
       <section>
         <TraceSettings />
       </section>

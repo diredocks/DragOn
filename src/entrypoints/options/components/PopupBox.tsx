@@ -75,7 +75,7 @@ export function PopupBox(props: PopupBoxProps) {
         onclick={onDialogClick}
         oncancel={onCancel}
         ontoggle={onToggle}
-        class="popup-dialog invisible m-auto block rounded-sm bg-transparent shadow outline-0 open:visible"
+        class="popup-dialog invisible fixed m-auto block rounded-sm bg-transparent shadow outline-0 open:visible"
       >
         <div
           class="popup-panel flex flex-col bg-white text-content"
