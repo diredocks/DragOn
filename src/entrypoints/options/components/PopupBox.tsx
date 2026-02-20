@@ -3,9 +3,10 @@ import type { JSXElement } from "solid-js";
 import "@/entrypoints/options/styles/popup.css";
 
 type PopupBoxProps = {
-  trigger: JSXElement;
+  trigger?: JSXElement;
   children: JSXElement;
   title?: string;
+  isOpen?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
 };
@@ -50,11 +51,23 @@ export function PopupBox(props: PopupBoxProps) {
     }
   };
 
+  createEffect(() => {
+    if (props.isOpen === undefined) return;
+
+    if (props.isOpen) {
+      openModal();
+    } else {
+      closeModal();
+    }
+  });
+
   return (
     <>
-      <div class="inline-block cursor-pointer" onclick={openModal}>
-        {props.trigger}
-      </div>
+      {props.trigger && (
+        <div class="inline-block cursor-pointer" onclick={openModal}>
+          {props.trigger}
+        </div>
+      )}
 
       <dialog
         ref={dialogRef}
