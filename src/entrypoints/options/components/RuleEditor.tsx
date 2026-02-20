@@ -13,6 +13,7 @@ type RuleEditorProps = {
 export function RuleEditor(props: RuleEditorProps) {
   let canvasRef!: HTMLCanvasElement;
   let canvasContext: CanvasRenderingContext2D;
+  const [isLocked, setIsLocked] = createSignal(false);
 
   const clearCanvas = () => {
     canvasContext.setTransform(1, 0, 0, 1, 0, 0);
@@ -20,6 +21,8 @@ export function RuleEditor(props: RuleEditorProps) {
   };
 
   const handleDragStart = (buf: DragEvent[]) => {
+    setIsLocked(false);
+
     const rect = canvasRef.getBoundingClientRect();
     canvasRef.width = canvasRef.offsetWidth;
     canvasRef.height = canvasRef.offsetHeight;
@@ -52,6 +55,7 @@ export function RuleEditor(props: RuleEditorProps) {
     clearCanvas();
     props.onPatternChange(pattern.pattern);
     pattern.clear();
+    setIsLocked(true);
   };
 
   const handleDragAbort = () => {
@@ -85,12 +89,22 @@ export function RuleEditor(props: RuleEditorProps) {
 
   return (
     <div class="flex max-w-200 flex-wrap gap-5">
-      <div class="group relative aspect-square grow-20 basis-81.25 rounded-sm border-2 border-gray-200 border-dashed">
+      <div
+        class="group relative aspect-square grow-20 basis-81.25 rounded-sm border-2 border-gray-200 border-dashed"
+        onmouseleave={() => setIsLocked(false)}
+      >
         <canvas
           ref={canvasRef}
           class="pointer-events-none relative z-1 h-full w-full"
         />
-        <div class="absolute top-0 left-0 box-border block h-full w-full p-[10%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+
+        <div
+          class="absolute top-0 left-0 box-border block h-full w-full p-[10%] transition-opacity duration-300"
+          classList={{
+            "opacity-0 pointer-events-none": isLocked(),
+            "opacity-0 group-hover:opacity-100": !isLocked(),
+          }}
+        >
           <a
             href="https://en.wikipedia.org/wiki/Dinosaur_Game"
             target="_blank"
@@ -103,21 +117,17 @@ export function RuleEditor(props: RuleEditorProps) {
           <p class="mb-1 text-xl">If you serious you lose</p>
 
           <p class="text-gray-500">
-            Zhang ZhengKai (born 2002), professionally known as jackzebra and
-            under many other monikers, such as jackapplepeople, zeb, and{" "}
-            <a
-              href="https://genius.com/artists/Jackzebra"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-accent"
-            >
-              孙龙潭
-            </a>
-            , is a Chinese recording artist from Shanghai and based in Chengdu,
-            Sichuan.{" "}
+            Zhang ZhengKai (born 2002), professionally known as jackzebra...
           </p>
         </div>
-        <div class="pointer-events-none absolute top-0 left-0 box-border block h-full w-full p-[10%] opacity-100 transition-opacity duration-300 group-hover:opacity-0">
+
+        <div
+          class="pointer-events-none absolute top-0 left-0 box-border block h-full w-full p-[10%] transition-opacity duration-300"
+          classList={{
+            "opacity-100": isLocked(),
+            "opacity-100 group-hover:opacity-0": !isLocked(),
+          }}
+        >
           <PatternThumbnail
             pattern={(props.pattern as Vector[]) || []}
             showAnimation={false}
@@ -125,6 +135,7 @@ export function RuleEditor(props: RuleEditorProps) {
           />
         </div>
       </div>
+
       <div class="flex min-w-0 grow basis-62.5 flex-col gap-10">
         <div class="group block">
           <span>Command</span>
