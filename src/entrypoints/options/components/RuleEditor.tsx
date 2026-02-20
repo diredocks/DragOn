@@ -64,7 +64,6 @@ export function RuleEditor(props: RuleEditorProps) {
 
   const initEditor = () => {
     canvasContext = canvasRef.getContext("2d")!;
-    dragController.enable();
     dragController.addEventListener("start", handleDragStart);
     dragController.addEventListener("update", handleDragUpdate);
     dragController.addEventListener("end", handleDragEnd);
@@ -72,7 +71,6 @@ export function RuleEditor(props: RuleEditorProps) {
   };
 
   const cleanupEditor = () => {
-    dragController.disable();
     dragController.removeEventListener("start", handleDragStart);
     dragController.removeEventListener("update", handleDragUpdate);
     dragController.removeEventListener("end", handleDragEnd);
@@ -91,7 +89,11 @@ export function RuleEditor(props: RuleEditorProps) {
     <div class="flex max-w-200 flex-wrap gap-5">
       <div
         class="group relative aspect-square grow-20 basis-81.25 rounded-sm border-2 border-gray-200 border-dashed"
-        onmouseleave={() => setIsLocked(false)}
+        onmouseenter={() => dragController.enable()}
+        onmouseleave={() => {
+          setIsLocked(false);
+          dragController.disable();
+        }}
       >
         <canvas
           ref={canvasRef}
