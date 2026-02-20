@@ -1,12 +1,15 @@
+import carShiftPattern from "@iconify/icons-mdi/car-shift-pattern";
+import cog from "@iconify/icons-mdi/cog";
+import informationOutline from "@iconify/icons-mdi/information-outline";
 import { Icon } from "@iconify-icon/solid";
 import { type Component, createSignal, onCleanup } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { About, Rules, Settings } from "./pages";
 
 const pages = {
-  rules: { label: "Rules", icon: "mdi:car-shift-pattern", component: Rules },
-  settings: { label: "Settings", icon: "mdi:cog", component: Settings },
-  about: { label: "About", icon: "mdi:information-outline", component: About },
+  rules: { label: "Rules", icon: carShiftPattern, component: Rules },
+  settings: { label: "Settings", icon: cog, component: Settings },
+  about: { label: "About", icon: informationOutline, component: About },
 } as const;
 
 type PageKey = keyof typeof pages;

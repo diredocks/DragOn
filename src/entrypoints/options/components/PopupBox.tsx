@@ -1,3 +1,4 @@
+import close from "@iconify/icons-mdi/close";
 import { Icon } from "@iconify-icon/solid";
 import type { JSXElement } from "solid-js";
 import "@/entrypoints/options/styles/popup.css";
@@ -85,7 +86,7 @@ export function PopupBox(props: PopupBoxProps) {
             <Icon
               onclick={closeModal}
               class="ml-auto hover:cursor-pointer hover:text-red-400"
-              icon="mdi:close"
+              icon={close}
               width="22"
               height="22"
             />

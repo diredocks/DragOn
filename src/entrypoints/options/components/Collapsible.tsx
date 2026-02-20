@@ -1,3 +1,4 @@
+import chevronDown from "@iconify/icons-mdi/chevron-down";
 import { Icon } from "@iconify-icon/solid";
 import { createSignal, type JSX } from "solid-js";
 
@@ -20,7 +21,7 @@ export function Collapsible(props: CollapsibleProps) {
         >
           <span>{props.name}</span>
           <Icon
-            icon="lucide:chevron-down"
+            icon={chevronDown}
             class={`ml-1 h-4 w-4 transition-transform duration-400 ${open() ? "rotate-180" : ""}`}
           />
         </button>

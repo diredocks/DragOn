@@ -5,6 +5,7 @@
     "": {
       "name": "DragOn",
       "dependencies": {
+        "@iconify/icons-mdi": "^1.2.48",
         "@tailwindcss/vite": "^4.2.0",
         "@webext-core/messaging": "^2.3.0",
         "@wxt-dev/i18n": "^0.2.4",
@@ -121,6 +122,8 @@
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.3", "", { "os": "win32", "cpu": "x64" }, "sha512-4uJGhsxuptu3OcpVAzli+/gWusVGwZZHTlS63hh++ehExkVT8SgiEf7/uC/PclrPPkLhZqGgCTjd0VWLo6xMqA=="],
 
     "@iconify-icon/solid": ["@iconify-icon/solid@3.0.3", "", { "dependencies": { "iconify-icon": "^3.0.2" }, "peerDependencies": { "solid-js": ">=1.0.0" } }, "sha512-VUM8/gscfrU0e6dUWjitdsJrNzYoY1bGTp1+gfZIAbvo+tIGcP9bD3WAvFb6pHaCYL/5X6erZUUn8pL0c0xX9Q=="],
+
+    "@iconify/icons-mdi": ["@iconify/icons-mdi@1.2.48", "", { "dependencies": { "@iconify/types": "*" } }, "sha512-1Tiq+iX1d2MzrdDiw45Tc9HuhNgg8H4vvaKNV+kF+jmr/kPG+YyeLMyXUKp4bwv+gheIAgNpZPjuqAPRkmMieA=="],
 
     "@iconify/types": ["@iconify/types@2.0.0", "", {}, "sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg=="],
 

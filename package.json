@@ -15,6 +15,7 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@iconify/icons-mdi": "^1.2.48",
     "@tailwindcss/vite": "^4.2.0",
     "@webext-core/messaging": "^2.3.0",
     "@wxt-dev/i18n": "^0.2.4",
