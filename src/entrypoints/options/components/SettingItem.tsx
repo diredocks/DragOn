@@ -1,5 +1,4 @@
 import type { JSX } from "solid-js";
-import "@/entrypoints/options/styles/collapsible.css";
 
 type SettingItemProps = {
   name: string;

@@ -1,7 +1,6 @@
 import close from "@iconify/icons-mdi/close";
 import { Icon } from "@iconify-icon/solid";
 import type { JSXElement } from "solid-js";
-import "@/entrypoints/options/styles/popup.css";
 
 type PopupBoxProps = {
   trigger?: JSXElement;

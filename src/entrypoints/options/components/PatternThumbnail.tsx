@@ -1,5 +1,4 @@
 import type { Point, Vector } from "@/shared/utils/type";
-import "@/entrypoints/options/styles/pattern.css";
 
 export function getCatmullRomPathData(points: Point[], alpha = 0.5): string {
   if (points.length < 2) return "";
