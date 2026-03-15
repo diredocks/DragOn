@@ -8,14 +8,68 @@ import { ActionSelector, PatternThumbnail, SettingItem } from "./index";
 type RuleEditorProps = {
   isOpen: boolean;
   rule: RuleSerialized | null;
-  onPatternChange: (pattern: Vector[]) => void;
-  onActionsChange: (actions: RuleSerialized["actions"]) => void;
+  onSave: (rule: RuleSerialized) => void;
 };
+
+type EditorViewState = "guide" | "preview" | "drawing";
 
 export function RuleEditor(props: RuleEditorProps) {
   let canvasRef!: HTMLCanvasElement;
   let canvasContext: CanvasRenderingContext2D;
-  const [isLocked, setIsLocked] = createSignal(false);
+
+  const [draftPattern, setDraftPattern] = createSignal<Vector[]>([]);
+  const [draftActions, setDraftActions] = createSignal<
+    RuleSerialized["actions"]
+  >([]);
+  const [viewState, setViewState] = createSignal<EditorViewState>("guide");
+
+  const hasPattern = createMemo(() => draftPattern().length > 0);
+  const shouldShowGuide = createMemo(() => viewState() === "guide");
+  const shouldShowPreview = createMemo(() => viewState() === "preview");
+
+  const updateViewState = (
+    event:
+      | "reset"
+      | "enter"
+      | "leave"
+      | "draw-start"
+      | "draw-end"
+      | "draw-abort",
+  ) => {
+    const next = (() => {
+      const has = hasPattern();
+      const current = viewState();
+
+      switch (event) {
+        case "reset":
+          return has ? "preview" : "guide";
+        case "draw-start":
+          return "drawing";
+        case "draw-end":
+        case "draw-abort":
+          return has ? "preview" : "guide";
+        case "enter":
+          if (!has) return "guide";
+          return current === "drawing" ? "drawing" : "guide";
+        case "leave":
+          if (!has) return "guide";
+          return current === "drawing" ? "drawing" : "preview";
+      }
+    })();
+
+    if (viewState() !== next) {
+      setViewState(next);
+    }
+  };
+
+  createEffect((prevIsOpen) => {
+    if (props.isOpen && !prevIsOpen) {
+      setDraftPattern(props.rule?.pattern ?? []);
+      setDraftActions(props.rule?.actions ?? []);
+      updateViewState("reset");
+    }
+    return props.isOpen;
+  }, false);
 
   const clearCanvas = () => {
     canvasContext.setTransform(1, 0, 0, 1, 0, 0);
@@ -23,8 +77,7 @@ export function RuleEditor(props: RuleEditorProps) {
   };
 
   const handleDragStart = (buf: DragEvent[]) => {
-    setIsLocked(false);
-
+    updateViewState("draw-start");
     const rect = canvasRef.getBoundingClientRect();
     canvasRef.width = canvasRef.offsetWidth;
     canvasRef.height = canvasRef.offsetHeight;
@@ -55,13 +108,14 @@ export function RuleEditor(props: RuleEditorProps) {
 
   const handleDragEnd = () => {
     clearCanvas();
-    props.onPatternChange(pattern.pattern);
+    setDraftPattern(pattern.pattern);
     pattern.clear();
-    setIsLocked(true);
+    updateViewState("draw-end");
   };
 
   const handleDragAbort = () => {
     clearCanvas();
+    updateViewState("draw-abort");
   };
 
   const initEditor = () => {
@@ -91,10 +145,13 @@ export function RuleEditor(props: RuleEditorProps) {
     <div class="flex max-w-200 flex-wrap gap-5">
       <div
         class="group relative aspect-square w-full rounded-sm border-2 border-gray-200 border-dashed sm:w-lg sm:shrink-0"
-        onmouseenter={() => dragController.enable()}
+        onmouseenter={() => {
+          dragController.enable();
+          updateViewState("enter");
+        }}
         onmouseleave={() => {
-          setIsLocked(false);
           dragController.disable();
+          updateViewState("leave");
         }}
       >
         <canvas
@@ -105,8 +162,8 @@ export function RuleEditor(props: RuleEditorProps) {
         <div
           class="absolute top-0 left-0 box-border block h-full w-full p-[10%] transition-opacity duration-300"
           classList={{
-            "opacity-0 pointer-events-none": isLocked(),
-            "opacity-0 group-hover:opacity-100": !isLocked(),
+            "opacity-0": !shouldShowGuide(),
+            "opacity-100": shouldShowGuide(),
           }}
         >
           <a
@@ -132,12 +189,12 @@ export function RuleEditor(props: RuleEditorProps) {
         <div
           class="pointer-events-none absolute top-0 left-0 box-border block h-full w-full p-[10%] transition-opacity duration-300"
           classList={{
-            "opacity-100": isLocked(),
-            "opacity-100 group-hover:opacity-0": !isLocked(),
+            "opacity-100": shouldShowPreview(),
+            "opacity-0": !shouldShowPreview(),
           }}
         >
           <PatternThumbnail
-            pattern={props.rule?.pattern || []}
+            pattern={draftPattern()}
             showAnimation={false}
             viewBox={150}
           />
@@ -150,10 +207,7 @@ export function RuleEditor(props: RuleEditorProps) {
             name="Actions"
             description="A custom selection of multiple actions."
           />
-          <ActionSelector
-            actions={props.rule?.actions || []}
-            onChange={props.onActionsChange}
-          />
+          <ActionSelector actions={draftActions()} onChange={setDraftActions} />
         </div>
         <div class="group block">
           <SettingItem
@@ -163,6 +217,12 @@ export function RuleEditor(props: RuleEditorProps) {
         </div>
         <button
           type="button"
+          onClick={() =>
+            props.onSave({
+              pattern: draftPattern(),
+              actions: draftActions(),
+            })
+          }
           class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
         >
           Save

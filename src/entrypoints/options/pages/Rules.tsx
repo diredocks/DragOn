@@ -3,7 +3,7 @@ import type { RuleSerialized } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
 import { PopupBox, RuleCard, RuleEditor } from "../components";
 
-const rulesRaw = [];
+const rulesRaw: RuleSerialized[] = [];
 for (const i of [-1, 0, 1]) {
   for (const j of [-1, 0, 1]) {
     if (i === 0 && j === 0) continue;
@@ -19,13 +19,42 @@ for (const i of [-1, 0, 1]) {
 }
 
 const [rules, setRules] = createStore(rulesRaw);
+const NEW_RULE_INDEX = -1;
 
 export function Rules() {
   const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
 
-  const selectedRule = () => {
+  const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
+  const isEditorOpen = () => selectedIndex() !== null;
+
+  const selectedRule = (): RuleSerialized | null => {
     const idx = selectedIndex();
-    return idx !== null ? rules[idx] : null;
+    if (idx === null || idx === NEW_RULE_INDEX) return null;
+    return rules[idx];
+  };
+
+  const editorRule = (): RuleSerialized | null => {
+    if (isCreating()) {
+      return {
+        pattern: [],
+        actions: [],
+      };
+    }
+    return selectedRule();
+  };
+
+  const handleSave = (rule: RuleSerialized) => {
+    if (isCreating()) {
+      // Add new rule
+      setRules(rules.length, rule);
+    } else {
+      // Update existing rule
+      const idx = selectedIndex();
+      if (idx !== null && idx >= 0) {
+        setRules(idx, rule);
+      }
+    }
+    setSelectedIndex(null);
   };
 
   return (
@@ -34,6 +63,7 @@ export function Rules() {
         <li class="aspect-4/5 rounded-sm border-[3px] border-outline border-dashed transition-all duration-300 hover:border-accent">
           <button
             type="button"
+            onClick={() => setSelectedIndex(NEW_RULE_INDEX)}
             class="h-full w-full cursor-pointer text-outline transition-all duration-300 hover:text-accent"
           >
             New Rule
@@ -50,25 +80,14 @@ export function Rules() {
       </ul>
 
       <PopupBox
-        title="Edit Rule"
-        isOpen={selectedIndex() !== null}
+        title={isCreating() ? "New Rule" : "Edit Rule"}
+        isOpen={isEditorOpen()}
         onClose={() => setSelectedIndex(null)}
       >
         <RuleEditor
-          isOpen={selectedIndex() !== null}
-          rule={selectedRule() as RuleSerialized}
-          onPatternChange={(newPattern) => {
-            const idx = selectedIndex();
-            if (idx !== null) {
-              setRules(idx, "pattern", newPattern);
-            }
-          }}
-          onActionsChange={(newActions) => {
-            const idx = selectedIndex();
-            if (idx !== null) {
-              setRules(idx, "actions", newActions);
-            }
-          }}
+          isOpen={isEditorOpen()}
+          rule={editorRule()}
+          onSave={handleSave}
         />
       </PopupBox>
     </>
