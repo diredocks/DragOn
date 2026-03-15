@@ -13,23 +13,26 @@ type PopupBoxProps = {
 
 export function PopupBox(props: PopupBoxProps) {
   let dialogRef!: HTMLDialogElement;
-  let closing = false;
+  let closeTimeout: ReturnType<typeof setTimeout> | null = null;
 
   const openModal = () => {
-    if (closing) return;
+    // Cancel pending close if any
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      closeTimeout = null;
+      dialogRef.removeAttribute("data-closing");
+    }
     dialogRef.showModal();
   };
 
   const closeModal = () => {
-    if (closing) return;
-    closing = true;
     dialogRef.setAttribute("data-closing", "");
 
     // Wait for animation
-    setTimeout(() => {
+    closeTimeout = setTimeout(() => {
+      closeTimeout = null;
       dialogRef.removeAttribute("data-closing");
       dialogRef.close();
-      closing = false;
       props.onClose?.();
     }, 250); // Same time as css transition
   };
@@ -57,7 +60,13 @@ export function PopupBox(props: PopupBoxProps) {
     if (props.isOpen) {
       openModal();
     } else {
-      closeModal();
+      // Close without triggering onClose callback (parent already knows)
+      dialogRef.setAttribute("data-closing", "");
+      closeTimeout = setTimeout(() => {
+        closeTimeout = null;
+        dialogRef.removeAttribute("data-closing");
+        dialogRef.close();
+      }, 250);
     }
   });
 

@@ -11,11 +11,9 @@ export function SettingItem(props: SettingItemProps) {
     !!props.description && props.description !== "NO_CONTENT";
 
   return (
-    <div class="group my-2 flex items-stretch gap-x-10">
+    <div class="group mb-2 flex items-stretch">
       <div
-        class={`mr-3 flex flex-1 flex-col ${
-          hasDescription() ? "justify-start" : "justify-center"
-        }`}
+        class={`flex flex-1 flex-col ${hasDescription() ? "justify-start" : "justify-center"}`}
       >
         <span>{props.name}</span>
         <Show when={hasDescription()}>

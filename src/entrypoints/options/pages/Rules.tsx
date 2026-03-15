@@ -63,6 +63,12 @@ export function Rules() {
               setRules(idx, "pattern", newPattern);
             }
           }}
+          onActionsChange={(newActions) => {
+            const idx = selectedIndex();
+            if (idx !== null) {
+              setRules(idx, "actions", newActions);
+            }
+          }}
         />
       </PopupBox>
     </>

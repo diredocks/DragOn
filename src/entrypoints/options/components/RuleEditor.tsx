@@ -3,12 +3,13 @@ import { dragController } from "@/shared/controller/drag";
 import type { RuleSerialized } from "@/shared/models/rule";
 import { pattern } from "@/shared/utils/pattern";
 import type { Point, Vector } from "@/shared/utils/type";
-import { PatternThumbnail } from "./index";
+import { ActionSelector, PatternThumbnail, SettingItem } from "./index";
 
 type RuleEditorProps = {
   isOpen: boolean;
   rule: RuleSerialized | null;
   onPatternChange: (pattern: Vector[]) => void;
+  onActionsChange: (actions: RuleSerialized["actions"]) => void;
 };
 
 export function RuleEditor(props: RuleEditorProps) {
@@ -89,7 +90,7 @@ export function RuleEditor(props: RuleEditorProps) {
   return (
     <div class="flex max-w-200 flex-wrap gap-5">
       <div
-        class="group relative aspect-square grow-20 basis-81.25 rounded-sm border-2 border-gray-200 border-dashed"
+        class="group relative aspect-square w-full rounded-sm border-2 border-gray-200 border-dashed sm:w-lg sm:shrink-0"
         onmouseenter={() => dragController.enable()}
         onmouseleave={() => {
           setIsLocked(false);
@@ -143,19 +144,22 @@ export function RuleEditor(props: RuleEditorProps) {
         </div>
       </div>
 
-      <div class="flex min-w-0 grow basis-62.5 flex-col gap-10">
+      <div class="flex min-w-0 flex-1 basis-50 flex-col gap-10">
         <div class="group block">
-          <span>Command</span>
-          <p class="pb-2.5 text-sm opacity-50 transition-opacity duration-300 group-hover:opacity-100">
-            Choose a command that should be assigned to this gesture.
-          </p>
+          <SettingItem
+            name="Actions"
+            description="A custom selection of multiple actions."
+          />
+          <ActionSelector
+            actions={props.rule?.actions || []}
+            onChange={props.onActionsChange}
+          />
         </div>
         <div class="group block">
-          <span>Label (optional)</span>
-          <p class="text-sm opacity-50 transition-opacity duration-300 group-hover:opacity-100">
-            Assign a custom name that will be displayed instead of the command
-            name.
-          </p>
+          <SettingItem
+            name="Settings"
+            description="Assign a custom setting that will be applied instead of the default."
+          />
         </div>
         <button
           type="button"

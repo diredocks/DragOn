@@ -1,5 +1,6 @@
 {
   "actions": {
+    "searchPlaceHolder": "Search for actions...",
     "text": {
       "Copy": {
         "label": "Copy Text"
