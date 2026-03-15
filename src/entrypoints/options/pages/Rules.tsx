@@ -57,6 +57,11 @@ export function Rules() {
     setSelectedIndex(null);
   };
 
+  const handleDelete = (index: number) => (e: Event) => {
+    e.stopPropagation();
+    setRules((prev) => prev.filter((_, i) => i !== index));
+  };
+
   return (
     <>
       <ul class="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-5">
@@ -74,6 +79,7 @@ export function Rules() {
             <RuleCard
               pattern={rules[index].pattern as Vector[]}
               onSelect={() => setSelectedIndex(index)}
+              onDelete={handleDelete(index)}
             />
           )}
         </Index>
