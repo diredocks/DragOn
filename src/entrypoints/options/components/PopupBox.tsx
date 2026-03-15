@@ -83,13 +83,13 @@ export function PopupBox(props: PopupBoxProps) {
         onclick={onDialogClick}
         oncancel={onCancel}
         ontoggle={onToggle}
-        class="popup-dialog invisible fixed m-auto block rounded-sm bg-transparent shadow outline-0 open:visible"
+        class="popup-dialog invisible fixed m-auto block overflow-visible bg-transparent outline-0 open:visible"
       >
         <div
-          class="popup-panel flex flex-col bg-white text-content"
+          class="popup-panel flex flex-col rounded-sm bg-white text-content shadow"
           // onclick={(e) => e.stopPropagation()}
         >
-          <div class="flex items-center border-gray-200 border-b bg-[#fbfbfb] px-5 py-3.75 text-lg">
+          <div class="flex items-center rounded-t-sm border-gray-200 border-b bg-[#fbfbfb] px-5 py-3.75 text-lg">
             <span>{props.title}</span>
             <Icon
               onclick={closeModal}
