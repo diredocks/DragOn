@@ -3,21 +3,13 @@ import { rulesStorage } from "@/shared/settings/storage";
 import { getRuleByPattern } from "@/shared/utils/matcher";
 import { onMessage } from "@/shared/utils/messaging";
 
-export default defineBackground(() => {
+export default defineBackground(async () => {
   let rules: Rule[] = [];
+  const serializedRules = await rulesStorage.getValue();
+  rules = serializedRules.map((r) => Rule.fromJSON(r));
 
-  const loadRules = async () => {
-    const serializedRules = await rulesStorage.getValue();
-    rules = serializedRules.map((r) => Rule.fromJSON(r));
-  };
-
-  // Load rules initially
-  void loadRules();
-
-  // Watch for rule changes
   rulesStorage.watch((newRules) => {
     rules = newRules.map((r) => Rule.fromJSON(r));
-    console.log(rules);
   });
 
   onMessage("dragEnd", (m) => {

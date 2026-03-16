@@ -1,9 +1,5 @@
 import { actions } from "@/entrypoints/background/actions";
-import {
-  Action,
-  type ActionItem,
-  type ActionType,
-} from "@/shared/models/action";
+import type { Action, ActionItem, ActionType } from "@/shared/models/action";
 import { ActionDropdown } from "./ActionDropdown";
 import { SortableItem } from "./SortableItem";
 

@@ -61,7 +61,7 @@ export function RightDrawer(props: RightDrawerProps) {
       oncancel={onCancel}
       class="drawer-dialog fixed inset-0 m-0 h-full max-h-none w-full max-w-none overflow-hidden bg-transparent outline-0"
     >
-      <aside class="drawer-panel ml-auto h-full w-90 max-w-[90vw] border-outline-light border-l bg-white shadow-xl">
+      <aside class="drawer-panel ml-auto h-full w-90 max-w-[90vw] bg-white shadow-sm">
         {props.children}
       </aside>
     </dialog>
