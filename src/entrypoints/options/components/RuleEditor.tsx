@@ -205,15 +205,9 @@ export function RuleEditor(props: RuleEditorProps) {
         <div class="group block">
           <SettingItem
             name="Actions"
-            description="A custom selection of multiple actions."
+            description="A sequence of custom actions executed in order."
           />
           <ActionSelector actions={draftActions()} onChange={setDraftActions} />
-        </div>
-        <div class="group block">
-          <SettingItem
-            name="Settings"
-            description="Assign a custom setting that will be applied instead of the default."
-          />
         </div>
         <button
           type="button"

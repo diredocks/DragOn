@@ -1,3 +1,5 @@
+// TODO: Flip and scale animation
+
 import { actions } from "@/entrypoints/background/actions";
 import type { RuleSerialized } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
