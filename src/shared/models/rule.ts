@@ -9,15 +9,15 @@ export type RuleSerialized = {
 
 export class Rule {
   readonly pattern: Vector[];
-  #actions: Action<any>[];
+  readonly actions: Action<any>[];
 
   constructor(pattern: Vector[], actions: Action<any>[]) {
     this.pattern = pattern;
-    this.#actions = actions;
+    this.actions = actions;
   }
 
   match(ctx: Context) {
-    for (const each of this.#actions) {
+    for (const each of this.actions) {
       if (each.type === "text" && (ctx.dropText || ctx.selectedText)) {
         return each;
       }
@@ -33,12 +33,12 @@ export class Rule {
   toJSON(): RuleSerialized {
     return {
       pattern: this.pattern,
-      actions: this.#actions.map((e) => e.toJSON()),
+      actions: this.actions.map((e) => e.toJSON()),
     };
   }
 
   async execute(ctx: Context, sender: Browser.runtime.MessageSender) {
-    for (const action of this.#actions) {
+    for (const action of this.actions) {
       if (await action.execute(ctx, sender)) return true;
     }
     return false;

@@ -1,14 +1,15 @@
 import dino from "@/assets/dino.svg";
 import { dragController } from "@/shared/controller/drag";
-import type { RuleSerialized } from "@/shared/models/rule";
+import type { Action } from "@/shared/models/action";
+import { Rule } from "@/shared/models/rule";
 import { pattern } from "@/shared/utils/pattern";
 import type { Point, Vector } from "@/shared/utils/type";
 import { ActionSelector, PatternThumbnail, SettingItem } from "./index";
 
 type RuleEditorProps = {
   isOpen: boolean;
-  rule: RuleSerialized | null;
-  onSave: (rule: RuleSerialized) => void;
+  rule: Rule | null;
+  onSave: (rule: Rule) => void;
   selectedActionId: string | null;
   onSelectAction: (id: string | null) => void;
 };
@@ -20,9 +21,7 @@ export function RuleEditor(props: RuleEditorProps) {
   let canvasContext: CanvasRenderingContext2D;
 
   const [draftPattern, setDraftPattern] = createSignal<Vector[]>([]);
-  const [draftActions, setDraftActions] = createSignal<
-    RuleSerialized["actions"]
-  >([]);
+  const [draftActions, setDraftActions] = createSignal<Action<unknown>[]>([]);
   const [viewState, setViewState] = createSignal<EditorViewState>("guide");
 
   const hasPattern = createMemo(() => draftPattern().length > 0);
@@ -219,10 +218,7 @@ export function RuleEditor(props: RuleEditorProps) {
         <button
           type="button"
           onClick={() =>
-            props.onSave({
-              pattern: draftPattern(),
-              actions: draftActions(),
-            })
+            props.onSave(new Rule(draftPattern(), draftActions()))
           }
           class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
         >

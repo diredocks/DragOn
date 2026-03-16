@@ -1,5 +1,5 @@
 import { actions } from "@/entrypoints/background/actions";
-import type { ActionSerialized, ActionType } from "@/shared/models/action";
+import { Action, type ActionType } from "@/shared/models/action";
 import { ActionDropdown } from "./ActionDropdown";
 import { SortableItem } from "./SortableItem";
 
@@ -7,6 +7,13 @@ type ActionItem = {
   id: string;
   type: ActionType;
   label: string;
+};
+
+type ActionSelectorProps = {
+  actions: Action<unknown>[];
+  onChange: (actions: Action<unknown>[]) => void;
+  selectedId: string | null;
+  onSelect: (id: string | null) => void;
 };
 
 const ALL_ACTIONS: ActionItem[] = Object.entries(actions).flatMap(
@@ -20,13 +27,6 @@ const ALL_ACTIONS: ActionItem[] = Object.entries(actions).flatMap(
       };
     }),
 );
-
-type ActionSelectorProps = {
-  actions: ActionSerialized[];
-  onChange: (actions: ActionSerialized[]) => void;
-  selectedId: string | null;
-  onSelect: (id: string | null) => void;
-};
 
 export function ActionSelector(props: ActionSelectorProps) {
   const [open, setOpen] = createSignal(false);
@@ -43,45 +43,37 @@ export function ActionSelector(props: ActionSelectorProps) {
     props.onSelect(id);
   };
 
-  // Convert ActionSerialized[] to ActionItem[] for internal display
-  const added = createMemo(
-    () =>
-      props.actions
-        .map((a) =>
-          ALL_ACTIONS.find((item) => item.id === `${a.type}.${a.name}`),
-        )
-        .filter(Boolean) as ActionItem[],
+  // Convert Action[] to ActionItem[] for display
+  const added = createMemo(() =>
+    props.actions.map((a) => ({
+      id: `${a.type}.${a.name}`,
+      type: a.type,
+      label: a.toString(),
+    })),
   );
 
   const results = createMemo(() => {
-    return ALL_ACTIONS.filter(
-      (a) =>
-        (a.label.toLowerCase().includes(keyword().toLowerCase()) ||
-          a.id.toLowerCase().includes(keyword().toLowerCase())) &&
-        !added().some(
-          (addedItem) => addedItem.id === a.id && addedItem.type === a.type,
-        ),
-    ).reduce(
-      (acc, item) => {
-        acc[item.type] ??= [];
-        acc[item.type].push(item);
-        return acc;
-      },
-      {} as Record<string, ActionItem[]>,
-    );
+    const kw = keyword().toLowerCase();
+    const addedIds = new Set(added().map((a) => a.id));
+
+    const grouped: Record<string, ActionItem[]> = {};
+    for (const a of ALL_ACTIONS) {
+      if (addedIds.has(a.id)) continue;
+      if (!a.label.toLowerCase().includes(kw) && !a.id.toLowerCase().includes(kw)) continue;
+      grouped[a.type] ??= [];
+      grouped[a.type].push(a);
+    }
+    return grouped;
   });
 
   const addAction = (id: string) => {
-    const action = ALL_ACTIONS.find((a) => a.id === id);
-    if (!action) return;
     const [type, actionName] = id.split(".");
     if (!type || !actionName) return;
-    const newAction: ActionSerialized = {
+    const newAction = Action.fromJSON({
       type: type as ActionType,
       name: actionName,
-    };
+    });
     props.onChange([...props.actions, newAction]);
-    openDrawer(id);
     setKeyword("");
   };
 

@@ -1,26 +1,28 @@
 // TODO: Flip and scale animation
 
 import { actions } from "@/entrypoints/background/actions";
-import type { RuleSerialized } from "@/shared/models/rule";
+import { Rule } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
 import { PopupBox, RightDrawer, RuleCard, RuleEditor } from "../components";
 
-const rulesRaw: RuleSerialized[] = [];
+const rulesRaw: Rule[] = [];
 for (const i of [-1, 0, 1]) {
   for (const j of [-1, 0, 1]) {
     if (i === 0 && j === 0) continue;
-    rulesRaw.push({
-      pattern: [[i, j]],
-      actions: [
-        new actions.text.Search({ engine: "bing" }).toJSON(),
-        new actions.link.Open().toJSON(),
-        new actions.image.Copy().toJSON(),
-      ],
-    });
+    rulesRaw.push(
+      new Rule(
+        [[i, j]],
+        [
+          new actions.text.Search({ engine: "bing" }),
+          new actions.link.Open(),
+          new actions.image.Copy(),
+        ],
+      ),
+    );
   }
 }
 
-const [rules, setRules] = createStore(rulesRaw);
+const [rules, setRules] = createStore<Rule[]>(rulesRaw);
 const NEW_RULE_INDEX = -1;
 
 export function Rules() {
@@ -37,18 +39,15 @@ export function Rules() {
     setSelectedActionId(null);
   });
 
-  const selectedRule = (): RuleSerialized | null => {
+  const selectedRule = (): Rule | null => {
     const idx = selectedIndex();
     if (idx === null || idx === NEW_RULE_INDEX) return null;
     return rules[idx];
   };
 
-  const editorRule = (): RuleSerialized | null => {
+  const editorRule = (): Rule | null => {
     if (isCreating()) {
-      return {
-        pattern: [],
-        actions: [],
-      };
+      return new Rule([], []);
     }
     return selectedRule();
   };
@@ -58,7 +57,7 @@ export function Rules() {
     setSelectedActionId(null);
   };
 
-  const handleSave = (rule: RuleSerialized) => {
+  const handleSave = (rule: Rule) => {
     if (isCreating()) {
       // Add new rule
       setRules(rules.length, rule);
