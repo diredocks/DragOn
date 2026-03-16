@@ -1,10 +1,5 @@
 import type { Component } from "solid-js";
-
-interface ActionItem {
-  type: string;
-  id: string;
-  label: string;
-}
+import type { ActionItem } from "@/shared/models/action";
 
 interface ActionDropdownProps {
   results: Record<string, ActionItem[]>;

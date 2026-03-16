@@ -1,13 +1,11 @@
 import { actions } from "@/entrypoints/background/actions";
-import { Action, type ActionType } from "@/shared/models/action";
+import {
+  Action,
+  type ActionItem,
+  type ActionType,
+} from "@/shared/models/action";
 import { ActionDropdown } from "./ActionDropdown";
 import { SortableItem } from "./SortableItem";
-
-type ActionItem = {
-  id: string;
-  type: ActionType;
-  label: string;
-};
 
 type ActionSelectorProps = {
   actions: Action<unknown>[];
@@ -59,7 +57,11 @@ export function ActionSelector(props: ActionSelectorProps) {
     const grouped: Record<string, ActionItem[]> = {};
     for (const a of ALL_ACTIONS) {
       if (addedIds.has(a.id)) continue;
-      if (!a.label.toLowerCase().includes(kw) && !a.id.toLowerCase().includes(kw)) continue;
+      if (
+        !a.label.toLowerCase().includes(kw) &&
+        !a.id.toLowerCase().includes(kw)
+      )
+        continue;
       grouped[a.type] ??= [];
       grouped[a.type].push(a);
     }

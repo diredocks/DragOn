@@ -54,3 +54,9 @@ export abstract class Action<TOptions> {
     return new ActionClass(data.settings);
   }
 }
+
+export interface ActionItem {
+  type: string;
+  id: string;
+  label: string;
+}
