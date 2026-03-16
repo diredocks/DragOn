@@ -1,5 +1,6 @@
 // TODO: Flip and scale animation
 
+import type { Action } from "@/shared/models/action";
 import { Rule } from "@/shared/models/rule";
 import { rulesStorage } from "@/shared/settings/storage";
 import type { Vector } from "@/shared/utils/type";
@@ -10,7 +11,7 @@ const NEW_RULE_INDEX = -1;
 
 export function Rules() {
   const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
-  const [selectedActionId, setSelectedActionId] = createSignal<string | null>(
+  const [selectedAction, setSelectedAction] = createSignal<Action<unknown> | null>(
     null,
   );
   const [isLoading, setIsLoading] = createSignal(true);
@@ -40,7 +41,7 @@ export function Rules() {
 
   createEffect(() => {
     selectedIndex();
-    setSelectedActionId(null);
+    setSelectedAction(null);
   });
 
   const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
@@ -61,7 +62,7 @@ export function Rules() {
 
   const closeEditor = () => {
     setSelectedIndex(null);
-    setSelectedActionId(null);
+    setSelectedAction(null);
   };
 
   const handleSave = (rule: Rule) => {
@@ -115,14 +116,14 @@ export function Rules() {
           isOpen={isEditorOpen()}
           rule={editorRule()}
           onSave={handleSave}
-          selectedActionId={selectedActionId()}
-          onSelectAction={setSelectedActionId}
+          selectedAction={selectedAction()}
+          onSelectAction={setSelectedAction}
         />
       </PopupBox>
 
       <RightDrawer
-        isOpen={selectedActionId() !== null}
-        onClose={() => setSelectedActionId(null)}
+        isOpen={selectedAction() !== null}
+        onClose={() => setSelectedAction(null)}
       />
     </>
   );

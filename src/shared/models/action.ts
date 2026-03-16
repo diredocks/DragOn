@@ -44,9 +44,3 @@ export abstract class Action<TOptions> {
     };
   }
 }
-
-export interface ActionItem {
-  type: string;
-  id: string;
-  label: string;
-}

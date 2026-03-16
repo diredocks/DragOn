@@ -1,18 +1,14 @@
 import type { Action } from "@/shared/models/action";
 import { Rule } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
-import {
-  ActionSelector,
-  PatternEditor,
-  SettingItem,
-} from "./index";
+import { ActionSelector, PatternEditor, SettingItem } from "./index";
 
 type RuleEditorProps = {
   isOpen: boolean;
   rule: Rule | null;
+  selectedAction: Action<unknown> | null;
   onSave: (rule: Rule) => void;
-  selectedActionId: string | null;
-  onSelectAction: (id: string | null) => void;
+  onSelectAction: (action: Action<unknown> | null) => void;
 };
 
 export function RuleEditor(props: RuleEditorProps) {
@@ -29,10 +25,7 @@ export function RuleEditor(props: RuleEditorProps) {
 
   return (
     <div class="flex max-w-200 flex-wrap gap-5">
-      <PatternEditor
-        value={draftPattern()}
-        onChange={setDraftPattern}
-      />
+      <PatternEditor value={draftPattern()} onChange={setDraftPattern} />
 
       <div class="flex min-w-0 flex-1 basis-50 flex-col gap-10">
         <div class="group block">
@@ -43,15 +36,13 @@ export function RuleEditor(props: RuleEditorProps) {
           <ActionSelector
             actions={draftActions()}
             onChange={setDraftActions}
-            selectedId={props.selectedActionId}
+            selected={props.selectedAction}
             onSelect={props.onSelectAction}
           />
         </div>
         <button
           type="button"
-          onClick={() =>
-            props.onSave(new Rule(draftPattern(), draftActions()))
-          }
+          onClick={() => props.onSave(new Rule(draftPattern(), draftActions()))}
           class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
         >
           Save

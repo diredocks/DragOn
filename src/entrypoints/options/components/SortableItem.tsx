@@ -1,13 +1,12 @@
 import type { Component } from "solid-js";
 
 interface SortableItemProps {
-  id: string;
   label: string;
   index: number;
   isActive: boolean;
   dragState: { from: number | null; over: number | null };
-  onActive: (id: string) => void;
-  onRemove: (id: string) => void;
+  onActive: () => void;
+  onRemove: () => void;
   onDragStart: (index: number) => void;
   onDragOver: (index: number) => void;
   onDrop: (index: number) => void;
@@ -30,7 +29,7 @@ export const SortableItem: Component<SortableItemProps> = (props) => {
       } ${isDragging() ? "border-dashed opacity-50" : ""} ${
         isOver() ? "scale-[1.01] transform ring-2 ring-accent/50" : ""
       }`}
-      onclick={() => props.onActive(props.id)}
+      onclick={() => props.onActive()}
       ondragstart={(e) => {
         if (e.dataTransfer) e.dataTransfer.effectAllowed = "move";
         props.onDragStart(props.index);
@@ -51,7 +50,7 @@ export const SortableItem: Component<SortableItemProps> = (props) => {
         class={`text-xs hover:text-red-500 ${props.isActive ? "text-content-inverse" : "text-content"}`}
         onclick={(e) => {
           e.stopPropagation();
-          props.onRemove(props.id);
+          props.onRemove();
         }}
       >
         ✕
