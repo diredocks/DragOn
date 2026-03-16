@@ -9,6 +9,8 @@ type RuleEditorProps = {
   isOpen: boolean;
   rule: RuleSerialized | null;
   onSave: (rule: RuleSerialized) => void;
+  selectedActionId: string | null;
+  onSelectAction: (id: string | null) => void;
 };
 
 type EditorViewState = "guide" | "preview" | "drawing";
@@ -207,7 +209,12 @@ export function RuleEditor(props: RuleEditorProps) {
             name="Actions"
             description="A sequence of custom actions executed in order."
           />
-          <ActionSelector actions={draftActions()} onChange={setDraftActions} />
+          <ActionSelector
+            actions={draftActions()}
+            onChange={setDraftActions}
+            selectedId={props.selectedActionId}
+            onSelect={props.onSelectAction}
+          />
         </div>
         <button
           type="button"

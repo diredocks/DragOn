@@ -3,7 +3,7 @@
 import { actions } from "@/entrypoints/background/actions";
 import type { RuleSerialized } from "@/shared/models/rule";
 import type { Vector } from "@/shared/utils/type";
-import { PopupBox, RuleCard, RuleEditor } from "../components";
+import { PopupBox, RightDrawer, RuleCard, RuleEditor } from "../components";
 
 const rulesRaw: RuleSerialized[] = [];
 for (const i of [-1, 0, 1]) {
@@ -25,9 +25,17 @@ const NEW_RULE_INDEX = -1;
 
 export function Rules() {
   const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
+  const [selectedActionId, setSelectedActionId] = createSignal<string | null>(
+    null,
+  );
 
   const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
   const isEditorOpen = () => selectedIndex() !== null;
+
+  createEffect(() => {
+    selectedIndex();
+    setSelectedActionId(null);
+  });
 
   const selectedRule = (): RuleSerialized | null => {
     const idx = selectedIndex();
@@ -45,6 +53,11 @@ export function Rules() {
     return selectedRule();
   };
 
+  const closeEditor = () => {
+    setSelectedIndex(null);
+    setSelectedActionId(null);
+  };
+
   const handleSave = (rule: RuleSerialized) => {
     if (isCreating()) {
       // Add new rule
@@ -56,7 +69,7 @@ export function Rules() {
         setRules(idx, rule);
       }
     }
-    setSelectedIndex(null);
+    closeEditor();
   };
 
   const handleDelete = (index: number) => (e: Event) => {
@@ -90,14 +103,21 @@ export function Rules() {
       <PopupBox
         title={isCreating() ? "New Rule" : "Edit Rule"}
         isOpen={isEditorOpen()}
-        onClose={() => setSelectedIndex(null)}
+        onClose={closeEditor}
       >
         <RuleEditor
           isOpen={isEditorOpen()}
           rule={editorRule()}
           onSave={handleSave}
+          selectedActionId={selectedActionId()}
+          onSelectAction={setSelectedActionId}
         />
       </PopupBox>
+
+      <RightDrawer
+        isOpen={selectedActionId() !== null}
+        onClose={() => setSelectedActionId(null)}
+      />
     </>
   );
 }

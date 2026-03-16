@@ -48,3 +48,37 @@
     background-color: rgba(0, 0, 0, 0);
   }
 }
+
+/* right drawer */
+
+.drawer-dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.drawer-panel {
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.drawer-dialog[open] .drawer-panel {
+  transform: translateX(0);
+}
+
+.drawer-dialog[data-closing] .drawer-panel {
+  transform: translateX(100%);
+}
+
+.drawer-dialog[data-closing]::backdrop {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+@starting-style {
+  .drawer-dialog[open] .drawer-panel {
+    transform: translateX(100%);
+  }
+
+  .drawer-dialog[open]::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}

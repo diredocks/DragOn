@@ -24,12 +24,13 @@ const ALL_ACTIONS: ActionItem[] = Object.entries(actions).flatMap(
 type ActionSelectorProps = {
   actions: ActionSerialized[];
   onChange: (actions: ActionSerialized[]) => void;
+  selectedId: string | null;
+  onSelect: (id: string | null) => void;
 };
 
 export function ActionSelector(props: ActionSelectorProps) {
   const [open, setOpen] = createSignal(false);
   const [keyword, setKeyword] = createSignal("");
-  const [activeId, setActiveId] = createSignal<string | null>(null);
   const [drag, setDrag] = createSignal<{
     from: number | null;
     over: number | null;
@@ -37,6 +38,10 @@ export function ActionSelector(props: ActionSelectorProps) {
     from: null,
     over: null,
   });
+
+  const openDrawer = (id: string) => {
+    props.onSelect(id);
+  };
 
   // Convert ActionSerialized[] to ActionItem[] for internal display
   const added = createMemo(
@@ -76,7 +81,7 @@ export function ActionSelector(props: ActionSelectorProps) {
       name: actionName,
     };
     props.onChange([...props.actions, newAction]);
-    setActiveId(id);
+    openDrawer(id);
     setKeyword("");
   };
 
@@ -96,7 +101,7 @@ export function ActionSelector(props: ActionSelectorProps) {
       (a) => `${a.type}.${a.name}` !== id,
     );
     props.onChange(newActions);
-    if (activeId() === id) setActiveId(null);
+    if (props.selectedId === id) props.onSelect(null);
   };
 
   return (
@@ -109,11 +114,9 @@ export function ActionSelector(props: ActionSelectorProps) {
                 id={item.id}
                 label={item.label}
                 index={i()}
-                isActive={activeId() === item.id}
+                isActive={props.selectedId === item.id}
                 dragState={drag()}
-                onActive={() =>
-                  setActiveId(activeId() === item.id ? null : item.id)
-                }
+                onActive={() => openDrawer(item.id)}
                 onRemove={() => removeAction(item.id)}
                 onDragStart={(idx) => setDrag((p) => ({ ...p, from: idx }))}
                 onDragOver={(idx) => setDrag((p) => ({ ...p, over: idx }))}
