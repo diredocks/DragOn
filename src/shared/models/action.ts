@@ -1,4 +1,3 @@
-import { actions } from "@/entrypoints/background/actions";
 import type { Context } from "@/shared/models/context";
 
 export type ActionType = "text" | "link" | "image";
@@ -43,15 +42,6 @@ export abstract class Action<TOptions> {
       name: this.name,
       settings: this.settings as Record<string, unknown>,
     };
-  }
-
-  static fromJSON(data: ActionSerialized): Action<unknown> {
-    // @ts-expect-error
-    const ActionClass = actions[data.type][data.name];
-    if (!ActionClass) {
-      throw new Error(`Unknown action: ${data.type}.${data.name}`);
-    }
-    return new ActionClass(data.settings);
   }
 }
 

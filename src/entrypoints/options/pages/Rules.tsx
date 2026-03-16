@@ -1,28 +1,11 @@
 // TODO: Flip and scale animation
 
-import { actions } from "@/entrypoints/background/actions";
 import { Rule } from "@/shared/models/rule";
+import { rulesStorage } from "@/shared/settings/storage";
 import type { Vector } from "@/shared/utils/type";
 import { PopupBox, RightDrawer, RuleCard, RuleEditor } from "../components";
 
-const rulesRaw: Rule[] = [];
-for (const i of [-1, 0, 1]) {
-  for (const j of [-1, 0, 1]) {
-    if (i === 0 && j === 0) continue;
-    rulesRaw.push(
-      new Rule(
-        [[i, j]],
-        [
-          new actions.text.Search({ engine: "bing" }),
-          new actions.link.Open(),
-          new actions.image.Copy(),
-        ],
-      ),
-    );
-  }
-}
-
-const [rules, setRules] = createStore<Rule[]>(rulesRaw);
+const [rules, setRules] = createStore<Rule[]>([]);
 const NEW_RULE_INDEX = -1;
 
 export function Rules() {
@@ -30,14 +13,38 @@ export function Rules() {
   const [selectedActionId, setSelectedActionId] = createSignal<string | null>(
     null,
   );
+  const [isLoading, setIsLoading] = createSignal(true);
 
-  const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
-  const isEditorOpen = () => selectedIndex() !== null;
+  // Load rules from storage on mount
+  onMount(async () => {
+    const serializedRules = await rulesStorage.getValue();
+    setRules(serializedRules.map((r) => Rule.fromJSON(r)));
+    setIsLoading(false);
+  });
+
+  // Watch for external storage changes
+  onMount(() => {
+    const unwatch = rulesStorage.watch((newRules) => {
+      setRules(newRules.map((r) => Rule.fromJSON(r)));
+    });
+    return unwatch;
+  });
+
+  // Save rules to storage when they change
+  createEffect(() => {
+    if (!isLoading()) {
+      const serializedRules = rules.map((r) => r.toJSON());
+      rulesStorage.setValue(serializedRules);
+    }
+  });
 
   createEffect(() => {
     selectedIndex();
     setSelectedActionId(null);
   });
+
+  const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
+  const isEditorOpen = () => selectedIndex() !== null;
 
   const selectedRule = (): Rule | null => {
     const idx = selectedIndex();

@@ -71,10 +71,10 @@ export function ActionSelector(props: ActionSelectorProps) {
   const addAction = (id: string) => {
     const [type, actionName] = id.split(".");
     if (!type || !actionName) return;
-    const newAction = Action.fromJSON({
-      type: type as ActionType,
-      name: actionName,
-    });
+    // @ts-expect-error
+    const ActionClass = actions[type]?.[actionName];
+    if (!ActionClass) return;
+    const newAction = new ActionClass();
     props.onChange([...props.actions, newAction]);
     setKeyword("");
   };

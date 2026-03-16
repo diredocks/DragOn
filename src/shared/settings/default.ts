@@ -1,3 +1,5 @@
+import { actions } from "@/entrypoints/background/actions";
+import type { RuleSerialized } from "../models/rule";
 import type { Settings } from "./schema";
 
 export const defaultSettings: Settings = {
@@ -17,3 +19,20 @@ export const defaultSettings: Settings = {
     verticalPosition: 40,
   },
 };
+
+const rules: RuleSerialized[] = [];
+for (const i of [-1, 0, 1]) {
+  for (const j of [-1, 0, 1]) {
+    if (i === 0 && j === 0) continue;
+    rules.push({
+      pattern: [[i, j]],
+      actions: [
+        new actions.text.Search({ engine: "google" }).toJSON(),
+        new actions.link.Open().toJSON(),
+        new actions.image.Copy().toJSON(),
+      ],
+    });
+  }
+}
+
+export const defaultRules: RuleSerialized[] = rules;

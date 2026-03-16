@@ -1,35 +1,31 @@
 import { Rule } from "@/shared/models/rule";
+import { rulesStorage } from "@/shared/settings/storage";
 import { getRuleByPattern } from "@/shared/utils/matcher";
 import { onMessage } from "@/shared/utils/messaging";
-import { actions } from "./actions";
 
 export default defineBackground(() => {
+  let rules: Rule[] = [];
+
+  const loadRules = async () => {
+    const serializedRules = await rulesStorage.getValue();
+    rules = serializedRules.map((r) => Rule.fromJSON(r));
+  };
+
+  // Load rules initially
+  void loadRules();
+
+  // Watch for rule changes
+  rulesStorage.watch((newRules) => {
+    rules = newRules.map((r) => Rule.fromJSON(r));
+    console.log(rules);
+  });
+
   onMessage("dragEnd", (m) => {
-    const rule = getRuleByPattern(m.data.pattern, rules());
+    const rule = getRuleByPattern(m.data.pattern, rules);
     return rule?.execute(m.data.ctx, m.sender) ?? false;
   });
   onMessage("dragUpdate", (m) => {
-    const rule = getRuleByPattern(m.data.pattern, rules());
+    const rule = getRuleByPattern(m.data.pattern, rules);
     return rule?.match(m.data.ctx)?.toString() ?? null;
   });
 });
-
-const rules = () => {
-  const rules: Rule[] = [];
-  for (const i of [-1, 0, 1]) {
-    for (const j of [-1, 0, 1]) {
-      if (i === 0 && j === 0) continue;
-      rules.push(
-        new Rule(
-          [[i, j]],
-          [
-            new actions.text.Search({ engine: "bing" }),
-            new actions.link.Open(),
-            new actions.image.Copy(),
-          ],
-        ),
-      );
-    }
-  }
-  return rules;
-};

@@ -1,3 +1,4 @@
+import { actions } from "@/entrypoints/background/actions";
 import type { Action, ActionSerialized } from "@/shared/models/action";
 import type { Context } from "@/shared/models/context";
 import type { Vector } from "@/shared/utils/type";
@@ -6,6 +7,15 @@ export type RuleSerialized = {
   pattern: Vector[];
   actions: ActionSerialized[];
 };
+
+function deserializeAction(data: ActionSerialized): Action<unknown> {
+  // @ts-expect-error
+  const ActionClass = actions[data.type][data.name];
+  if (!ActionClass) {
+    throw new Error(`Unknown action: ${data.type}.${data.name}`);
+  }
+  return new ActionClass(data.settings);
+}
 
 export class Rule {
   readonly pattern: Vector[];
@@ -42,5 +52,12 @@ export class Rule {
       if (await action.execute(ctx, sender)) return true;
     }
     return false;
+  }
+
+  static fromJSON(data: RuleSerialized): Rule {
+    return new Rule(
+      data.pattern,
+      data.actions.map((a) => deserializeAction(a)),
+    );
   }
 }
