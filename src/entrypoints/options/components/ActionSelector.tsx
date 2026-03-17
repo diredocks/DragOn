@@ -4,6 +4,7 @@ import type {
   ActionSerialized,
   ActionType,
 } from "@/shared/models/action";
+import { deserializeAction } from "@/shared/models/rule";
 import { ActionDropdown } from "./ActionDropdown";
 import { SortableItem } from "./SortableItem";
 
@@ -39,11 +40,16 @@ export function ActionSelector(props: ActionSelectorProps) {
     );
   });
 
-  const addAction = (item: ActionSerialized) => {
-    // @ts-expect-error
-    const ActionClass = actions[item.type]?.[item.name];
-    if (!ActionClass) return;
-    props.onChange([...props.actions, new ActionClass()]);
+  const addAction = async (item: ActionSerialized) => {
+    const action = deserializeAction(item);
+    if (action.permissions && action.permissions.length > 0) {
+      const granted = await browser.permissions.request({
+        permissions: [...action.permissions],
+      });
+      if (!granted) return;
+    }
+
+    props.onChange([...props.actions, action]);
     setKeyword("");
     setOpen(false);
   };

@@ -2,7 +2,7 @@ import { Action, type ActionRun } from "@/shared/models/action";
 import { nextTabIndex } from "@/shared/utils/common";
 
 interface Options {
-  engine: "bing" | "baidu" | "google" | "duckduckgo";
+  customEngine: string;
   openInBackground: boolean;
 }
 
@@ -10,14 +10,7 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
   const text = ctx.selectedText || ctx.dropText;
   if (!text) return false;
 
-  const engineMap: Record<Options["engine"], string> = {
-    google: "https://google.com/search?q=",
-    bing: "https://bing.com/search?q=",
-    baidu: "https://www.baidu.com/s?wd=",
-    duckduckgo: "https://duckduckgo.com/?q=",
-  };
-
-  const url = `${engineMap[options.engine]}${encodeURIComponent(text)}`;
+  const url = `${options.customEngine}${encodeURIComponent(text)}`;
 
   await browser.tabs.create({
     active: !options.openInBackground,
@@ -33,7 +26,7 @@ export class Search extends Action<Options> {
   type = "text" as const;
   name = "Search" as const;
   defaultSettings: Options = {
-    engine: "google",
+    customEngine: "https://bing.com/search?q=",
     openInBackground: true,
   };
   fn = fn;

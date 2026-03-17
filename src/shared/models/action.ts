@@ -19,7 +19,7 @@ export abstract class Action<TOptions> {
   abstract name: string;
   abstract fn: ActionRun<TOptions>;
   abstract defaultSettings: TOptions;
-  permissions?: Browser.permissions.Permissions[];
+  permissions?: readonly Browser.runtime.ManifestPermission[];
   settings?: Partial<TOptions>;
 
   constructor(settings?: Partial<TOptions>) {

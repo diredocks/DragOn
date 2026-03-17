@@ -8,7 +8,7 @@ export type RuleSerialized = {
   actions: ActionSerialized[];
 };
 
-function deserializeAction(data: ActionSerialized): Action<unknown> {
+export function deserializeAction(data: ActionSerialized): Action<unknown> {
   // @ts-expect-error
   const ActionClass = actions[data.type][data.name];
   if (!ActionClass) {
