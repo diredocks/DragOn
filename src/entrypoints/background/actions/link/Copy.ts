@@ -10,7 +10,7 @@ const fn: ActionRun<Options> = async (ctx, sender) => {
   return true;
 };
 
-export class Copy extends Action<Options> {
+export default class Copy extends Action<Options> {
   type = "link" as const;
   name = "Copy" as const;
   defaultSettings: Options = {};

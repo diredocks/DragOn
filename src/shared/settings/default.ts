@@ -1,4 +1,3 @@
-import { actions } from "@/entrypoints/background/actions";
 import type { RuleSerialized } from "../models/rule";
 import type { Settings } from "./schema";
 
@@ -26,7 +25,20 @@ for (const i of [-1, 0, 1]) {
     if (i === 0 && j === 0) continue;
     rules.push({
       pattern: [[i, j]],
-      actions: [new actions.link.Open().toJSON()],
+      actions: [
+        {
+          type: "text",
+          name: "Search",
+        },
+        {
+          type: "link",
+          name: "Open",
+        },
+        {
+          type: "image",
+          name: "Copy",
+        },
+      ],
     });
   }
 }

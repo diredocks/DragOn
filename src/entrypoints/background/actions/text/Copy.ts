@@ -4,12 +4,15 @@ import { sendMessageTab } from "@/shared/utils/messaging";
 type Options = {};
 
 const fn: ActionRun<Options> = async (ctx, sender) => {
-  if (!ctx.img) return false;
-  return sendMessageTab("clipboardWriteImage", ctx.img, sender.tab?.id);
+  const text = ctx.selectedText || ctx.dropText;
+  if (!text) return false;
+
+  sendMessageTab("clipboardWriteText", text, sender.tab?.id);
+  return true;
 };
 
-export class Copy extends Action<Options> {
-  type = "image" as const;
+export default class Copy extends Action<Options> {
+  type = "text" as const;
   name = "Copy" as const;
   defaultSettings: Options = {};
   fn = fn;

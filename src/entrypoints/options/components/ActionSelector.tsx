@@ -1,10 +1,8 @@
-import { actions } from "@/entrypoints/background/actions";
-import type {
+import {
   Action,
-  ActionSerialized,
-  ActionType,
+  type ActionSerialized,
+  type ActionType,
 } from "@/shared/models/action";
-import { deserializeAction } from "@/shared/models/rule";
 import { ActionDropdown } from "./ActionDropdown";
 import { SortableItem } from "./SortableItem";
 
@@ -15,12 +13,17 @@ type ActionSelectorProps = {
   onSelect: (action: Action<unknown> | null) => void;
 };
 
-const ALL_ACTIONS: ActionSerialized[] = Object.entries(actions).flatMap(
-  ([type, categoryActions]) =>
-    Object.keys(categoryActions).map((name) => ({
-      type: type as ActionType,
-      name,
-    })),
+const actionModules = import.meta.glob(
+  "/src/entrypoints/background/actions/**/*.ts",
+);
+
+const ALL_ACTIONS: ActionSerialized[] = Object.keys(actionModules).map(
+  (path) => {
+    const match = path.match(/\/actions\/(\w+)\/(\w+)\.ts$/);
+    if (!match) throw new Error(`Invalid action path: ${path}`);
+    const [, type, name] = match;
+    return { type: type as ActionType, name };
+  },
 );
 
 export function ActionSelector(props: ActionSelectorProps) {
@@ -41,7 +44,7 @@ export function ActionSelector(props: ActionSelectorProps) {
   });
 
   const addAction = async (item: ActionSerialized) => {
-    const action = deserializeAction(item);
+    const action = await Action.fromJSON(item);
     if (action.permissions && action.permissions.length > 0) {
       const granted = await browser.permissions.request({
         permissions: [...action.permissions],

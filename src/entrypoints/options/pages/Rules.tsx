@@ -11,27 +11,20 @@ const NEW_RULE_INDEX = -1;
 
 export function Rules() {
   const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
-  const [selectedAction, setSelectedAction] = createSignal<Action<unknown> | null>(
-    null,
-  );
+  const [selectedAction, setSelectedAction] =
+    createSignal<Action<unknown> | null>(null);
   const [isLoading, setIsLoading] = createSignal(true);
 
-  // Load rules from storage on mount
   onMount(async () => {
     const serializedRules = await rulesStorage.getValue();
-    setRules(serializedRules.map((r) => Rule.fromJSON(r)));
+    setRules(await Promise.all(serializedRules.map((r) => Rule.fromJSON(r))));
     setIsLoading(false);
-  });
 
-  // Watch for external storage changes
-  onMount(() => {
-    const unwatch = rulesStorage.watch((newRules) => {
-      setRules(newRules.map((r) => Rule.fromJSON(r)));
+    return rulesStorage.watch(async (newRules) => {
+      setRules(await Promise.all(newRules.map((r) => Rule.fromJSON(r))));
     });
-    return unwatch;
   });
 
-  // Save rules to storage when they change
   createEffect(() => {
     if (!isLoading()) {
       const serializedRules = rules.map((r) => r.toJSON());

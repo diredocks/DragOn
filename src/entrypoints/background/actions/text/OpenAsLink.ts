@@ -19,7 +19,7 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
   return true;
 };
 
-export class OpenAsLink extends Action<Options> {
+export default class OpenAsLink extends Action<Options> {
   type = "text" as const;
   name = "OpenAsLink" as const;
   defaultSettings: Options = {

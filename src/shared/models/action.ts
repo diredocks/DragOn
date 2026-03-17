@@ -43,4 +43,18 @@ export abstract class Action<TOptions> {
       settings: this.settings as Record<string, unknown>,
     };
   }
+
+  static async fromJSON(data: ActionSerialized) {
+    const modules = import.meta.glob<{
+      default: new (settings?: unknown) => Action<unknown>;
+    }>("@/entrypoints/background/actions/**/*.ts");
+    const path = `/src/entrypoints/background/actions/${data.type}/${data.name}.ts`;
+
+    const loader = modules[path];
+    if (!loader) {
+      throw new Error(`Unknown action: ${data.type}.${data.name}`);
+    }
+
+    return new (await loader()).default(data.settings);
+  }
 }
