@@ -7,12 +7,14 @@ import type { Vector } from "@/shared/utils/type";
 import { PopupBox, RightDrawer, RuleCard, RuleEditor } from "../components";
 
 const [rules, setRules] = createStore<Rule[]>([]);
-const NEW_RULE_INDEX = -1;
+
+type EditorState =
+  | { type: 'closed' }
+  | { type: 'creating' }
+  | { type: 'editing'; index: number; selectedAction: Action<unknown> | null };
 
 export function Rules() {
-  const [selectedIndex, setSelectedIndex] = createSignal<number | null>(null);
-  const [selectedAction, setSelectedAction] =
-    createSignal<Action<unknown> | null>(null);
+  const [editor, setEditor] = createSignal<EditorState>({ type: 'closed' });
   const [isLoading, setIsLoading] = createSignal(true);
 
   onMount(async () => {
@@ -32,42 +34,38 @@ export function Rules() {
     }
   });
 
-  createEffect(() => {
-    selectedIndex();
-    setSelectedAction(null);
-  });
-
-  const isCreating = () => selectedIndex() === NEW_RULE_INDEX;
-  const isEditorOpen = () => selectedIndex() !== null;
-
-  const selectedRule = (): Rule | null => {
-    const idx = selectedIndex();
-    if (idx === null || idx === NEW_RULE_INDEX) return null;
-    return rules[idx];
-  };
+  const isEditorOpen = () => editor().type !== 'closed';
+  const isCreating = () => editor().type === 'creating';
 
   const editorRule = (): Rule | null => {
-    if (isCreating()) {
-      return new Rule([], []);
-    }
-    return selectedRule();
+    const state = editor();
+    if (state.type === 'closed') return null;
+    if (state.type === 'creating') return new Rule([], []);
+    return rules[state.index];
   };
 
-  const closeEditor = () => {
-    setSelectedIndex(null);
-    setSelectedAction(null);
+  const selectedAction = () => {
+    const state = editor();
+    return state.type === 'editing' ? state.selectedAction : null;
   };
+
+  const openCreator = () => setEditor({ type: 'creating' });
+  const openEditor = (index: number) =>
+    setEditor({ type: 'editing', index, selectedAction: null });
+  const selectAction = (action: Action<unknown> | null) => {
+    const state = editor();
+    if (state.type === 'editing') {
+      setEditor({ ...state, selectedAction: action });
+    }
+  };
+  const closeEditor = () => setEditor({ type: 'closed' });
 
   const handleSave = (rule: Rule) => {
-    if (isCreating()) {
-      // Add new rule
+    const state = editor();
+    if (state.type === 'creating') {
       setRules(rules.length, rule);
-    } else {
-      // Update existing rule
-      const idx = selectedIndex();
-      if (idx !== null && idx >= 0) {
-        setRules(idx, rule);
-      }
+    } else if (state.type === 'editing') {
+      setRules(state.index, rule);
     }
     closeEditor();
   };
@@ -83,7 +81,7 @@ export function Rules() {
         <li class="aspect-4/5 rounded-sm border-[3px] border-outline border-dashed transition-all duration-300 hover:border-accent">
           <button
             type="button"
-            onClick={() => setSelectedIndex(NEW_RULE_INDEX)}
+            onClick={openCreator}
             class="h-full w-full cursor-pointer text-outline transition-all duration-300 hover:text-accent"
           >
             New Rule
@@ -93,7 +91,7 @@ export function Rules() {
           {(_each, index) => (
             <RuleCard
               pattern={rules[index].pattern as Vector[]}
-              onSelect={() => setSelectedIndex(index)}
+              onSelect={() => openEditor(index)}
               onDelete={handleDelete(index)}
             />
           )}
@@ -110,13 +108,13 @@ export function Rules() {
           rule={editorRule()}
           onSave={handleSave}
           selectedAction={selectedAction()}
-          onSelectAction={setSelectedAction}
+          onSelectAction={selectAction}
         />
       </PopupBox>
 
       <RightDrawer
         isOpen={selectedAction() !== null}
-        onClose={() => setSelectedAction(null)}
+        onClose={() => selectAction(null)}
       />
     </>
   );
