@@ -51,6 +51,10 @@
 
 /* right drawer */
 
+.drawer-dialog {
+  transition: visibility 0.3s ease;
+}
+
 .drawer-dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease;

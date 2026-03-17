@@ -4,17 +4,23 @@ import type { Action } from "@/shared/models/action";
 import { Rule } from "@/shared/models/rule";
 import { rulesStorage } from "@/shared/settings/storage";
 import type { Vector } from "@/shared/utils/type";
-import { PopupBox, RightDrawer, RuleCard, RuleEditor } from "../components";
+import {
+  ActionSettings,
+  PopupBox,
+  RightDrawer,
+  RuleCard,
+  RuleEditor,
+} from "../components";
 
 const [rules, setRules] = createStore<Rule[]>([]);
 
 type EditorState =
-  | { type: 'closed' }
-  | { type: 'creating' }
-  | { type: 'editing'; index: number; selectedAction: Action<unknown> | null };
+  | { type: "closed" }
+  | { type: "creating" }
+  | { type: "editing"; index: number; selectedAction: Action<unknown> | null };
 
 export function Rules() {
-  const [editor, setEditor] = createSignal<EditorState>({ type: 'closed' });
+  const [editor, setEditor] = createSignal<EditorState>({ type: "closed" });
   const [isLoading, setIsLoading] = createSignal(true);
 
   onMount(async () => {
@@ -34,37 +40,37 @@ export function Rules() {
     }
   });
 
-  const isEditorOpen = () => editor().type !== 'closed';
-  const isCreating = () => editor().type === 'creating';
+  const isEditorOpen = () => editor().type !== "closed";
+  const isCreating = () => editor().type === "creating";
 
   const editorRule = (): Rule | null => {
     const state = editor();
-    if (state.type === 'closed') return null;
-    if (state.type === 'creating') return new Rule([], []);
+    if (state.type === "closed") return null;
+    if (state.type === "creating") return new Rule([], []);
     return rules[state.index];
   };
 
   const selectedAction = () => {
     const state = editor();
-    return state.type === 'editing' ? state.selectedAction : null;
+    return state.type === "editing" ? state.selectedAction : null;
   };
 
-  const openCreator = () => setEditor({ type: 'creating' });
+  const openCreator = () => setEditor({ type: "creating" });
   const openEditor = (index: number) =>
-    setEditor({ type: 'editing', index, selectedAction: null });
+    setEditor({ type: "editing", index, selectedAction: null });
   const selectAction = (action: Action<unknown> | null) => {
     const state = editor();
-    if (state.type === 'editing') {
+    if (state.type === "editing") {
       setEditor({ ...state, selectedAction: action });
     }
   };
-  const closeEditor = () => setEditor({ type: 'closed' });
+  const closeEditor = () => setEditor({ type: "closed" });
 
   const handleSave = (rule: Rule) => {
     const state = editor();
-    if (state.type === 'creating') {
+    if (state.type === "creating") {
       setRules(rules.length, rule);
-    } else if (state.type === 'editing') {
+    } else if (state.type === "editing") {
       setRules(state.index, rule);
     }
     closeEditor();
@@ -115,7 +121,12 @@ export function Rules() {
       <RightDrawer
         isOpen={selectedAction() !== null}
         onClose={() => selectAction(null)}
-      />
+      >
+        <ActionSettings
+          action={selectedAction()}
+          onSave={() => selectAction(null)}
+        />
+      </RightDrawer>
     </>
   );
 }

@@ -19,8 +19,10 @@ export function RightDrawer(props: RightDrawerProps) {
 
   const startClose = () => {
     if (!dialogRef.open || dialogRef.hasAttribute("data-closing")) return;
+
     dialogRef.setAttribute("data-closing", "");
     clearCloseTimeout();
+
     closeTimeout = setTimeout(() => {
       closeTimeout = null;
       dialogRef.removeAttribute("data-closing");
@@ -45,9 +47,9 @@ export function RightDrawer(props: RightDrawerProps) {
       clearCloseTimeout();
       dialogRef.removeAttribute("data-closing");
       if (!dialogRef.open) dialogRef.showModal();
-      return;
+    } else {
+      if (dialogRef.open) startClose();
     }
-    if (dialogRef.open) startClose();
   });
 
   onCleanup(() => {
@@ -59,9 +61,9 @@ export function RightDrawer(props: RightDrawerProps) {
       ref={dialogRef}
       onclick={onDialogClick}
       oncancel={onCancel}
-      class="drawer-dialog fixed inset-0 m-0 h-full max-h-none w-full max-w-none overflow-hidden bg-transparent outline-0"
+      class="drawer-dialog invisible fixed m-auto block h-full max-h-none w-full max-w-none overflow-hidden bg-transparent outline-0 open:visible"
     >
-      <aside class="drawer-panel ml-auto h-full w-90 max-w-[90vw] bg-white shadow-sm">
+      <aside class="drawer-panel ml-auto h-full w-100 max-w-[90vw] bg-white p-6 text-content shadow-sm">
         {props.children}
       </aside>
     </dialog>

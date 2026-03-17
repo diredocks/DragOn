@@ -6,10 +6,26 @@
         "label": "Copy Text"
       },
       "OpenAsLink": {
-        "label": "Open as Link"
+        "label": "Open as Link",
+        "settings": {
+          "openInBackground": {
+            "label": "Open in background",
+            "description": "Open the link in a new tab without switching to it."
+          }
+        }
       },
       "Search": {
-        "label": "Search"
+        "label": "Search",
+        "settings": {
+          "customEngine": {
+            "label": "Search engine URL",
+            "description": "The URL template for the search engine. Use %s or the query will be appended at the end."
+          },
+          "openInBackground": {
+            "label": "Open in background",
+            "description": "Open search results in a new tab without switching to it."
+          }
+        }
       }
     },
     "link": {
@@ -17,7 +33,13 @@
         "label": "Copy Link"
       },
       "Open": {
-        "label": "Open Link"
+        "label": "Open Link",
+        "settings": {
+          "openInBackground": {
+            "label": "Open in background",
+            "description": "Open the link in a new tab without switching to it."
+          }
+        }
       }
     },
     "image": {

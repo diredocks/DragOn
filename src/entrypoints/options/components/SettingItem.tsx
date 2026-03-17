@@ -3,6 +3,7 @@ import type { JSX } from "solid-js";
 type SettingItemProps = {
   name: string;
   description?: string;
+  nextLine?: boolean;
   children?: JSX.Element;
 };
 
@@ -11,7 +12,9 @@ export function SettingItem(props: SettingItemProps) {
     !!props.description && props.description !== "NO_CONTENT";
 
   return (
-    <div class="group mb-2 flex items-stretch">
+    <div
+      class={`group mb-2 flex items-stretch ${props.nextLine ? "flex-col" : ""}`}
+    >
       <div
         class={`flex flex-1 flex-col ${hasDescription() ? "justify-start" : "justify-center"}`}
       >

@@ -1,5 +1,6 @@
 export { ActionDropdown } from "./ActionDropdown";
 export { ActionSelector } from "./ActionSelector";
+export { ActionSettings } from "./ActionSettings";
 export { Collapsible } from "./Collapsible";
 export { CollapsibleItem } from "./CollapsibleItem";
 export { ColorPicker } from "./ColorPicker";
