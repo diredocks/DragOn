@@ -22,4 +22,8 @@ export default defineBackground(async () => {
     const rule = getRuleByPattern(m.data.pattern, rules);
     return rule?.match(m.data.ctx)?.toString() ?? null;
   });
+
+  browser.action.onClicked.addListener(() => {
+    browser.runtime.openOptionsPage();
+  });
 });

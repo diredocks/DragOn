@@ -9,6 +9,7 @@ export default defineConfig({
   }),
   manifest: {
     permissions: ["storage"],
+    action: {},
     default_locale: "en",
   },
   srcDir: "src",
