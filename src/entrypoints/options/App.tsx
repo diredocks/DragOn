@@ -36,6 +36,12 @@ const App: Component = () => {
   return (
     <div class="flex min-h-screen bg-neutral-50 text-base text-content">
       <aside class="w-54 border-outline-light border-r p-6">
+        <img
+          src="/icon-96.png"
+          alt="logo"
+          class="mx-10 my-2.5 w-full max-w-17.5"
+          style="image-rendering: pixelated;"
+        />
         <ul class="sticky top-0 pt-2">
           {Object.entries(pages).map(([key, page]) => (
             <li class="my-3">

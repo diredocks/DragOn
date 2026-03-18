@@ -8,6 +8,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   }),
   manifest: {
+    name: "__MSG_extName__",
     permissions: ["storage"],
     action: {},
     default_locale: "en",
