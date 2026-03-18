@@ -23,7 +23,8 @@
       "description": "A sequence of custom actions executed in order.",
       "searchPlaceholder": "Search for actions..."
     },
-    "save": "Save"
+    "save": "Save",
+    "noSettings": "This action has no configurable settings."
   },
   "actions": {
     "text": {

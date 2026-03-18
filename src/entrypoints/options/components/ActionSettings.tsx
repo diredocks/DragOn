@@ -35,59 +35,69 @@ export const ActionSettings: Component<Props> = (props) => {
     );
   };
 
+  const hasSettings = () =>
+    Object.keys(props.action?.defaultSettings ?? {}).length > 0;
+
   return (
     <div class="settings flex h-full flex-col gap-3">
-      <For each={Object.entries(props.action?.defaultSettings ?? {})}>
-        {([key, defaultValue]) => {
-          const value = () => settings[key] ?? defaultValue;
-          const type = typeof defaultValue;
-
-          return (
-            <SettingItem
-              name={getI18n(key, "label")}
-              description={getI18n(key, "description")}
-              nextLine={type === "string"}
-            >
-              <Switch>
-                <Match when={type === "boolean"}>
-                  <input
-                    type="checkbox"
-                    class="ml-2"
-                    checked={value()}
-                    onChange={(e) => setSettings(key, e.currentTarget.checked)}
-                  />
-                </Match>
-                <Match when={type === "number"}>
-                  <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={value()}
-                    onInput={(e) =>
-                      setSettings(key, e.currentTarget.valueAsNumber)
-                    }
-                  />
-                </Match>
-                <Match when={type === "string"}>
-                  <input
-                    class="mt-2 w-full"
-                    value={value()}
-                    onInput={(e) => setSettings(key, e.currentTarget.value)}
-                  />
-                </Match>
-              </Switch>
-            </SettingItem>
-          );
-        }}
-      </For>
-
-      <button
-        type="button"
-        onClick={handleSave}
-        class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
+      <Show
+        when={hasSettings()}
+        fallback={
+          <p class="text-gray-500">{i18n.t("rules.noSettings")}</p>
+        }
       >
-        {i18n.t("rules.save")}
-      </button>
+        <For each={Object.entries(props.action?.defaultSettings ?? {})}>
+          {([key, defaultValue]) => {
+            const value = () => settings[key] ?? defaultValue;
+            const type = typeof defaultValue;
+
+            return (
+              <SettingItem
+                name={getI18n(key, "label")}
+                description={getI18n(key, "description")}
+                nextLine={type === "string"}
+              >
+                <Switch>
+                  <Match when={type === "boolean"}>
+                    <input
+                      type="checkbox"
+                      class="ml-2"
+                      checked={value()}
+                      onChange={(e) => setSettings(key, e.currentTarget.checked)}
+                    />
+                  </Match>
+                  <Match when={type === "number"}>
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      value={value()}
+                      onInput={(e) =>
+                        setSettings(key, e.currentTarget.valueAsNumber)
+                      }
+                    />
+                  </Match>
+                  <Match when={type === "string"}>
+                    <input
+                      class="mt-2 w-full"
+                      value={value()}
+                      onInput={(e) => setSettings(key, e.currentTarget.value)}
+                    />
+                  </Match>
+                </Switch>
+              </SettingItem>
+            );
+          }}
+        </For>
+
+        <button
+          type="button"
+          onClick={handleSave}
+          class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
+        >
+          {i18n.t("rules.save")}
+        </button>
+      </Show>
     </div>
   );
 };
