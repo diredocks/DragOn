@@ -3,6 +3,7 @@ import type { JSXElement } from "solid-js";
 type RightDrawerProps = {
   isOpen: boolean;
   onClose?: () => void;
+  onAfterClose?: () => void;
   children?: JSXElement;
 };
 
@@ -27,6 +28,7 @@ export function RightDrawer(props: RightDrawerProps) {
       closeTimeout = null;
       dialogRef.removeAttribute("data-closing");
       if (dialogRef.open) dialogRef.close();
+      props.onAfterClose?.();
     }, 300);
   };
 

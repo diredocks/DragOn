@@ -21,6 +21,8 @@ type EditorState =
 
 export function Rules() {
   const [editor, setEditor] = createSignal<EditorState>({ type: "closed" });
+  const [visibleAction, setVisibleAction] =
+    createSignal<Action<unknown> | null>(null);
   const [isLoading, setIsLoading] = createSignal(true);
 
   onMount(async () => {
@@ -65,6 +67,14 @@ export function Rules() {
     }
   };
   const closeEditor = () => setEditor({ type: "closed" });
+
+  createEffect(() => {
+    const action = selectedAction();
+    if (action) {
+      // Sync visibleAction with selectedAction, but keep it during close animation
+      setVisibleAction(action);
+    }
+  });
 
   const handleSave = (rule: Rule) => {
     const state = editor();
@@ -121,9 +131,10 @@ export function Rules() {
       <RightDrawer
         isOpen={selectedAction() !== null}
         onClose={() => selectAction(null)}
+        onAfterClose={() => setVisibleAction(null)}
       >
         <ActionSettings
-          action={selectedAction()}
+          action={visibleAction()}
           onSave={() => selectAction(null)}
         />
       </RightDrawer>
