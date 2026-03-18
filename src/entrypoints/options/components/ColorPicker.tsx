@@ -85,7 +85,7 @@ export function ColorPicker(props: ColorPickerProps) {
 
   return (
     <PopupBox
-      title="Color Picker"
+      title={i18n.t("common.colorPicker")}
       trigger={
         <button
           type="button"

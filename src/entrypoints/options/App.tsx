@@ -7,9 +7,9 @@ import { Dynamic } from "solid-js/web";
 import { About, Rules, Settings } from "./pages";
 
 const pages = {
-  rules: { label: "Rules", icon: carShiftPattern, component: Rules },
-  settings: { label: "Settings", icon: cog, component: Settings },
-  about: { label: "About", icon: informationOutline, component: About },
+  rules: { labelKey: "nav.rules", icon: carShiftPattern, component: Rules },
+  settings: { labelKey: "nav.settings", icon: cog, component: Settings },
+  about: { labelKey: "nav.about", icon: informationOutline, component: About },
 } as const;
 
 type PageKey = keyof typeof pages;
@@ -46,7 +46,7 @@ const App: Component = () => {
                 }`}
               >
                 <Icon icon={page.icon} width="30" height="30" />
-                <span>{page.label}</span>
+                <span>{i18n.t(page.labelKey)}</span>
               </a>
             </li>
           ))}
@@ -57,7 +57,7 @@ const App: Component = () => {
         class={`${currentPage() === "rules" ? "" : "max-w-2xl"} flex-1 px-8 py-4`}
       >
         <header class="mb-5 border-outline-light border-b py-3 text-2xl">
-          {pages[currentPage()].label}
+          {i18n.t(pages[currentPage()].labelKey)}
         </header>
         <Dynamic component={pages[currentPage()].component} />
       </main>

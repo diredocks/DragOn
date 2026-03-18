@@ -90,7 +90,7 @@ export function Rules() {
             onClick={openCreator}
             class="h-full w-full cursor-pointer text-outline transition-all duration-300 hover:text-accent"
           >
-            New Rule
+            {i18n.t("rules.new")}
           </button>
         </li>
         <Index each={rules}>
@@ -105,7 +105,7 @@ export function Rules() {
       </ul>
 
       <PopupBox
-        title={isCreating() ? "New Rule" : "Edit Rule"}
+        title={isCreating() ? i18n.t("rules.new") : i18n.t("rules.edit")}
         isOpen={isEditorOpen()}
         onClose={closeEditor}
       >

@@ -86,7 +86,7 @@ export const ActionSettings: Component<Props> = (props) => {
         onClick={handleSave}
         class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
       >
-        Save
+        {i18n.t("rules.save")}
       </button>
     </div>
   );

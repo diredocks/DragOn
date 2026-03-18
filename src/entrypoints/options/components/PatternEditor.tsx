@@ -147,17 +147,17 @@ export function PatternEditor(props: PatternEditorProps) {
           rel="noopener noreferrer"
           class="inline-block"
         >
-          <img src={dino} alt="Dino illustration" class="mb-3 p-4" />
+          <img src={dino} alt={i18n.t("rules.pattern.dinoAlt")} class="mb-3 p-4" />
         </a>
 
-        <p class="mb-1 text-xl">Drag the elements here</p>
+        <p class="mb-1 text-xl">{i18n.t("rules.pattern.title")}</p>
 
         <p class="text-gray-500">
-          Drag the image, selected text, or{" "}
+          {i18n.t("rules.pattern.description")}
           <a href="/" class="text-accent">
-            a link
-          </a>{" "}
-          here. We'll generate the matching pattern for this rule.
+            {i18n.t("rules.pattern.link")}
+          </a>
+          {i18n.t("rules.pattern.descriptionEnd")}
         </p>
       </div>
 

@@ -30,8 +30,8 @@ export function RuleEditor(props: RuleEditorProps) {
       <div class="flex min-w-0 flex-1 basis-50 flex-col gap-10">
         <div class="group block">
           <SettingItem
-            name="Actions"
-            description="A sequence of custom actions executed in order."
+            name={i18n.t("rules.actions.title")}
+            description={i18n.t("rules.actions.description")}
           />
           <ActionSelector
             actions={draftActions()}
@@ -45,7 +45,7 @@ export function RuleEditor(props: RuleEditorProps) {
           onClick={() => props.onSave(new Rule(draftPattern(), draftActions()))}
           class="mt-auto cursor-pointer rounded-sm bg-accent px-0.5 py-1.25 text-content-inverse outline-accent"
         >
-          Save
+          {i18n.t("rules.save")}
         </button>
       </div>
     </div>

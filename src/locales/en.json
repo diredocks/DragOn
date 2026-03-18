@@ -1,6 +1,31 @@
 {
+  "nav": {
+    "rules": "Rules",
+    "settings": "Settings",
+    "about": "About"
+  },
+  "common": {
+    "colorPicker": "Color Picker"
+  },
+  "rules": {
+    "new": "New Rule",
+    "edit": "Edit Rule",
+    "delete": "Delete",
+    "pattern": {
+      "title": "Drag the elements here",
+      "description": "Drag the image, selected text, or ",
+      "link": "a link",
+      "descriptionEnd": " here. We'll generate the matching pattern for this rule.",
+      "dinoAlt": "Dino illustration"
+    },
+    "actions": {
+      "title": "Actions",
+      "description": "A sequence of custom actions executed in order.",
+      "searchPlaceholder": "Search for actions..."
+    },
+    "save": "Save"
+  },
   "actions": {
-    "searchPlaceHolder": "Search for actions...",
     "text": {
       "Copy": {
         "label": "Copy Text"
@@ -19,7 +44,7 @@
         "settings": {
           "customEngine": {
             "label": "Search engine URL",
-            "description": "The URL template for the search engine. Use %s or the query will be appended at the end."
+            "description": "The URL template for the search engine, the query will be appended at the end."
           },
           "openInBackground": {
             "label": "Open in background",

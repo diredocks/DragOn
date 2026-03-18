@@ -96,7 +96,7 @@ export function ActionSelector(props: ActionSelectorProps) {
           <input
             class="w-full px-2 py-1 text-sm outline-0"
             type="search"
-            placeholder={i18n.t("actions.searchPlaceHolder")}
+            placeholder={i18n.t("rules.actions.searchPlaceholder")}
             value={keyword()}
             onFocus={() => setOpen(true)}
             onBlur={() => setOpen(false)}
