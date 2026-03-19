@@ -60,7 +60,7 @@ export function About() {
         >
           {i18n.t("about.reportBug")}
         </a>
-        <span class="after:px-2.5 after:opacity-20 after:content-['\25CF']" />
+        <span class="text-[10px] after:px-2.5 after:opacity-20 after:content-['\25CF']" />
         <a
           href="https://github.com/diredocks/DragOn"
           class="text-accent underline decoration-dotted after:inline-block after:pl-[0.25em] after:no-underline after:content-['_↗'] hover:decoration-solid"
@@ -83,7 +83,11 @@ export function About() {
         >
           {i18n.t("about.restore")}
         </button>
-        <ConfirmDialog title={i18n.t("about.reset")} variant="danger" onConfirm={handleReset}>
+        <ConfirmDialog
+          title={i18n.t("about.reset")}
+          variant="danger"
+          onConfirm={handleReset}
+        >
           {i18n.t("about.resetWarning")}
         </ConfirmDialog>
       </div>

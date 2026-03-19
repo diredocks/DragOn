@@ -35,11 +35,11 @@ const App: Component = () => {
 
   return (
     <div class="flex min-h-screen bg-neutral-50 text-base text-content">
-      <aside class="w-54 p-6">
+      <aside class="w-46 p-6">
         <img
           src="/icon-96.png"
           alt="logo"
-          class="mx-10 my-2.5 w-full max-w-17.5"
+          class="mx-auto my-2.5 w-full max-w-17.5"
           style="image-rendering: pixelated;"
         />
         <ul class="sticky top-0 pt-2">
@@ -47,11 +47,11 @@ const App: Component = () => {
             <li class="my-3">
               <a
                 href={`#${key}`}
-                class={`flex items-center gap-3 px-3 py-2 transition-colors hover:text-accent ${
-                  currentPage() === key ? "font-medium text-accent" : ""
+                class={`my-7.5 flex items-center gap-3 px-3 text-lg transition-colors hover:text-accent ${
+                  currentPage() === key ? "text-accent" : ""
                 }`}
               >
-                <Icon icon={page.icon} width="30" height="30" />
+                <Icon icon={page.icon} width="32" height="32" />
                 <span>{i18n.t(page.labelKey)}</span>
               </a>
             </li>
