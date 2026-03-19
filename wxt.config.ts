@@ -9,6 +9,7 @@ export default defineConfig({
   }),
   manifest: {
     name: "__MSG_extName__",
+    description: "__MSG_extDescription__",
     permissions: ["storage"],
     action: {},
     default_locale: "en",

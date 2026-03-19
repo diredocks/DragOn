@@ -1,3 +1,3 @@
 # DragOn
 
-Yet another drag and drop extension
+Drag, image, link, text... Drop!
