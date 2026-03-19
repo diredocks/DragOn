@@ -8,6 +8,9 @@
     },
     "reportBug": "Report a bug",
     "sourceCode": "Source code",
+    "backup": "Backup",
+    "restore": "Restore",
+    "reset": "Reset",
     "resetWarning": "All settings including rules will be reset. This cannot be undone!"
   },
   "nav": {

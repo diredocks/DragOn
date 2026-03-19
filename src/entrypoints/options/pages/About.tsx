@@ -75,15 +75,15 @@ export function About() {
           class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400"
           onclick={handleBackup}
         >
-          Backup
+          {i18n.t("about.backup")}
         </button>
         <button
           type="button"
           class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400"
         >
-          Restore
+          {i18n.t("about.restore")}
         </button>
-        <ConfirmDialog title="Reset" variant="danger" onConfirm={handleReset}>
+        <ConfirmDialog title={i18n.t("about.reset")} variant="danger" onConfirm={handleReset}>
           {i18n.t("about.resetWarning")}
         </ConfirmDialog>
       </div>

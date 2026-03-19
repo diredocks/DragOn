@@ -1,0 +1,146 @@
+{
+  "extName": "DragOn：拖拽超进化",
+  "about": {
+    "version": "版本",
+    "license": {
+      "label": "许可证",
+      "description": "此强著佐权许可证的权限以提供完整源代码为条件，包括使用了许可作品的较大作品及其修改，均须以相同许可证发布。必须保留版权和许可声明。贡献者明确授予专利权。"
+    },
+    "reportBug": "反馈问题",
+    "sourceCode": "源代码",
+    "backup": "备份",
+    "restore": "恢复",
+    "reset": "重置",
+    "resetWarning": "所有设置（包括规则）将被重置，此操作无法撤销！"
+  },
+  "nav": {
+    "rules": "规则",
+    "settings": "设置",
+    "about": "关于"
+  },
+  "common": {
+    "colorPicker": "颜色选择器",
+    "confirm": "确认",
+    "cancel": "取消"
+  },
+  "rules": {
+    "new": "新建规则",
+    "edit": "编辑规则",
+    "delete": "删除",
+    "pattern": {
+      "title": "将元素拖到此处",
+      "description": "将图片、选中的文字或",
+      "link": "链接",
+      "descriptionEnd": "拖到此处，我们将为此规则自动生成匹配模式。",
+      "dinoAlt": "恐龙插图"
+    },
+    "actions": {
+      "title": "动作",
+      "description": "按顺序执行的一系列自定义动作。",
+      "searchPlaceholder": "搜索动作..."
+    },
+    "save": "保存",
+    "noSettings": "此动作没有可配置的设置。"
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "复制文字"
+      },
+      "OpenAsLink": {
+        "label": "将文字作为链接打开",
+        "settings": {
+          "openInBackground": {
+            "label": "在后台打开",
+            "description": "在新标签页中打开链接，但不切换到该标签页。"
+          }
+        }
+      },
+      "Search": {
+        "label": "搜索文字",
+        "settings": {
+          "customEngine": {
+            "label": "搜索引擎 URL",
+            "description": "搜索引擎的 URL 模板，查询内容将附加在末尾。"
+          },
+          "openInBackground": {
+            "label": "在后台打开",
+            "description": "在新标签页中打开搜索结果，但不切换到该标签页。"
+          }
+        }
+      }
+    },
+    "link": {
+      "Copy": {
+        "label": "复制链接"
+      },
+      "Open": {
+        "label": "打开链接"
+      },
+      "OpenInNewTab": {
+        "label": "在新标签页中打开链接",
+        "settings": {
+          "openInBackground": {
+            "label": "在后台打开",
+            "description": "在新标签页中打开链接，但不切换到该标签页。"
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "复制图片"
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "显示动作",
+        "description": "若有匹配的动作则显示当前匹配项。"
+      },
+      "followCursor": {
+        "label": "跟随光标",
+        "description": "设置动作提示是否跟随光标移动。"
+      },
+      "fontColor": {
+        "label": "字体颜色",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "背景颜色",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "字体大小",
+        "description": "支持所有 CSS 单位，如：em、px、pt、%、vh 等。"
+      },
+      "horizontalPosition": {
+        "label": "水平位置",
+        "description": "水平屏幕位置，0 为最左，100 为最右。"
+      },
+      "verticalPosition": {
+        "label": "垂直位置",
+        "description": "垂直屏幕位置，0 为顶部，100 为底部。"
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "显示轨迹",
+        "description": "沿鼠标移动路径显示轨迹。"
+      },
+      "strokeColor": {
+        "label": "线条颜色",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "线条渐粗",
+        "description": "设置线条粗细是否随移动渐增。"
+      },
+      "lineWidth": {
+        "label": "线条宽度",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}
