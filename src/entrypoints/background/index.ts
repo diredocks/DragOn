@@ -3,15 +3,8 @@ import { rulesStorage } from "@/shared/settings/storage";
 import { getRuleByPattern } from "@/shared/utils/matcher";
 import { onMessage } from "@/shared/utils/messaging";
 
-export default defineBackground(async () => {
-  const serializedRules = await rulesStorage.getValue();
-  let rules: Rule[] = await Promise.all(
-    serializedRules.map((r) => Rule.fromJSON(r)),
-  );
-
-  rulesStorage.watch(async (newRules) => {
-    rules = await Promise.all(newRules.map((r) => Rule.fromJSON(r)));
-  });
+export default defineBackground(() => {
+  let rules: Rule[] = [];
 
   onMessage("dragEnd", (m) => {
     const rule = getRuleByPattern(m.data.pattern, rules);
@@ -25,5 +18,14 @@ export default defineBackground(async () => {
 
   browser.action.onClicked.addListener(() => {
     browser.runtime.openOptionsPage();
+  });
+
+  (async () => {
+    const serializedRules = await rulesStorage.getValue();
+    rules = await Promise.all(serializedRules.map((r) => Rule.fromJSON(r)));
+  })();
+
+  rulesStorage.watch(async (newRules) => {
+    rules = await Promise.all(newRules.map((r) => Rule.fromJSON(r)));
   });
 });
