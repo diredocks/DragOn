@@ -16,7 +16,7 @@ const [rules, setRules] = createStore<Rule[]>([]);
 
 type EditorState =
   | { type: "closed" }
-  | { type: "creating" }
+  | { type: "creating"; selectedAction: Action<unknown> | null }
   | { type: "editing"; index: number; selectedAction: Action<unknown> | null };
 
 export function Rules() {
@@ -54,15 +54,15 @@ export function Rules() {
 
   const selectedAction = () => {
     const state = editor();
-    return state.type === "editing" ? state.selectedAction : null;
+    return state.type !== "closed" ? state.selectedAction : null;
   };
 
-  const openCreator = () => setEditor({ type: "creating" });
+  const openCreator = () => setEditor({ type: "creating", selectedAction: null });
   const openEditor = (index: number) =>
     setEditor({ type: "editing", index, selectedAction: null });
   const selectAction = (action: Action<unknown> | null) => {
     const state = editor();
-    if (state.type === "editing") {
+    if (state.type !== "closed") {
       setEditor({ ...state, selectedAction: action });
     }
   };
