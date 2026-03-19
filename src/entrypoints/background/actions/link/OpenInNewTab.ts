@@ -1,0 +1,28 @@
+import { Action, type ActionRun } from "@/shared/models/action";
+import { nextTabIndex } from "@/shared/utils/common";
+
+interface Options {
+  openInBackground: boolean;
+}
+
+const fn: ActionRun<Options> = async (ctx, sender, options) => {
+  if (!ctx.link) return false;
+
+  await browser.tabs.create({
+    url: ctx.link,
+    active: !options.openInBackground,
+    openerTabId: sender.tab?.id,
+    index: (await nextTabIndex()) + 1,
+  });
+
+  return true;
+};
+
+export default class OpenInNewTab extends Action<Options> {
+  type = "link" as const;
+  name = "OpenInNewTab" as const;
+  defaultSettings: Options = {
+    openInBackground: true,
+  };
+  fn = fn;
+}

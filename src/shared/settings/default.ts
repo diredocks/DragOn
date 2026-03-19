@@ -32,7 +32,7 @@ for (const i of [-1, 0, 1]) {
         },
         {
           type: "link",
-          name: "Open",
+          name: "OpenInNewTab",
         },
         {
           type: "image",

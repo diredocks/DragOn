@@ -42,10 +42,10 @@
   "actions": {
     "text": {
       "Copy": {
-        "label": "Copy Text"
+        "label": "Copy text"
       },
       "OpenAsLink": {
-        "label": "Open as Link",
+        "label": "Open text as link",
         "settings": {
           "openInBackground": {
             "label": "Open in background",
@@ -54,7 +54,7 @@
         }
       },
       "Search": {
-        "label": "Search",
+        "label": "Search text",
         "settings": {
           "customEngine": {
             "label": "Search engine URL",
@@ -69,10 +69,13 @@
     },
     "link": {
       "Copy": {
-        "label": "Copy Link"
+        "label": "Copy link"
       },
       "Open": {
-        "label": "Open Link",
+        "label": "Open link"
+      },
+      "OpenInNewTab": {
+        "label": "Open link in new tab",
         "settings": {
           "openInBackground": {
             "label": "Open in background",
@@ -83,7 +86,7 @@
     },
     "image": {
       "Copy": {
-        "label": "Copy Image"
+        "label": "Copy image"
       }
     }
   },
