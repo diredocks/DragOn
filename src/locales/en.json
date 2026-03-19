@@ -15,7 +15,9 @@
     "about": "About"
   },
   "common": {
-    "colorPicker": "Color Picker"
+    "colorPicker": "Color Picker",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   },
   "rules": {
     "new": "New Rule",

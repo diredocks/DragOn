@@ -1,3 +1,5 @@
+import { ConfirmDialog } from "../components";
+
 export function About() {
   const manifest = browser.runtime.getManifest();
 
@@ -28,6 +30,24 @@ export function About() {
           {i18n.t("about.sourceCode")}
         </a>
       </p>
+      <hr class="my-5 border-outline-light" />
+      <div class="flex flex-wrap justify-end gap-4">
+        <button
+          type="button"
+          class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400"
+        >
+          Backup
+        </button>
+        <button
+          type="button"
+          class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400"
+        >
+          Restore
+        </button>
+        <ConfirmDialog title="Reset" variant="danger" onConfirm={() => {}}>
+          All settings including rules will be reset. This cannot be undone!
+        </ConfirmDialog>
+      </div>
     </>
   );
 }

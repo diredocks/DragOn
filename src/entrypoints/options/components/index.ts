@@ -1,4 +1,5 @@
 export { ActionDropdown } from "./ActionDropdown";
+export { ConfirmDialog } from "./ConfirmDialog";
 export { ActionSelector } from "./ActionSelector";
 export { ActionSettings } from "./ActionSettings";
 export { Collapsible } from "./Collapsible";
