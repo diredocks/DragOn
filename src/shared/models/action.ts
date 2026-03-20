@@ -31,6 +31,11 @@ export abstract class Action<TOptions> {
     return i18n.t(`actions.${this.type}.${this.name}.label`);
   }
 
+  async requestPermissions() {
+    if (!this.permissions || this.permissions.length === 0) return true;
+    return browser.permissions.request({ permissions: [...this.permissions] });
+  }
+
   execute(ctx: Context, sender: Browser.runtime.MessageSender) {
     const options = { ...this.defaultSettings, ...this.settings } as TOptions;
     return this.fn(ctx, sender, options);

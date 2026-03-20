@@ -45,12 +45,7 @@ export function ActionSelector(props: ActionSelectorProps) {
 
   const addAction = async (item: ActionSerialized) => {
     const action = await Action.fromJSON(item);
-    if (action.permissions && action.permissions.length > 0) {
-      const granted = await browser.permissions.request({
-        permissions: [...action.permissions],
-      });
-      if (!granted) return;
-    }
+    if (!await action.requestPermissions()) return;
 
     props.onChange([...props.actions, action]);
     setKeyword("");
