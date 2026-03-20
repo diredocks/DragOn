@@ -41,6 +41,19 @@ export function About() {
     URL.revokeObjectURL(url);
   };
 
+  const handleRestore = async (event: Event) => {
+    const input = event.currentTarget as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    const parsed = JSON.parse(await file.text());
+
+    await traceSettingsStorage.setValue(parsed.traceSettings);
+    await actionSettingsStorage.setValue(parsed.actionSettings);
+    await rulesStorage.setValue(parsed.rules);
+    input.value = "";
+  };
+
   return (
     <>
       <p class="pb-2.5">
@@ -77,12 +90,15 @@ export function About() {
         >
           {i18n.t("about.backup")}
         </button>
-        <button
-          type="button"
-          class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400"
-        >
+        <label class="cursor-pointer rounded-sm border border-outline bg-white px-8 py-1.5 text-content transition-colors duration-300 hover:border-gray-400">
+          <input
+            type="file"
+            accept="application/json"
+            class="hidden"
+            onChange={handleRestore}
+          />
           {i18n.t("about.restore")}
-        </button>
+        </label>
         <ConfirmDialog
           title={i18n.t("about.reset")}
           variant="danger"
