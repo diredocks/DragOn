@@ -132,6 +132,7 @@ function ActionSettings() {
   );
 }
 
+// TODO: onStorageChange
 export function Settings() {
   return (
     <div class="settings">

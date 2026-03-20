@@ -11,6 +11,8 @@
     "sourceCode": "Source code",
     "backup": "Backup",
     "restore": "Restore",
+    "restoreSuccess": "The selected config has been successfully restored.",
+    "restoreFailure": "The selected file is not a valid config file.",
     "reset": "Reset",
     "resetWarning": "All settings including rules will be reset. This cannot be undone!"
   },

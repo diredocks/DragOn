@@ -1,12 +1,15 @@
+import { ConfirmDialog, PopupBox } from "@/entrypoints/options/components";
 import {
   actionSettingsStorage,
   rulesStorage,
   traceSettingsStorage,
 } from "@/shared/settings/storage";
-import { ConfirmDialog } from "../components";
 
 export function About() {
   const manifest = browser.runtime.getManifest();
+  const [restoreResult, setRestoreResult] = createSignal<
+    "success" | "failure" | null
+  >(null);
 
   const handleReset = async () => {
     await traceSettingsStorage.removeValue();
@@ -46,11 +49,18 @@ export function About() {
     const file = input.files?.[0];
     if (!file) return;
 
-    const parsed = JSON.parse(await file.text());
+    try {
+      const parsed = JSON.parse(await file.text());
 
-    await traceSettingsStorage.setValue(parsed.traceSettings);
-    await actionSettingsStorage.setValue(parsed.actionSettings);
-    await rulesStorage.setValue(parsed.rules);
+      await traceSettingsStorage.setValue(parsed.traceSettings);
+      await actionSettingsStorage.setValue(parsed.actionSettings);
+      // TODO: Request permissions for action in rules
+      await rulesStorage.setValue(parsed.rules);
+      setRestoreResult("success");
+    } catch {
+      setRestoreResult("failure");
+    }
+
     input.value = "";
   };
 
@@ -107,6 +117,17 @@ export function About() {
           {i18n.t("about.resetWarning")}
         </ConfirmDialog>
       </div>
+      <PopupBox
+        title={i18n.t("about.restore")}
+        isOpen={restoreResult() !== null}
+        onClose={() => setRestoreResult(null)}
+      >
+        <p>
+          {restoreResult() === "success"
+            ? i18n.t("about.restoreSuccess")
+            : i18n.t("about.restoreFailure")}
+        </p>
+      </PopupBox>
     </>
   );
 }
