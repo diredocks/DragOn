@@ -26,7 +26,7 @@ const fn: ActionRun<Options> = async (ctx, sender, options) => {
 
   await browser.tabs.create({
     url: ctx.img,
-    active: !options.focus,
+    active: options.focus,
     openerTabId: sender.tab?.id,
     index,
   });
