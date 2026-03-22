@@ -19,6 +19,7 @@
   "nav": {
     "rules": "Rules",
     "settings": "Settings",
+    "exclusions": "Exclusions",
     "about": "About"
   },
   "common": {

@@ -1,4 +1,4 @@
-import { defaultRules, defaultSettings } from "./default";
+import { defaultExclusions, defaultRules, defaultSettings } from "./default";
 
 export const traceSettingsStorage = storage.defineItem<
   typeof defaultSettings.trace
@@ -11,4 +11,9 @@ export const actionSettingsStorage = storage.defineItem<
 export const rulesStorage = storage.defineItem<typeof defaultRules>(
   "local:rules",
   { fallback: defaultRules },
+);
+
+export const exclusionsStorage = storage.defineItem<typeof defaultExclusions>(
+  "local:exclusions",
+  { fallback: defaultExclusions },
 );

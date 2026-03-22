@@ -1,14 +1,16 @@
 import carShiftPattern from "@iconify/icons-mdi/car-shift-pattern";
 import cog from "@iconify/icons-mdi/cog";
+import list from "@iconify/icons-mdi/format-list-bulleted-square";
 import informationOutline from "@iconify/icons-mdi/information-outline";
 import { Icon } from "@iconify-icon/solid";
 import { type Component, createSignal, onCleanup } from "solid-js";
 import { Dynamic } from "solid-js/web";
-import { About, Rules, Settings } from "./pages";
+import { About, Exclusions, Rules, Settings } from "./pages";
 
 const pages = {
   rules: { labelKey: "nav.rules", icon: carShiftPattern, component: Rules },
   settings: { labelKey: "nav.settings", icon: cog, component: Settings },
+  exclusions: { labelKey: "nav.exclusions", icon: list, component: Exclusions },
   about: { labelKey: "nav.about", icon: informationOutline, component: About },
 } as const;
 

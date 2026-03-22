@@ -44,3 +44,4 @@ for (const i of [-1, 0, 1]) {
 }
 
 export const defaultRules: RuleSerialized[] = rules;
+export const defaultExclusions: URLPattern[] = [];

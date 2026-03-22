@@ -1,0 +1,5 @@
+- [] Exclusions
+- [] Rule validation check
+- [] Enum settings item in action
+- [] More actions
+- [] Promotional materials (Screenshots, Extension Descriptions...)
