@@ -57,7 +57,8 @@ export function Rules() {
     return state.type !== "closed" ? state.selectedAction : null;
   };
 
-  const openCreator = () => setEditor({ type: "creating", selectedAction: null });
+  const openCreator = () =>
+    setEditor({ type: "creating", selectedAction: null });
   const openEditor = (index: number) =>
     setEditor({ type: "editing", index, selectedAction: null });
   const selectAction = (action: Action<unknown> | null) => {
@@ -77,6 +78,7 @@ export function Rules() {
   });
 
   const handleSave = (rule: Rule) => {
+    if (rule.actions.length === 0 || rule.pattern.length === 0) return;
     const state = editor();
     if (state.type === "creating") {
       setRules(rules.length, rule);

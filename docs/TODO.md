@@ -1,5 +1,5 @@
 - [x] Exclusions
-- [ ] Rule validation check
+- [x] Rule validation check
 - [ ] Enum settings item in action
 - [ ] Customizable action label
 - [ ] More actions
