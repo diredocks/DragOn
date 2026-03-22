@@ -109,6 +109,9 @@
       "Copy": {
         "label": "Copy link"
       },
+      "CopyLinkText": {
+        "label": "Copy link text"
+      },
       "Open": {
         "label": "Open link"
       },

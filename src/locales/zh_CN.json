@@ -109,6 +109,9 @@
       "Copy": {
         "label": "复制链接"
       },
+      "CopyLinkText": {
+        "label": "复制链接文本"
+      },
       "Open": {
         "label": "打开链接"
       },

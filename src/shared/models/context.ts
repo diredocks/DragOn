@@ -1,6 +1,7 @@
 export class Context {
   readonly img?: string;
   readonly link?: string;
+  readonly linkText?: string;
   readonly dropText?: string;
   readonly selectedText?: string;
 
@@ -28,11 +29,13 @@ export class Context {
     const selectionEl =
       window.getSelection()?.anchorNode?.parentElement ?? null;
 
-    this.link =
-      hitEl?.closest("a")?.href ??
-      semanticEl?.closest("a")?.href ??
-      hitEl?.querySelector("a")?.href ??
-      semanticEl?.querySelector("a")?.href;
+    const anchorEl =
+      hitEl?.closest("a") ??
+      semanticEl?.closest("a") ??
+      hitEl?.querySelector("a") ??
+      semanticEl?.querySelector("a");
+    this.link = anchorEl?.href;
+    this.linkText = anchorEl?.textContent?.trim() || undefined;
     this.img =
       hitEl?.closest("img")?.src ??
       semanticEl?.closest("img")?.src ??
