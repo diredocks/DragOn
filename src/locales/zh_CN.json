@@ -16,9 +16,19 @@
     "reset": "重置",
     "resetWarning": "所有设置（包括规则）将被重置，此操作无法撤销！"
   },
+  "exclusions": {
+    "info": {
+      "label": "说明：",
+      "description": "添加 URL 匹配模式以在特定网站上禁用 DragOn。匹配模式支持 \"*\" 通配符，格式必须为 <scheme>://<host><path>。"
+    },
+    "placeholder": "输入 URL 匹配模式",
+    "add": "添加",
+    "empty": "暂无条目"
+  },
   "nav": {
     "rules": "规则",
     "settings": "设置",
+    "exclusions": "排除项",
     "about": "关于"
   },
   "common": {
