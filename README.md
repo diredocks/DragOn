@@ -1,3 +1,3 @@
 # DragOn
 
-Drag, image, link, text... Drop!
+Drag image, text, link... Drop!
