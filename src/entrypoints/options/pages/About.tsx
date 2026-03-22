@@ -1,6 +1,7 @@
 import { ConfirmDialog, PopupBox } from "@/entrypoints/options/components";
 import {
   actionSettingsStorage,
+  exclusionsStorage,
   rulesStorage,
   traceSettingsStorage,
 } from "@/shared/settings/storage";
@@ -15,6 +16,7 @@ export function About() {
     await traceSettingsStorage.removeValue();
     await actionSettingsStorage.removeValue();
     await rulesStorage.removeValue();
+    await exclusionsStorage.removeValue();
   };
 
   const handleBackup = async () => {
@@ -25,6 +27,7 @@ export function About() {
             traceSettings: await traceSettingsStorage.getValue(),
             actionSettings: await actionSettingsStorage.getValue(),
             rules: await rulesStorage.getValue(),
+            exclusions: await exclusionsStorage.getValue(),
           },
           null,
           2,
@@ -56,6 +59,7 @@ export function About() {
       await actionSettingsStorage.setValue(parsed.actionSettings);
       // TODO: Request permissions for action in rules
       await rulesStorage.setValue(parsed.rules);
+      await exclusionsStorage.setValue(parsed.exclusions);
       setRestoreResult("success");
     } catch {
       setRestoreResult("failure");

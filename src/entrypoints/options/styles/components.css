@@ -11,6 +11,22 @@
   @apply overflow-hidden;
 }
 
+.exclusion-item {
+  @apply transition-[opacity,transform] duration-200 ease-out;
+}
+
+@starting-style {
+  .exclusion-item {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+}
+
+.exclusion-item[data-removing] {
+  opacity: 0;
+  transform: translateX(8px);
+}
+
 .settings input {
   @apply border-outline outline-accent inline-block;
   @apply rounded-sm border bg-white py-1.5 text-center text-base;

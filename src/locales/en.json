@@ -16,6 +16,15 @@
     "reset": "Reset",
     "resetWarning": "All settings including rules will be reset. This cannot be undone!"
   },
+  "exclusions": {
+    "info": {
+      "label": "Information:",
+      "description": "Add URL match patterns to disable DragOn for certain websites. The match pattern allows \"*\" wildcards and must be in the form of <scheme>://<host><path>."
+    },
+    "placeholder": "Enter URL match pattern",
+    "add": "Add",
+    "empty": "No entries available"
+  },
   "nav": {
     "rules": "Rules",
     "settings": "Settings",
