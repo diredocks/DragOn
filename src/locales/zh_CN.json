@@ -178,6 +178,26 @@
       },
       "CopyLink": {
         "label": "复制图片链接"
+      },
+      "OpenInNewTab": {
+        "label": "在新标签页中打开图片",
+        "settings": {
+          "focus": {
+            "label": "聚焦新标签页",
+            "description": "切换到新打开的标签页。"
+          },
+          "position": {
+            "label": "打开位置",
+            "description": "新标签页相对于当前标签页的插入位置。",
+            "options": {
+              "Before": "在当前标签页之前",
+              "After": "在当前标签页之后",
+              "Start": "最前面",
+              "End": "最后面",
+              "Default": "默认"
+            }
+          }
+        }
       }
     }
   },

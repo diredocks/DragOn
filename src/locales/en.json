@@ -178,6 +178,26 @@
       },
       "CopyLink": {
         "label": "Copy image link"
+      },
+      "OpenInNewTab": {
+        "label": "Open image in new tab",
+        "settings": {
+          "focus": {
+            "label": "Focus new tab",
+            "description": "Switch to the newly opened tab."
+          },
+          "position": {
+            "label": "Open position",
+            "description": "Where to insert the new tab relative to the current one.",
+            "options": {
+              "Before": "Before current tab",
+              "After": "After current tab",
+              "Start": "At the start",
+              "End": "At the end",
+              "Default": "Default"
+            }
+          }
+        }
       }
     }
   },
