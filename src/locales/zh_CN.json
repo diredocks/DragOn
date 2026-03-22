@@ -63,9 +63,20 @@
       "OpenAsLink": {
         "label": "将文字作为链接打开",
         "settings": {
-          "openInBackground": {
-            "label": "在后台打开",
-            "description": "在新标签页中打开链接，但不切换到该标签页。"
+          "focus": {
+            "label": "聚焦新标签页",
+            "description": "切换到新打开的标签页。"
+          },
+          "position": {
+            "label": "打开位置",
+            "description": "新标签页相对于当前标签页的插入位置。",
+            "options": {
+              "Before": "在当前标签页之前",
+              "After": "在当前标签页之后",
+              "Start": "最前面",
+              "End": "最后面",
+              "Default": "默认"
+            }
           }
         }
       },
@@ -76,9 +87,20 @@
             "label": "搜索引擎 URL",
             "description": "搜索引擎的 URL 模板，查询内容将附加在末尾。"
           },
-          "openInBackground": {
-            "label": "在后台打开",
-            "description": "在新标签页中打开搜索结果，但不切换到该标签页。"
+          "focus": {
+            "label": "聚焦新标签页",
+            "description": "切换到新打开的标签页。"
+          },
+          "position": {
+            "label": "打开位置",
+            "description": "新标签页相对于当前标签页的插入位置。",
+            "options": {
+              "Before": "在当前标签页之前",
+              "After": "在当前标签页之后",
+              "Start": "最前面",
+              "End": "最后面",
+              "Default": "默认"
+            }
           }
         }
       }

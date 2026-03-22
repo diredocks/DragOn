@@ -63,9 +63,20 @@
       "OpenAsLink": {
         "label": "Open text as link",
         "settings": {
-          "openInBackground": {
-            "label": "Open in background",
-            "description": "Open the link in a new tab without switching to it."
+          "focus": {
+            "label": "Focus new tab",
+            "description": "Switch to the newly opened tab."
+          },
+          "position": {
+            "label": "Open position",
+            "description": "Where to insert the new tab relative to the current one.",
+            "options": {
+              "Before": "Before current tab",
+              "After": "After current tab",
+              "Start": "At the start",
+              "End": "At the end",
+              "Default": "Default"
+            }
           }
         }
       },
@@ -76,9 +87,20 @@
             "label": "Search engine URL",
             "description": "The URL template for the search engine, the query will be appended at the end."
           },
-          "openInBackground": {
-            "label": "Open in background",
-            "description": "Open search results in a new tab without switching to it."
+          "focus": {
+            "label": "Focus new tab",
+            "description": "Switch to the newly opened tab."
+          },
+          "position": {
+            "label": "Open position",
+            "description": "Where to insert the new tab relative to the current one.",
+            "options": {
+              "Before": "Before current tab",
+              "After": "After current tab",
+              "Start": "At the start",
+              "End": "At the end",
+              "Default": "Default"
+            }
           }
         }
       }

@@ -1,12 +1,5 @@
 import { Action, type ActionRun } from "@/shared/models/action";
-
-enum Position {
-  Before,
-  After,
-  Start,
-  End,
-  Default,
-}
+import { Position } from "@/shared/utils/type";
 
 interface Options {
   focus: boolean;
