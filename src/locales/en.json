@@ -131,6 +131,15 @@
             }
           }
         }
+      },
+      "OpenInNewWindow": {
+        "label": "Open link in new window",
+        "settings": {
+          "focus": {
+            "label": "Focus new window",
+            "description": "Switch to the newly opened window."
+          }
+        }
       }
     },
     "image": {
