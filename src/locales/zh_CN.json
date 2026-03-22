@@ -112,6 +112,30 @@
       "CopyLinkText": {
         "label": "复制链接文本"
       },
+      "SearchLinkText": {
+        "label": "搜索链接文本",
+        "settings": {
+          "customEngine": {
+            "label": "搜索引擎 URL",
+            "description": "搜索引擎的 URL 模板，查询内容将附加在末尾。"
+          },
+          "focus": {
+            "label": "聚焦新标签页",
+            "description": "切换到新打开的标签页。"
+          },
+          "position": {
+            "label": "打开位置",
+            "description": "新标签页相对于当前标签页的插入位置。",
+            "options": {
+              "Before": "在当前标签页之前",
+              "After": "在当前标签页之后",
+              "Start": "最前面",
+              "End": "最后面",
+              "Default": "默认"
+            }
+          }
+        }
+      },
       "Open": {
         "label": "打开链接"
       },

@@ -112,6 +112,30 @@
       "CopyLinkText": {
         "label": "Copy link text"
       },
+      "SearchLinkText": {
+        "label": "Search link text",
+        "settings": {
+          "customEngine": {
+            "label": "Search engine URL",
+            "description": "The URL template for the search engine, the query will be appended at the end."
+          },
+          "focus": {
+            "label": "Focus new tab",
+            "description": "Switch to the newly opened tab."
+          },
+          "position": {
+            "label": "Open position",
+            "description": "Where to insert the new tab relative to the current one.",
+            "options": {
+              "Before": "Before current tab",
+              "After": "After current tab",
+              "Start": "At the start",
+              "End": "At the end",
+              "Default": "Default"
+            }
+          }
+        }
+      },
       "Open": {
         "label": "Open link"
       },
