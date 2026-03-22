@@ -1,4 +1,6 @@
 import { ConfirmDialog, PopupBox } from "@/entrypoints/options/components";
+import { Action } from "@/shared/models/action";
+import type { RuleSerialized } from "@/shared/models/rule";
 import {
   actionSettingsStorage,
   exclusionsStorage,
@@ -57,8 +59,12 @@ export function About() {
 
       await traceSettingsStorage.setValue(parsed.traceSettings);
       await actionSettingsStorage.setValue(parsed.actionSettings);
-      // TODO: Request permissions for action in rules
-      await rulesStorage.setValue(parsed.rules);
+      const rules: RuleSerialized[] = parsed.rules ?? [];
+      const actions = await Promise.all(
+        rules.flatMap((r) => r.actions.map((a) => Action.fromJSON(a))),
+      );
+      await Promise.all(actions.map((a) => a.requestPermissions()));
+      await rulesStorage.setValue(rules);
       await exclusionsStorage.setValue(parsed.exclusions);
       setRestoreResult("success");
     } catch {
