@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: ドラッグ＆ドロップ、進化版",
+  "extDescription": "画像・テキスト・リンクをドラッグ…ドロップ！",
+  "about": {
+    "version": "バージョン",
+    "license": {
+      "label": "ライセンス",
+      "description": "この強力なコピーレフトライセンスの許可条件は、ライセンス作品および変更物の完全なソースコードを同一ライセンスの下で公開することです。ライセンス作品を使用する大規模な作品も同様です。著作権およびライセンス表示を保持する必要があります。貢献者は特許権を明示的に付与します。"
+    },
+    "reportBug": "バグを報告",
+    "sourceCode": "ソースコード",
+    "backup": "バックアップ",
+    "restore": "復元",
+    "restoreSuccess": "選択した設定が正常に復元されました。",
+    "restoreFailure": "選択したファイルは有効な設定ファイルではありません。",
+    "reset": "リセット",
+    "resetWarning": "ルールを含むすべての設定がリセットされます。この操作は元に戻せません！"
+  },
+  "exclusions": {
+    "info": {
+      "label": "情報：",
+      "description": "URLマッチパターンを追加して、特定のウェブサイトでDragOnを無効にします。マッチパターンは「*」ワイルドカードを使用でき、<scheme>://<host><path>の形式である必要があります。"
+    },
+    "placeholder": "URLマッチパターンを入力",
+    "add": "追加",
+    "empty": "エントリがありません"
+  },
+  "nav": {
+    "rules": "ルール",
+    "settings": "設定",
+    "exclusions": "除外",
+    "about": "について"
+  },
+  "common": {
+    "colorPicker": "カラーピッカー",
+    "confirm": "確認",
+    "cancel": "キャンセル"
+  },
+  "rules": {
+    "new": "新しいルール",
+    "edit": "ルールを編集",
+    "delete": "削除",
+    "pattern": {
+      "title": "ここに要素をドラッグ",
+      "description": "画像、選択したテキスト、または",
+      "link": "リンク",
+      "descriptionEnd": "をここにドラッグしてください。このルールに合致するパターンを自動生成します。",
+      "dinoAlt": "恐竜のイラスト"
+    },
+    "actions": {
+      "title": "アクション",
+      "description": "順番に実行されるカスタムアクションのシーケンス。",
+      "searchPlaceholder": "アクションを検索..."
+    },
+    "save": "保存",
+    "noSettings": "このアクションには設定可能な項目がありません。"
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "テキストをコピー"
+      },
+      "OpenAsLink": {
+        "label": "テキストをリンクとして開く",
+        "settings": {
+          "focus": {
+            "label": "新しいタブにフォーカス",
+            "description": "新しく開いたタブに切り替えます。"
+          },
+          "position": {
+            "label": "開く位置",
+            "description": "現在のタブを基準に新しいタブを挿入する位置。",
+            "options": {
+              "Before": "現在のタブの前",
+              "After": "現在のタブの後",
+              "Start": "先頭",
+              "End": "末尾",
+              "Default": "デフォルト"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "テキストを検索",
+        "settings": {
+          "customEngine": {
+            "label": "検索エンジンURL",
+            "description": "検索エンジンのURLテンプレート。クエリは末尾に追加されます。"
+          },
+          "focus": {
+            "label": "新しいタブにフォーカス",
+            "description": "新しく開いたタブに切り替えます。"
+          },
+          "position": {
+            "label": "開く位置",
+            "description": "現在のタブを基準に新しいタブを挿入する位置。",
+            "options": {
+              "Before": "現在のタブの前",
+              "After": "現在のタブの後",
+              "Start": "先頭",
+              "End": "末尾",
+              "Default": "デフォルト"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "リンクをブックマーク"
+      },
+      "Copy": {
+        "label": "リンクをコピー"
+      },
+      "CopyLinkText": {
+        "label": "リンクテキストをコピー"
+      },
+      "SearchLinkText": {
+        "label": "リンクテキストを検索",
+        "settings": {
+          "customEngine": {
+            "label": "検索エンジンURL",
+            "description": "検索エンジンのURLテンプレート。クエリは末尾に追加されます。"
+          },
+          "focus": {
+            "label": "新しいタブにフォーカス",
+            "description": "新しく開いたタブに切り替えます。"
+          },
+          "position": {
+            "label": "開く位置",
+            "description": "現在のタブを基準に新しいタブを挿入する位置。",
+            "options": {
+              "Before": "現在のタブの前",
+              "After": "現在のタブの後",
+              "Start": "先頭",
+              "End": "末尾",
+              "Default": "デフォルト"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "リンクを開く"
+      },
+      "OpenInNewTab": {
+        "label": "リンクを新しいタブで開く",
+        "settings": {
+          "focus": {
+            "label": "新しいタブにフォーカス",
+            "description": "新しく開いたタブに切り替えます。"
+          },
+          "position": {
+            "label": "開く位置",
+            "description": "現在のタブを基準に新しいタブを挿入する位置。",
+            "options": {
+              "Before": "現在のタブの前",
+              "After": "現在のタブの後",
+              "Start": "先頭",
+              "End": "末尾",
+              "Default": "デフォルト"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "リンクを新しいウィンドウで開く",
+        "settings": {
+          "focus": {
+            "label": "新しいウィンドウにフォーカス",
+            "description": "新しく開いたウィンドウに切り替えます。"
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "画像をコピー"
+      },
+      "CopyLink": {
+        "label": "画像リンクをコピー"
+      },
+      "OpenInNewTab": {
+        "label": "画像を新しいタブで開く",
+        "settings": {
+          "focus": {
+            "label": "新しいタブにフォーカス",
+            "description": "新しく開いたタブに切り替えます。"
+          },
+          "position": {
+            "label": "開く位置",
+            "description": "現在のタブを基準に新しいタブを挿入する位置。",
+            "options": {
+              "Before": "現在のタブの前",
+              "After": "現在のタブの後",
+              "Start": "先頭",
+              "End": "末尾",
+              "Default": "デフォルト"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "アクションを表示",
+        "description": "一致するアクションがある場合に現在のアクションを表示します。"
+      },
+      "followCursor": {
+        "label": "カーソルに追従",
+        "description": "アクションがカーソルに追従するかどうかを設定します。"
+      },
+      "fontColor": {
+        "label": "文字色",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "背景色",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "フォントサイズ",
+        "description": "em、px、pt、%、vhなどのすべてのCSS単位を使用できます。"
+      },
+      "horizontalPosition": {
+        "label": "水平位置",
+        "description": "画面の水平位置（0が左端、100が右端）。"
+      },
+      "verticalPosition": {
+        "label": "垂直位置",
+        "description": "画面の垂直位置（0が上端、100が下端）。"
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "軌跡を表示",
+        "description": "マウスの移動に沿って軌跡を表示します。"
+      },
+      "strokeColor": {
+        "label": "線の色",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "線の太さの増加",
+        "description": "線の太さが徐々に増加するかどうかを設定します。"
+      },
+      "lineWidth": {
+        "label": "線の幅",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}

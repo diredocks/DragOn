@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: Drag & Drop, Evolved",
+  "extDescription": "Bild, Text, Link ziehen … Loslassen!",
+  "about": {
+    "version": "Version",
+    "license": {
+      "label": "Lizenz",
+      "description": "Die Berechtigungen dieser starken Copyleft-Lizenz sind daran geknüpft, dass der vollständige Quellcode der lizenzierten Werke und Änderungen – einschließlich größerer Werke, die ein lizenziertes Werk verwenden – unter derselben Lizenz verfügbar gemacht wird. Urheber- und Lizenzhinweise müssen erhalten bleiben. Mitwirkende gewähren ausdrücklich Patentrechte."
+    },
+    "reportBug": "Fehler melden",
+    "sourceCode": "Quellcode",
+    "backup": "Sicherung",
+    "restore": "Wiederherstellen",
+    "restoreSuccess": "Die ausgewählte Konfiguration wurde erfolgreich wiederhergestellt.",
+    "restoreFailure": "Die ausgewählte Datei ist keine gültige Konfigurationsdatei.",
+    "reset": "Zurücksetzen",
+    "resetWarning": "Alle Einstellungen einschließlich der Regeln werden zurückgesetzt. Dies kann nicht rückgängig gemacht werden!"
+  },
+  "exclusions": {
+    "info": {
+      "label": "Information:",
+      "description": "Füge URL-Übereinstimmungsmuster hinzu, um DragOn für bestimmte Websites zu deaktivieren. Das Muster erlaubt \"*\"-Platzhalter und muss die Form <scheme>://<host><path> haben."
+    },
+    "placeholder": "URL-Übereinstimmungsmuster eingeben",
+    "add": "Hinzufügen",
+    "empty": "Keine Einträge vorhanden"
+  },
+  "nav": {
+    "rules": "Regeln",
+    "settings": "Einstellungen",
+    "exclusions": "Ausnahmen",
+    "about": "Über"
+  },
+  "common": {
+    "colorPicker": "Farbwähler",
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen"
+  },
+  "rules": {
+    "new": "Neue Regel",
+    "edit": "Regel bearbeiten",
+    "delete": "Löschen",
+    "pattern": {
+      "title": "Elemente hierher ziehen",
+      "description": "Ziehe das Bild, den markierten Text oder ",
+      "link": "einen Link",
+      "descriptionEnd": " hierher. Wir generieren das passende Muster für diese Regel.",
+      "dinoAlt": "Dino-Illustration"
+    },
+    "actions": {
+      "title": "Aktionen",
+      "description": "Eine Folge von benutzerdefinierten Aktionen, die der Reihe nach ausgeführt werden.",
+      "searchPlaceholder": "Aktionen suchen..."
+    },
+    "save": "Speichern",
+    "noSettings": "Diese Aktion hat keine konfigurierbaren Einstellungen."
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "Text kopieren"
+      },
+      "OpenAsLink": {
+        "label": "Text als Link öffnen",
+        "settings": {
+          "focus": {
+            "label": "Neuen Tab fokussieren",
+            "description": "Zum neu geöffneten Tab wechseln."
+          },
+          "position": {
+            "label": "Öffnungsposition",
+            "description": "Wo der neue Tab relativ zum aktuellen eingefügt wird.",
+            "options": {
+              "Before": "Vor aktuellem Tab",
+              "After": "Nach aktuellem Tab",
+              "Start": "Am Anfang",
+              "End": "Am Ende",
+              "Default": "Standard"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "Text suchen",
+        "settings": {
+          "customEngine": {
+            "label": "Suchanbieter-URL",
+            "description": "Die URL-Vorlage der Suchmaschine; die Anfrage wird am Ende angehängt."
+          },
+          "focus": {
+            "label": "Neuen Tab fokussieren",
+            "description": "Zum neu geöffneten Tab wechseln."
+          },
+          "position": {
+            "label": "Öffnungsposition",
+            "description": "Wo der neue Tab relativ zum aktuellen eingefügt wird.",
+            "options": {
+              "Before": "Vor aktuellem Tab",
+              "After": "Nach aktuellem Tab",
+              "Start": "Am Anfang",
+              "End": "Am Ende",
+              "Default": "Standard"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "Link als Lesezeichen speichern"
+      },
+      "Copy": {
+        "label": "Link kopieren"
+      },
+      "CopyLinkText": {
+        "label": "Linktext kopieren"
+      },
+      "SearchLinkText": {
+        "label": "Linktext suchen",
+        "settings": {
+          "customEngine": {
+            "label": "Suchanbieter-URL",
+            "description": "Die URL-Vorlage der Suchmaschine; die Anfrage wird am Ende angehängt."
+          },
+          "focus": {
+            "label": "Neuen Tab fokussieren",
+            "description": "Zum neu geöffneten Tab wechseln."
+          },
+          "position": {
+            "label": "Öffnungsposition",
+            "description": "Wo der neue Tab relativ zum aktuellen eingefügt wird.",
+            "options": {
+              "Before": "Vor aktuellem Tab",
+              "After": "Nach aktuellem Tab",
+              "Start": "Am Anfang",
+              "End": "Am Ende",
+              "Default": "Standard"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "Link öffnen"
+      },
+      "OpenInNewTab": {
+        "label": "Link in neuem Tab öffnen",
+        "settings": {
+          "focus": {
+            "label": "Neuen Tab fokussieren",
+            "description": "Zum neu geöffneten Tab wechseln."
+          },
+          "position": {
+            "label": "Öffnungsposition",
+            "description": "Wo der neue Tab relativ zum aktuellen eingefügt wird.",
+            "options": {
+              "Before": "Vor aktuellem Tab",
+              "After": "Nach aktuellem Tab",
+              "Start": "Am Anfang",
+              "End": "Am Ende",
+              "Default": "Standard"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "Link in neuem Fenster öffnen",
+        "settings": {
+          "focus": {
+            "label": "Neues Fenster fokussieren",
+            "description": "Zum neu geöffneten Fenster wechseln."
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "Bild kopieren"
+      },
+      "CopyLink": {
+        "label": "Bildlink kopieren"
+      },
+      "OpenInNewTab": {
+        "label": "Bild in neuem Tab öffnen",
+        "settings": {
+          "focus": {
+            "label": "Neuen Tab fokussieren",
+            "description": "Zum neu geöffneten Tab wechseln."
+          },
+          "position": {
+            "label": "Öffnungsposition",
+            "description": "Wo der neue Tab relativ zum aktuellen eingefügt wird.",
+            "options": {
+              "Before": "Vor aktuellem Tab",
+              "After": "Nach aktuellem Tab",
+              "Start": "Am Anfang",
+              "End": "Am Ende",
+              "Default": "Standard"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "Aktion anzeigen",
+        "description": "Zeigt die aktuell passende Aktion an, falls vorhanden."
+      },
+      "followCursor": {
+        "label": "Cursor folgen",
+        "description": "Legt fest, ob die Aktion dem Cursor folgen soll."
+      },
+      "fontColor": {
+        "label": "Schriftfarbe",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "Hintergrundfarbe",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "Schriftgröße",
+        "description": "Akzeptiert alle CSS-Einheiten wie: em, px, pt, %, vh usw."
+      },
+      "horizontalPosition": {
+        "label": "Horizontale Position",
+        "description": "Horizontale Bildschirmposition von 0 (links) bis 100 (rechts)."
+      },
+      "verticalPosition": {
+        "label": "Vertikale Position",
+        "description": "Vertikale Bildschirmposition von 0 (oben) bis 100 (unten)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "Spur anzeigen",
+        "description": "Zeigt eine Spur entlang der Mausbewegung an."
+      },
+      "strokeColor": {
+        "label": "Linienfarbe",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "Linienwachstum",
+        "description": "Legt fest, ob die Linienstärke zunehmen soll."
+      },
+      "lineWidth": {
+        "label": "Linienbreite",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}

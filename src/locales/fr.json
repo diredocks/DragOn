@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: Drag & Drop, Evolved",
+  "extDescription": "Glissez une image, du texte, un lien… Déposez !",
+  "about": {
+    "version": "Version",
+    "license": {
+      "label": "Licence",
+      "description": "Les autorisations de cette solide licence copyleft sont conditionnées à la mise à disposition du code source complet des œuvres sous licence et de leurs modifications, y compris les œuvres plus importantes utilisant une œuvre sous licence, sous la même licence. Les mentions de droits d'auteur et de licence doivent être conservées. Les contributeurs accordent expressément des droits de brevet."
+    },
+    "reportBug": "Signaler un bug",
+    "sourceCode": "Code source",
+    "backup": "Sauvegarde",
+    "restore": "Restaurer",
+    "restoreSuccess": "La configuration sélectionnée a été restaurée avec succès.",
+    "restoreFailure": "Le fichier sélectionné n'est pas un fichier de configuration valide.",
+    "reset": "Réinitialiser",
+    "resetWarning": "Tous les paramètres, y compris les règles, seront réinitialisés. Cette action est irréversible !"
+  },
+  "exclusions": {
+    "info": {
+      "label": "Information :",
+      "description": "Ajoutez des motifs de correspondance d'URL pour désactiver DragOn sur certains sites web. Le motif autorise les caractères génériques \"*\" et doit être de la forme <scheme>://<host><path>."
+    },
+    "placeholder": "Saisir un motif de correspondance d'URL",
+    "add": "Ajouter",
+    "empty": "Aucune entrée disponible"
+  },
+  "nav": {
+    "rules": "Règles",
+    "settings": "Paramètres",
+    "exclusions": "Exclusions",
+    "about": "À propos"
+  },
+  "common": {
+    "colorPicker": "Sélecteur de couleur",
+    "confirm": "Confirmer",
+    "cancel": "Annuler"
+  },
+  "rules": {
+    "new": "Nouvelle règle",
+    "edit": "Modifier la règle",
+    "delete": "Supprimer",
+    "pattern": {
+      "title": "Faites glisser les éléments ici",
+      "description": "Faites glisser l'image, le texte sélectionné ou ",
+      "link": "un lien",
+      "descriptionEnd": " ici. Nous générerons le motif correspondant pour cette règle.",
+      "dinoAlt": "Illustration de dinosaure"
+    },
+    "actions": {
+      "title": "Actions",
+      "description": "Une séquence d'actions personnalisées exécutées dans l'ordre.",
+      "searchPlaceholder": "Rechercher des actions..."
+    },
+    "save": "Enregistrer",
+    "noSettings": "Cette action ne possède aucun paramètre configurable."
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "Copier le texte"
+      },
+      "OpenAsLink": {
+        "label": "Ouvrir le texte comme lien",
+        "settings": {
+          "focus": {
+            "label": "Mettre le nouvel onglet au premier plan",
+            "description": "Basculer vers le nouvel onglet ouvert."
+          },
+          "position": {
+            "label": "Position d'ouverture",
+            "description": "Où insérer le nouvel onglet par rapport à l'onglet actuel.",
+            "options": {
+              "Before": "Avant l'onglet actuel",
+              "After": "Après l'onglet actuel",
+              "Start": "Au début",
+              "End": "À la fin",
+              "Default": "Par défaut"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "Rechercher le texte",
+        "settings": {
+          "customEngine": {
+            "label": "URL du moteur de recherche",
+            "description": "Le modèle d'URL du moteur de recherche ; la requête sera ajoutée à la fin."
+          },
+          "focus": {
+            "label": "Mettre le nouvel onglet au premier plan",
+            "description": "Basculer vers le nouvel onglet ouvert."
+          },
+          "position": {
+            "label": "Position d'ouverture",
+            "description": "Où insérer le nouvel onglet par rapport à l'onglet actuel.",
+            "options": {
+              "Before": "Avant l'onglet actuel",
+              "After": "Après l'onglet actuel",
+              "Start": "Au début",
+              "End": "À la fin",
+              "Default": "Par défaut"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "Mettre le lien en favori"
+      },
+      "Copy": {
+        "label": "Copier le lien"
+      },
+      "CopyLinkText": {
+        "label": "Copier le texte du lien"
+      },
+      "SearchLinkText": {
+        "label": "Rechercher le texte du lien",
+        "settings": {
+          "customEngine": {
+            "label": "URL du moteur de recherche",
+            "description": "Le modèle d'URL du moteur de recherche ; la requête sera ajoutée à la fin."
+          },
+          "focus": {
+            "label": "Mettre le nouvel onglet au premier plan",
+            "description": "Basculer vers le nouvel onglet ouvert."
+          },
+          "position": {
+            "label": "Position d'ouverture",
+            "description": "Où insérer le nouvel onglet par rapport à l'onglet actuel.",
+            "options": {
+              "Before": "Avant l'onglet actuel",
+              "After": "Après l'onglet actuel",
+              "Start": "Au début",
+              "End": "À la fin",
+              "Default": "Par défaut"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "Ouvrir le lien"
+      },
+      "OpenInNewTab": {
+        "label": "Ouvrir le lien dans un nouvel onglet",
+        "settings": {
+          "focus": {
+            "label": "Mettre le nouvel onglet au premier plan",
+            "description": "Basculer vers le nouvel onglet ouvert."
+          },
+          "position": {
+            "label": "Position d'ouverture",
+            "description": "Où insérer le nouvel onglet par rapport à l'onglet actuel.",
+            "options": {
+              "Before": "Avant l'onglet actuel",
+              "After": "Après l'onglet actuel",
+              "Start": "Au début",
+              "End": "À la fin",
+              "Default": "Par défaut"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "Ouvrir le lien dans une nouvelle fenêtre",
+        "settings": {
+          "focus": {
+            "label": "Mettre la nouvelle fenêtre au premier plan",
+            "description": "Basculer vers la nouvelle fenêtre ouverte."
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "Copier l'image"
+      },
+      "CopyLink": {
+        "label": "Copier le lien de l'image"
+      },
+      "OpenInNewTab": {
+        "label": "Ouvrir l'image dans un nouvel onglet",
+        "settings": {
+          "focus": {
+            "label": "Mettre le nouvel onglet au premier plan",
+            "description": "Basculer vers le nouvel onglet ouvert."
+          },
+          "position": {
+            "label": "Position d'ouverture",
+            "description": "Où insérer le nouvel onglet par rapport à l'onglet actuel.",
+            "options": {
+              "Before": "Avant l'onglet actuel",
+              "After": "Après l'onglet actuel",
+              "Start": "Au début",
+              "End": "À la fin",
+              "Default": "Par défaut"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "Afficher l'action",
+        "description": "Affiche l'action correspondante actuelle si disponible."
+      },
+      "followCursor": {
+        "label": "Suivre le curseur",
+        "description": "Détermine si l'action doit suivre le curseur."
+      },
+      "fontColor": {
+        "label": "Couleur de police",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "Couleur d'arrière-plan",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "Taille de police",
+        "description": "Accepte toutes les unités CSS comme : em, px, pt, %, vh, etc."
+      },
+      "horizontalPosition": {
+        "label": "Position horizontale",
+        "description": "Position horizontale à l'écran de 0 (gauche) à 100 (droite)."
+      },
+      "verticalPosition": {
+        "label": "Position verticale",
+        "description": "Position verticale à l'écran de 0 (haut) à 100 (bas)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "Afficher la trace",
+        "description": "Affiche une trace le long du mouvement de la souris."
+      },
+      "strokeColor": {
+        "label": "Couleur de ligne",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "Croissance de la ligne",
+        "description": "Détermine si l'épaisseur de la ligne doit augmenter."
+      },
+      "lineWidth": {
+        "label": "Largeur de ligne",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}

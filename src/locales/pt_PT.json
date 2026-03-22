@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: Drag & Drop, Evolved",
+  "extDescription": "Arraste imagem, texto, link… Solte!",
+  "about": {
+    "version": "Versão",
+    "license": {
+      "label": "Licença",
+      "description": "As permissões desta sólida licença copyleft estão condicionadas à disponibilização do código-fonte completo das obras licenciadas e das suas modificações, incluindo obras maiores que utilizem uma obra licenciada, sob a mesma licença. Os avisos de direitos de autor e de licença devem ser preservados. Os contribuidores concedem expressamente direitos de patente."
+    },
+    "reportBug": "Reportar um erro",
+    "sourceCode": "Código fonte",
+    "backup": "Cópia de segurança",
+    "restore": "Restaurar",
+    "restoreSuccess": "A configuração selecionada foi restaurada com sucesso.",
+    "restoreFailure": "O ficheiro selecionado não é um ficheiro de configuração válido.",
+    "reset": "Repor",
+    "resetWarning": "Todas as definições, incluindo as regras, serão repostas. Esta ação não pode ser desfeita!"
+  },
+  "exclusions": {
+    "info": {
+      "label": "Informação:",
+      "description": "Adicione padrões de correspondência de URL para desativar o DragOn em determinados sites. O padrão permite caracteres universais \"*\" e deve ter a forma <scheme>://<host><path>."
+    },
+    "placeholder": "Introduzir padrão de correspondência de URL",
+    "add": "Adicionar",
+    "empty": "Sem entradas disponíveis"
+  },
+  "nav": {
+    "rules": "Regras",
+    "settings": "Definições",
+    "exclusions": "Exclusões",
+    "about": "Sobre"
+  },
+  "common": {
+    "colorPicker": "Seletor de cor",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "rules": {
+    "new": "Nova regra",
+    "edit": "Editar regra",
+    "delete": "Eliminar",
+    "pattern": {
+      "title": "Arraste os elementos para aqui",
+      "description": "Arraste a imagem, o texto selecionado ou ",
+      "link": "uma ligação",
+      "descriptionEnd": " para aqui. Iremos gerar o padrão de correspondência para esta regra.",
+      "dinoAlt": "Ilustração de dinossauro"
+    },
+    "actions": {
+      "title": "Ações",
+      "description": "Uma sequência de ações personalizadas executadas por ordem.",
+      "searchPlaceholder": "Pesquisar ações..."
+    },
+    "save": "Guardar",
+    "noSettings": "Esta ação não tem definições configuráveis."
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "Copiar texto"
+      },
+      "OpenAsLink": {
+        "label": "Abrir texto como ligação",
+        "settings": {
+          "focus": {
+            "label": "Focar novo separador",
+            "description": "Mudar para o separador recém-aberto."
+          },
+          "position": {
+            "label": "Posição de abertura",
+            "description": "Onde inserir o novo separador em relação ao atual.",
+            "options": {
+              "Before": "Antes do separador atual",
+              "After": "Após o separador atual",
+              "Start": "No início",
+              "End": "No fim",
+              "Default": "Predefinição"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "Pesquisar texto",
+        "settings": {
+          "customEngine": {
+            "label": "URL do motor de pesquisa",
+            "description": "O modelo de URL do motor de pesquisa; a consulta será adicionada no final."
+          },
+          "focus": {
+            "label": "Focar novo separador",
+            "description": "Mudar para o separador recém-aberto."
+          },
+          "position": {
+            "label": "Posição de abertura",
+            "description": "Onde inserir o novo separador em relação ao atual.",
+            "options": {
+              "Before": "Antes do separador atual",
+              "After": "Após o separador atual",
+              "Start": "No início",
+              "End": "No fim",
+              "Default": "Predefinição"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "Adicionar ligação aos favoritos"
+      },
+      "Copy": {
+        "label": "Copiar ligação"
+      },
+      "CopyLinkText": {
+        "label": "Copiar texto da ligação"
+      },
+      "SearchLinkText": {
+        "label": "Pesquisar texto da ligação",
+        "settings": {
+          "customEngine": {
+            "label": "URL do motor de pesquisa",
+            "description": "O modelo de URL do motor de pesquisa; a consulta será adicionada no final."
+          },
+          "focus": {
+            "label": "Focar novo separador",
+            "description": "Mudar para o separador recém-aberto."
+          },
+          "position": {
+            "label": "Posição de abertura",
+            "description": "Onde inserir o novo separador em relação ao atual.",
+            "options": {
+              "Before": "Antes do separador atual",
+              "After": "Após o separador atual",
+              "Start": "No início",
+              "End": "No fim",
+              "Default": "Predefinição"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "Abrir ligação"
+      },
+      "OpenInNewTab": {
+        "label": "Abrir ligação em novo separador",
+        "settings": {
+          "focus": {
+            "label": "Focar novo separador",
+            "description": "Mudar para o separador recém-aberto."
+          },
+          "position": {
+            "label": "Posição de abertura",
+            "description": "Onde inserir o novo separador em relação ao atual.",
+            "options": {
+              "Before": "Antes do separador atual",
+              "After": "Após o separador atual",
+              "Start": "No início",
+              "End": "No fim",
+              "Default": "Predefinição"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "Abrir ligação em nova janela",
+        "settings": {
+          "focus": {
+            "label": "Focar nova janela",
+            "description": "Mudar para a janela recém-aberta."
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "Copiar imagem"
+      },
+      "CopyLink": {
+        "label": "Copiar ligação da imagem"
+      },
+      "OpenInNewTab": {
+        "label": "Abrir imagem em novo separador",
+        "settings": {
+          "focus": {
+            "label": "Focar novo separador",
+            "description": "Mudar para o separador recém-aberto."
+          },
+          "position": {
+            "label": "Posição de abertura",
+            "description": "Onde inserir o novo separador em relação ao atual.",
+            "options": {
+              "Before": "Antes do separador atual",
+              "After": "Após o separador atual",
+              "Start": "No início",
+              "End": "No fim",
+              "Default": "Predefinição"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "Mostrar ação",
+        "description": "Mostra a ação atualmente correspondente, se disponível."
+      },
+      "followCursor": {
+        "label": "Seguir cursor",
+        "description": "Determina se a ação deve seguir o cursor."
+      },
+      "fontColor": {
+        "label": "Cor do texto",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "Cor de fundo",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "Tamanho do texto",
+        "description": "Aceita qualquer unidade CSS como: em, px, pt, %, vh, etc."
+      },
+      "horizontalPosition": {
+        "label": "Posição horizontal",
+        "description": "Posição horizontal no ecrã de 0 (esquerda) a 100 (direita)."
+      },
+      "verticalPosition": {
+        "label": "Posição vertical",
+        "description": "Posição vertical no ecrã de 0 (topo) a 100 (baixo)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "Mostrar rasto",
+        "description": "Mostra um rasto ao longo do movimento do rato."
+      },
+      "strokeColor": {
+        "label": "Cor da linha",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "Crescimento da linha",
+        "description": "Determina se a espessura da linha deve aumentar."
+      },
+      "lineWidth": {
+        "label": "Largura da linha",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}

@@ -37,7 +37,7 @@ const App: Component = () => {
 
   return (
     <div class="flex min-h-screen bg-neutral-50 text-base text-content">
-      <aside class="w-46 p-6">
+      <aside class="w-50 p-6">
         <img
           src="/icon-96.png"
           alt="logo"

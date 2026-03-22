@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: Drag & Drop, Evolved",
+  "extDescription": "Arrastra imagen, texto, enlace… ¡Suelta!",
+  "about": {
+    "version": "Versión",
+    "license": {
+      "label": "Licencia",
+      "description": "Los permisos de esta sólida licencia copyleft están condicionados a que el código fuente completo de las obras licenciadas y sus modificaciones, incluidas las obras más grandes que utilicen una obra licenciada, esté disponible bajo la misma licencia. Los avisos de derechos de autor y de licencia deben conservarse. Los contribuyentes otorgan expresamente derechos de patente."
+    },
+    "reportBug": "Reportar un error",
+    "sourceCode": "Código fuente",
+    "backup": "Copia de seguridad",
+    "restore": "Restaurar",
+    "restoreSuccess": "La configuración seleccionada se ha restaurado correctamente.",
+    "restoreFailure": "El archivo seleccionado no es un archivo de configuración válido.",
+    "reset": "Restablecer",
+    "resetWarning": "Se restablecerán todos los ajustes, incluidas las reglas. ¡Esta acción no se puede deshacer!"
+  },
+  "exclusions": {
+    "info": {
+      "label": "Información:",
+      "description": "Añade patrones de coincidencia de URL para deshabilitar DragOn en ciertos sitios web. El patrón admite comodines \"*\" y debe tener la forma <scheme>://<host><path>."
+    },
+    "placeholder": "Introduce un patrón de coincidencia de URL",
+    "add": "Añadir",
+    "empty": "No hay entradas disponibles"
+  },
+  "nav": {
+    "rules": "Reglas",
+    "settings": "Configuración",
+    "exclusions": "Exclusiones",
+    "about": "Acerca de"
+  },
+  "common": {
+    "colorPicker": "Selector de color",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar"
+  },
+  "rules": {
+    "new": "Nueva regla",
+    "edit": "Editar regla",
+    "delete": "Eliminar",
+    "pattern": {
+      "title": "Arrastra los elementos aquí",
+      "description": "Arrastra la imagen, el texto seleccionado o ",
+      "link": "un enlace",
+      "descriptionEnd": " aquí. Generaremos el patrón de coincidencia para esta regla.",
+      "dinoAlt": "Ilustración de dinosaurio"
+    },
+    "actions": {
+      "title": "Acciones",
+      "description": "Una secuencia de acciones personalizadas ejecutadas en orden.",
+      "searchPlaceholder": "Buscar acciones..."
+    },
+    "save": "Guardar",
+    "noSettings": "Esta acción no tiene ajustes configurables."
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "Copiar texto"
+      },
+      "OpenAsLink": {
+        "label": "Abrir texto como enlace",
+        "settings": {
+          "focus": {
+            "label": "Enfocar nueva pestaña",
+            "description": "Cambiar a la pestaña recién abierta."
+          },
+          "position": {
+            "label": "Posición de apertura",
+            "description": "Dónde insertar la nueva pestaña respecto a la actual.",
+            "options": {
+              "Before": "Antes de la pestaña actual",
+              "After": "Después de la pestaña actual",
+              "Start": "Al principio",
+              "End": "Al final",
+              "Default": "Predeterminado"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "Buscar texto",
+        "settings": {
+          "customEngine": {
+            "label": "URL del motor de búsqueda",
+            "description": "La plantilla de URL del motor de búsqueda; la consulta se añadirá al final."
+          },
+          "focus": {
+            "label": "Enfocar nueva pestaña",
+            "description": "Cambiar a la pestaña recién abierta."
+          },
+          "position": {
+            "label": "Posición de apertura",
+            "description": "Dónde insertar la nueva pestaña respecto a la actual.",
+            "options": {
+              "Before": "Antes de la pestaña actual",
+              "After": "Después de la pestaña actual",
+              "Start": "Al principio",
+              "End": "Al final",
+              "Default": "Predeterminado"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "Guardar enlace como marcador"
+      },
+      "Copy": {
+        "label": "Copiar enlace"
+      },
+      "CopyLinkText": {
+        "label": "Copiar texto del enlace"
+      },
+      "SearchLinkText": {
+        "label": "Buscar texto del enlace",
+        "settings": {
+          "customEngine": {
+            "label": "URL del motor de búsqueda",
+            "description": "La plantilla de URL del motor de búsqueda; la consulta se añadirá al final."
+          },
+          "focus": {
+            "label": "Enfocar nueva pestaña",
+            "description": "Cambiar a la pestaña recién abierta."
+          },
+          "position": {
+            "label": "Posición de apertura",
+            "description": "Dónde insertar la nueva pestaña respecto a la actual.",
+            "options": {
+              "Before": "Antes de la pestaña actual",
+              "After": "Después de la pestaña actual",
+              "Start": "Al principio",
+              "End": "Al final",
+              "Default": "Predeterminado"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "Abrir enlace"
+      },
+      "OpenInNewTab": {
+        "label": "Abrir enlace en nueva pestaña",
+        "settings": {
+          "focus": {
+            "label": "Enfocar nueva pestaña",
+            "description": "Cambiar a la pestaña recién abierta."
+          },
+          "position": {
+            "label": "Posición de apertura",
+            "description": "Dónde insertar la nueva pestaña respecto a la actual.",
+            "options": {
+              "Before": "Antes de la pestaña actual",
+              "After": "Después de la pestaña actual",
+              "Start": "Al principio",
+              "End": "Al final",
+              "Default": "Predeterminado"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "Abrir enlace en nueva ventana",
+        "settings": {
+          "focus": {
+            "label": "Enfocar nueva ventana",
+            "description": "Cambiar a la ventana recién abierta."
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "Copiar imagen"
+      },
+      "CopyLink": {
+        "label": "Copiar enlace de imagen"
+      },
+      "OpenInNewTab": {
+        "label": "Abrir imagen en nueva pestaña",
+        "settings": {
+          "focus": {
+            "label": "Enfocar nueva pestaña",
+            "description": "Cambiar a la pestaña recién abierta."
+          },
+          "position": {
+            "label": "Posición de apertura",
+            "description": "Dónde insertar la nueva pestaña respecto a la actual.",
+            "options": {
+              "Before": "Antes de la pestaña actual",
+              "After": "Después de la pestaña actual",
+              "Start": "Al principio",
+              "End": "Al final",
+              "Default": "Predeterminado"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "Mostrar acción",
+        "description": "Muestra la acción que coincide actualmente si está disponible."
+      },
+      "followCursor": {
+        "label": "Seguir cursor",
+        "description": "Determina si la acción debe seguir al cursor."
+      },
+      "fontColor": {
+        "label": "Color de fuente",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "Color de fondo",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "Tamaño de fuente",
+        "description": "Acepta cualquier unidad CSS como: em, px, pt, %, vh, etc."
+      },
+      "horizontalPosition": {
+        "label": "Posición horizontal",
+        "description": "Posición horizontal en pantalla de 0 (izquierda) a 100 (derecha)."
+      },
+      "verticalPosition": {
+        "label": "Posición vertical",
+        "description": "Posición vertical en pantalla de 0 (arriba) a 100 (abajo)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "Mostrar traza",
+        "description": "Muestra una traza a lo largo del movimiento del ratón."
+      },
+      "strokeColor": {
+        "label": "Color de línea",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "Crecimiento de línea",
+        "description": "Determina si el grosor de la línea debe crecer."
+      },
+      "lineWidth": {
+        "label": "Ancho de línea",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}

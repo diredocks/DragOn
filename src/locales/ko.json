@@ -1,0 +1,254 @@
+{
+  "extName": "DragOn: 드래그 앤 드롭, 진화",
+  "extDescription": "이미지, 텍스트, 링크를 드래그… 드롭!",
+  "about": {
+    "version": "버전",
+    "license": {
+      "label": "라이선스",
+      "description": "이 강력한 카피레프트 라이선스의 허가 조건은 라이선스 작품과 수정본의 전체 소스 코드를 동일한 라이선스 하에 공개하는 것입니다. 라이선스 작품을 사용하는 더 큰 작품도 포함됩니다. 저작권 및 라이선스 고지를 유지해야 합니다. 기여자는 명시적으로 특허권을 부여합니다."
+    },
+    "reportBug": "버그 신고",
+    "sourceCode": "소스 코드",
+    "backup": "백업",
+    "restore": "복원",
+    "restoreSuccess": "선택한 설정이 성공적으로 복원되었습니다.",
+    "restoreFailure": "선택한 파일은 유효한 설정 파일이 아닙니다.",
+    "reset": "초기화",
+    "resetWarning": "규칙을 포함한 모든 설정이 초기화됩니다. 이 작업은 취소할 수 없습니다!"
+  },
+  "exclusions": {
+    "info": {
+      "label": "정보:",
+      "description": "특정 웹사이트에서 DragOn을 비활성화하려면 URL 일치 패턴을 추가하세요. 패턴은 \"*\" 와일드카드를 허용하며 <scheme>://<host><path> 형식이어야 합니다."
+    },
+    "placeholder": "URL 일치 패턴 입력",
+    "add": "추가",
+    "empty": "항목이 없습니다"
+  },
+  "nav": {
+    "rules": "규칙",
+    "settings": "설정",
+    "exclusions": "제외",
+    "about": "정보"
+  },
+  "common": {
+    "colorPicker": "색상 선택기",
+    "confirm": "확인",
+    "cancel": "취소"
+  },
+  "rules": {
+    "new": "새 규칙",
+    "edit": "규칙 편집",
+    "delete": "삭제",
+    "pattern": {
+      "title": "여기로 요소를 드래그하세요",
+      "description": "이미지, 선택한 텍스트 또는 ",
+      "link": "링크",
+      "descriptionEnd": "를 여기로 드래그하세요. 이 규칙에 맞는 패턴을 자동으로 생성합니다.",
+      "dinoAlt": "공룡 일러스트"
+    },
+    "actions": {
+      "title": "액션",
+      "description": "순서대로 실행되는 커스텀 액션의 시퀀스.",
+      "searchPlaceholder": "액션 검색..."
+    },
+    "save": "저장",
+    "noSettings": "이 액션에는 설정 가능한 항목이 없습니다."
+  },
+  "actions": {
+    "text": {
+      "Copy": {
+        "label": "텍스트 복사"
+      },
+      "OpenAsLink": {
+        "label": "텍스트를 링크로 열기",
+        "settings": {
+          "focus": {
+            "label": "새 탭에 포커스",
+            "description": "새로 열린 탭으로 전환합니다."
+          },
+          "position": {
+            "label": "열기 위치",
+            "description": "현재 탭을 기준으로 새 탭을 삽입할 위치.",
+            "options": {
+              "Before": "현재 탭 앞",
+              "After": "현재 탭 뒤",
+              "Start": "맨 앞",
+              "End": "맨 뒤",
+              "Default": "기본값"
+            }
+          }
+        }
+      },
+      "Search": {
+        "label": "텍스트 검색",
+        "settings": {
+          "customEngine": {
+            "label": "검색 엔진 URL",
+            "description": "검색 엔진의 URL 템플릿으로, 쿼리가 끝에 추가됩니다."
+          },
+          "focus": {
+            "label": "새 탭에 포커스",
+            "description": "새로 열린 탭으로 전환합니다."
+          },
+          "position": {
+            "label": "열기 위치",
+            "description": "현재 탭을 기준으로 새 탭을 삽입할 위치.",
+            "options": {
+              "Before": "현재 탭 앞",
+              "After": "현재 탭 뒤",
+              "Start": "맨 앞",
+              "End": "맨 뒤",
+              "Default": "기본값"
+            }
+          }
+        }
+      }
+    },
+    "link": {
+      "BookmarkLink": {
+        "label": "링크 북마크"
+      },
+      "Copy": {
+        "label": "링크 복사"
+      },
+      "CopyLinkText": {
+        "label": "링크 텍스트 복사"
+      },
+      "SearchLinkText": {
+        "label": "링크 텍스트 검색",
+        "settings": {
+          "customEngine": {
+            "label": "검색 엔진 URL",
+            "description": "검색 엔진의 URL 템플릿으로, 쿼리가 끝에 추가됩니다."
+          },
+          "focus": {
+            "label": "새 탭에 포커스",
+            "description": "새로 열린 탭으로 전환합니다."
+          },
+          "position": {
+            "label": "열기 위치",
+            "description": "현재 탭을 기준으로 새 탭을 삽입할 위치.",
+            "options": {
+              "Before": "현재 탭 앞",
+              "After": "현재 탭 뒤",
+              "Start": "맨 앞",
+              "End": "맨 뒤",
+              "Default": "기본값"
+            }
+          }
+        }
+      },
+      "Open": {
+        "label": "링크 열기"
+      },
+      "OpenInNewTab": {
+        "label": "새 탭에서 링크 열기",
+        "settings": {
+          "focus": {
+            "label": "새 탭에 포커스",
+            "description": "새로 열린 탭으로 전환합니다."
+          },
+          "position": {
+            "label": "열기 위치",
+            "description": "현재 탭을 기준으로 새 탭을 삽입할 위치.",
+            "options": {
+              "Before": "현재 탭 앞",
+              "After": "현재 탭 뒤",
+              "Start": "맨 앞",
+              "End": "맨 뒤",
+              "Default": "기본값"
+            }
+          }
+        }
+      },
+      "OpenInNewWindow": {
+        "label": "새 창에서 링크 열기",
+        "settings": {
+          "focus": {
+            "label": "새 창에 포커스",
+            "description": "새로 열린 창으로 전환합니다."
+          }
+        }
+      }
+    },
+    "image": {
+      "Copy": {
+        "label": "이미지 복사"
+      },
+      "CopyLink": {
+        "label": "이미지 링크 복사"
+      },
+      "OpenInNewTab": {
+        "label": "새 탭에서 이미지 열기",
+        "settings": {
+          "focus": {
+            "label": "새 탭에 포커스",
+            "description": "새로 열린 탭으로 전환합니다."
+          },
+          "position": {
+            "label": "열기 위치",
+            "description": "현재 탭을 기준으로 새 탭을 삽입할 위치.",
+            "options": {
+              "Before": "현재 탭 앞",
+              "After": "현재 탭 뒤",
+              "Start": "맨 앞",
+              "End": "맨 뒤",
+              "Default": "기본값"
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+    "action": {
+      "enable": {
+        "label": "액션 표시",
+        "description": "현재 일치하는 액션이 있으면 표시합니다."
+      },
+      "followCursor": {
+        "label": "커서 따라가기",
+        "description": "액션이 커서를 따라갈지 여부를 설정합니다."
+      },
+      "fontColor": {
+        "label": "글꼴 색상",
+        "description": "NO_CONTENT"
+      },
+      "backgroundColor": {
+        "label": "배경 색상",
+        "description": "NO_CONTENT"
+      },
+      "fontSize": {
+        "label": "글꼴 크기",
+        "description": "em, px, pt, %, vh 등 모든 CSS 단위를 사용할 수 있습니다."
+      },
+      "horizontalPosition": {
+        "label": "수평 위치",
+        "description": "화면 수평 위치 0(왼쪽)에서 100(오른쪽)."
+      },
+      "verticalPosition": {
+        "label": "수직 위치",
+        "description": "화면 수직 위치 0(위)에서 100(아래)."
+      }
+    },
+    "trace": {
+      "enable": {
+        "label": "궤적 표시",
+        "description": "마우스 이동 경로를 따라 궤적을 표시합니다."
+      },
+      "strokeColor": {
+        "label": "선 색상",
+        "description": "NO_CONTENT"
+      },
+      "lineGrowth": {
+        "label": "선 두께 증가",
+        "description": "선 두께가 점점 굵어질지 여부를 설정합니다."
+      },
+      "lineWidth": {
+        "label": "선 너비",
+        "description": "NO_CONTENT"
+      }
+    }
+  }
+}
