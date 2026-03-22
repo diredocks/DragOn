@@ -63,7 +63,8 @@ export function About() {
       const actions = await Promise.all(
         rules.flatMap((r) => r.actions.map((a) => Action.fromJSON(a))),
       );
-      await Promise.all(actions.map((a) => a.requestPermissions()));
+      const granted = await Promise.all(actions.map((a) => a.requestPermissions()));
+      if (granted.some((g) => !g)) throw new Error("Permission denied");
       await rulesStorage.setValue(rules);
       await exclusionsStorage.setValue(parsed.exclusions);
       setRestoreResult("success");
