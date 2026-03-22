@@ -11,6 +11,7 @@ export default defineConfig({
     name: "__MSG_extName__",
     description: "__MSG_extDescription__",
     permissions: ["storage"],
+    optional_permissions: ["bookmarks"],
     action: {},
     default_locale: "en",
   },

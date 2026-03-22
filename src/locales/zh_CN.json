@@ -106,6 +106,9 @@
       }
     },
     "link": {
+      "BookmarkLink": {
+        "label": "收藏链接"
+      },
       "Copy": {
         "label": "复制链接"
       },

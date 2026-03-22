@@ -1,6 +1,6 @@
 - [x] Exclusions
 - [x] Rule validation check
 - [x] Enum settings item in action
-- [ ] More actions
+- [x] More actions
 - [ ] Promotional materials (Screenshots, Extension Descriptions...)
 - [ ] Customizable action label
