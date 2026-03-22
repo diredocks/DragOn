@@ -1,6 +1,7 @@
 import { dragController } from "@/shared/controller/drag";
 import { selectController } from "@/shared/controller/select";
 import { Context } from "@/shared/models/context";
+import { exclusionsStorage } from "@/shared/settings/storage";
 import { onMessageTab, sendMessage } from "@/shared/utils/messaging";
 import { pattern } from "@/shared/utils/pattern";
 import type { Point } from "@/shared/utils/type";
@@ -10,17 +11,30 @@ export default defineContentScript({
   matches: ["<all_urls>"],
   allFrames: true,
   runAt: "document_start",
-  main() {
-    dragController.enable();
+  async main() {
     dragController.addEventListener("start", handleDragStart);
     dragController.addEventListener("update", handleDragUpdate);
     dragController.addEventListener("end", handleDragEnd);
     dragController.addEventListener("abort", handleDragAbort);
-    selectController.enable();
     selectController.addEventListener("end", updateSelection);
     selectController.addEventListener("abort", updateSelection);
+
+    const isExcluded = (patterns: string[]) =>
+      patterns.some((p) => new URLPattern(p).test(window.location.href));
+    const applyState = (patterns: string[]) => {
+      setControllers(isExcluded(patterns));
+    };
+
+    applyState(await exclusionsStorage.getValue());
+    exclusionsStorage.watch(applyState);
   },
 });
+
+const setControllers = (disable: boolean) => {
+  const method = disable ? "disable" : "enable";
+  dragController[method]();
+  selectController[method]();
+};
 
 let selectedText: string;
 

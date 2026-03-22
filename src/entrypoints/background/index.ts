@@ -1,4 +1,4 @@
-import { Rule } from "@/shared/models/rule";
+import { Rule, type RuleSerialized } from "@/shared/models/rule";
 import { rulesStorage } from "@/shared/settings/storage";
 import { getRuleByPattern } from "@/shared/utils/matcher";
 import { onMessage } from "@/shared/utils/messaging";
@@ -20,12 +20,10 @@ export default defineBackground(() => {
     browser.runtime.openOptionsPage();
   });
 
-  (async () => {
-    const serializedRules = await rulesStorage.getValue();
-    rules = await Promise.all(serializedRules.map((r) => Rule.fromJSON(r)));
-  })();
+  const loadRules = async (rawRules: RuleSerialized[]) => {
+    rules = await Promise.all(rawRules.map((r) => Rule.fromJSON(r)));
+  };
 
-  rulesStorage.watch(async (newRules) => {
-    rules = await Promise.all(newRules.map((r) => Rule.fromJSON(r)));
-  });
+  rulesStorage.getValue().then(loadRules);
+  rulesStorage.watch(loadRules);
 });

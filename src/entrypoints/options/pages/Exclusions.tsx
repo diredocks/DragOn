@@ -4,6 +4,15 @@ import { exclusionsStorage } from "@/shared/settings/storage";
 
 const [exclusions, setExclusions] = createStore<string[]>([]);
 
+const checkURL = (url: string) => {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export function Exclusions() {
   const [input, setInput] = createSignal("");
 
@@ -21,7 +30,7 @@ export function Exclusions() {
 
   const handleAdd = () => {
     const pattern = input().trim();
-    if (!pattern || exclusions.includes(pattern)) return;
+    if (!pattern || !checkURL(pattern) || exclusions.includes(pattern)) return;
     setExclusions(exclusions.length, pattern);
     setInput("");
   };
