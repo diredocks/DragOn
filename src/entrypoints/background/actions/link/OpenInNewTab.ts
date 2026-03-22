@@ -1,18 +1,41 @@
 import { Action, type ActionRun } from "@/shared/models/action";
-import { nextTabIndex } from "@/shared/utils/common";
+
+enum Position {
+  Before,
+  After,
+  Start,
+  End,
+  Default,
+}
 
 interface Options {
-  openInBackground: boolean;
+  focus: boolean;
+  position: Position;
 }
 
 const fn: ActionRun<Options> = async (ctx, sender, options) => {
-  if (!ctx.link) return false;
+  if (!ctx.link || !sender.tab) return false;
+
+  const index = (() => {
+    switch (options.position) {
+      case Position.Before:
+        return sender.tab.index;
+      case Position.After:
+        return sender.tab.index + 1;
+      case Position.End:
+        return 999;
+      case Position.Start:
+        return 0;
+      default:
+        return undefined;
+    }
+  })();
 
   await browser.tabs.create({
     url: ctx.link,
-    active: !options.openInBackground,
+    active: !options.focus,
     openerTabId: sender.tab?.id,
-    index: (await nextTabIndex()) + 1,
+    index,
   });
 
   return true;
@@ -22,7 +45,8 @@ export default class OpenInNewTab extends Action<Options> {
   type = "link" as const;
   name = "OpenInNewTab" as const;
   defaultSettings: Options = {
-    openInBackground: true,
+    focus: false,
+    position: Position.Default,
   };
   fn = fn;
 }
