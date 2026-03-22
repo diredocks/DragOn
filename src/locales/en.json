@@ -175,6 +175,9 @@
     "image": {
       "Copy": {
         "label": "Copy image"
+      },
+      "CopyLink": {
+        "label": "Copy image link"
       }
     }
   },

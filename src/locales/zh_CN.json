@@ -175,6 +175,9 @@
     "image": {
       "Copy": {
         "label": "复制图片"
+      },
+      "CopyLink": {
+        "label": "复制图片链接"
       }
     }
   },
