@@ -42,28 +42,54 @@ export const ActionSettings: Component<Props> = (props) => {
     <div class="settings flex h-full flex-col gap-3">
       <Show
         when={hasSettings()}
-        fallback={
-          <p class="text-gray-500">{i18n.t("rules.noSettings")}</p>
-        }
+        fallback={<p class="text-gray-500">{i18n.t("rules.noSettings")}</p>}
       >
         <For each={Object.entries(props.action?.defaultSettings ?? {})}>
           {([key, defaultValue]) => {
             const value = () => settings[key] ?? defaultValue;
             const type = typeof defaultValue;
+            const enumObj = props.action?.enums?.[key] as
+              | Record<string, number>
+              | undefined;
 
             return (
               <SettingItem
                 name={getI18n(key, "label")}
                 description={getI18n(key, "description")}
-                nextLine={type === "string"}
+                nextLine={type === "string" || !!enumObj}
               >
                 <Switch>
+                  <Match when={enumObj}>
+                    <select
+                      value={value() as number}
+                      onChange={(e) =>
+                        setSettings(key, Number(e.currentTarget.value))
+                      }
+                    >
+                      <For
+                        each={Object.keys(enumObj!).filter((k) =>
+                          isNaN(Number(k)),
+                        )}
+                      >
+                        {(enumKey) => (
+                          <option value={enumObj![enumKey]}>
+                            {i18n.t(
+                              // @ts-expect-error dynamic i18n key
+                              `actions.${props.action?.type}.${props.action?.name}.settings.${key}.options.${enumKey}`,
+                            )}
+                          </option>
+                        )}
+                      </For>
+                    </select>
+                  </Match>
                   <Match when={type === "boolean"}>
                     <input
                       type="checkbox"
                       class="ml-2"
-                      checked={value()}
-                      onChange={(e) => setSettings(key, e.currentTarget.checked)}
+                      checked={value() as boolean}
+                      onChange={(e) =>
+                        setSettings(key, e.currentTarget.checked)
+                      }
                     />
                   </Match>
                   <Match when={type === "number"}>
@@ -71,7 +97,7 @@ export const ActionSettings: Component<Props> = (props) => {
                       type="number"
                       min="0"
                       max="100"
-                      value={value()}
+                      value={value() as number}
                       onInput={(e) =>
                         setSettings(key, e.currentTarget.valueAsNumber)
                       }
@@ -80,7 +106,7 @@ export const ActionSettings: Component<Props> = (props) => {
                   <Match when={type === "string"}>
                     <input
                       class="mt-2 w-full"
-                      value={value()}
+                      value={value() as string}
                       onInput={(e) => setSettings(key, e.currentTarget.value)}
                     />
                   </Match>

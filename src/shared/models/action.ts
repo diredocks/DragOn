@@ -21,6 +21,9 @@ export abstract class Action<TOptions> {
   abstract defaultSettings: TOptions;
   permissions?: readonly Browser.runtime.ManifestPermission[];
   settings?: Partial<TOptions>;
+  enums?: {
+    [K in keyof TOptions]?: Record<string, unknown>;
+  };
 
   constructor(settings?: Partial<TOptions>) {
     this.settings = settings;

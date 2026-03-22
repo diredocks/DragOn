@@ -48,5 +48,8 @@ export default class OpenInNewTab extends Action<Options> {
     focus: false,
     position: Position.Default,
   };
+  enums = {
+    position: Position,
+  };
   fn = fn;
 }

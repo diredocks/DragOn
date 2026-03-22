@@ -53,3 +53,9 @@
   @apply py-2 my-2 border-b border-outline-light;
   @apply last:border-0;
 }
+
+.settings select {
+  @apply border-outline outline-accent mt-2 w-full;
+  @apply rounded-sm border bg-white py-1.5 text-center text-base;
+  @apply appearance-none transition-all duration-500;
+}
