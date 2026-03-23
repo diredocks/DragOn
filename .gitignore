@@ -25,3 +25,16 @@ web-ext.config.ts
 *.njsproj
 *.sln
 *.sw?
+
+# Agent generated files
+.claude/
+**/.claude/
+AGENT.md
+AGENTS.md
+**/AGENTS.md
+CLAUDE.md
+**/CLAUDE.md
+.agents/
+journal/
+**/journal/
+.qoder/
