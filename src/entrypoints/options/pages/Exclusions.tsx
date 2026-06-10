@@ -15,16 +15,20 @@ const checkURL = (url: string) => {
 
 export function Exclusions() {
   const [input, setInput] = createSignal("");
+  const [isLoading, setIsLoading] = createSignal(true);
 
   onMount(async () => {
     setExclusions(await exclusionsStorage.getValue());
-
-    return exclusionsStorage.watch((newExclusions) => {
-      setExclusions(newExclusions);
-    });
+    setIsLoading(false);
   });
 
+  const unwatch = exclusionsStorage.watch((newExclusions) => {
+    setExclusions(newExclusions);
+  });
+  onCleanup(unwatch);
+
   createEffect(() => {
+    if (isLoading()) return;
     exclusionsStorage.setValue([...exclusions]);
   });
 

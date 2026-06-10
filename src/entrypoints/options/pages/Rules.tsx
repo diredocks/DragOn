@@ -29,11 +29,12 @@ export function Rules() {
     const serializedRules = await rulesStorage.getValue();
     setRules(await Promise.all(serializedRules.map((r) => Rule.fromJSON(r))));
     setIsLoading(false);
-
-    return rulesStorage.watch(async (newRules) => {
-      setRules(await Promise.all(newRules.map((r) => Rule.fromJSON(r))));
-    });
   });
+
+  const unwatch = rulesStorage.watch(async (newRules) => {
+    setRules(await Promise.all(newRules.map((r) => Rule.fromJSON(r))));
+  });
+  onCleanup(unwatch);
 
   createEffect(() => {
     if (!isLoading()) {
