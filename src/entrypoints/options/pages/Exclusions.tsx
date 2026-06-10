@@ -1,5 +1,4 @@
-import close from "@iconify/icons-mdi/close-circle";
-import { Icon } from "@iconify-icon/solid";
+import MdiCloseCircle from "@iconify-solid/mdi/close-circle";
 import { exclusionsStorage } from "@/shared/settings/storage";
 
 const [exclusions, setExclusions] = createStore<string[]>([]);
@@ -100,7 +99,7 @@ export function Exclusions() {
                 class="flex items-center opacity-20 hover:text-danger hover:opacity-90"
                 onClick={() => handleRemove(exclusions[index])}
               >
-                <Icon icon={close} width="20" height="20" />
+                <MdiCloseCircle width="20" height="20" />
               </button>
             </li>
           )}

@@ -1,5 +1,4 @@
-import chevronDown from "@iconify/icons-mdi/chevron-down";
-import { Icon } from "@iconify-icon/solid";
+import MdiChevronDown from "@iconify-solid/mdi/chevron-down";
 import { createSignal, type JSX } from "solid-js";
 
 type CollapsibleProps = {
@@ -20,8 +19,7 @@ export function Collapsible(props: CollapsibleProps) {
           onClick={() => setOpen(!open())}
         >
           <span>{props.name}</span>
-          <Icon
-            icon={chevronDown}
+          <MdiChevronDown
             class={`ml-1 h-4 w-4 transition-transform duration-400 ${open() ? "rotate-180" : ""}`}
           />
         </button>

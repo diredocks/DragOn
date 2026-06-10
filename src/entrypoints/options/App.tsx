@@ -1,17 +1,16 @@
-import carShiftPattern from "@iconify/icons-mdi/car-shift-pattern";
-import cog from "@iconify/icons-mdi/cog";
-import list from "@iconify/icons-mdi/format-list-bulleted-square";
-import informationOutline from "@iconify/icons-mdi/information-outline";
-import { Icon } from "@iconify-icon/solid";
+import MdiCarShiftPattern from "@iconify-solid/mdi/car-shift-pattern";
+import MdiCog from "@iconify-solid/mdi/cog";
+import MdiFormatListBulletedSquare from "@iconify-solid/mdi/format-list-bulleted-square";
+import MdiInformationOutline from "@iconify-solid/mdi/information-outline";
 import { type Component, createSignal, onCleanup } from "solid-js";
 import { Dynamic } from "solid-js/web";
 import { About, Exclusions, Rules, Settings } from "./pages";
 
 const pages = {
-  rules: { labelKey: "nav.rules", icon: carShiftPattern, component: Rules },
-  settings: { labelKey: "nav.settings", icon: cog, component: Settings },
-  exclusions: { labelKey: "nav.exclusions", icon: list, component: Exclusions },
-  about: { labelKey: "nav.about", icon: informationOutline, component: About },
+  rules: { labelKey: "nav.rules", icon: MdiCarShiftPattern, component: Rules },
+  settings: { labelKey: "nav.settings", icon: MdiCog, component: Settings },
+  exclusions: { labelKey: "nav.exclusions", icon: MdiFormatListBulletedSquare, component: Exclusions },
+  about: { labelKey: "nav.about", icon: MdiInformationOutline, component: About },
 } as const;
 
 type PageKey = keyof typeof pages;
@@ -53,7 +52,7 @@ const App: Component = () => {
                   currentPage() === key ? "text-accent" : ""
                 }`}
               >
-                <Icon icon={page.icon} width="32" height="32" />
+                <page.icon width="32" height="32" />
                 <span>{i18n.t(page.labelKey)}</span>
               </a>
             </li>

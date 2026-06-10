@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@iconify/icons-mdi':
-        specifier: ^1.2.48
-        version: 1.2.48
+      '@iconify-solid/mdi':
+        specifier: ^1.0.2
+        version: 1.0.2(solid-js@1.9.12)
       '@tailwindcss/vite':
         specifier: ^4.2.2
         version: 4.3.0(vite@8.0.13(@types/node@25.8.0)(esbuild@0.27.7)(jiti@2.7.0))
@@ -27,9 +27,6 @@ importers:
         specifier: ^4.2.2
         version: 4.3.0
     devDependencies:
-      '@iconify-icon/solid':
-        specifier: ^3.0.3
-        version: 3.0.3(solid-js@1.9.12)
       '@wxt-dev/module-solid':
         specifier: ^1.1.4
         version: 1.1.4(solid-js@1.9.12)(vite@8.0.13(@types/node@25.8.0)(esbuild@0.27.7)(jiti@2.7.0))(wxt@0.20.26(@types/node@25.8.0)(jiti@2.7.0)(rolldown@1.0.1))
@@ -318,13 +315,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iconify-icon/solid@3.0.3':
-    resolution: {integrity: sha512-VUM8/gscfrU0e6dUWjitdsJrNzYoY1bGTp1+gfZIAbvo+tIGcP9bD3WAvFb6pHaCYL/5X6erZUUn8pL0c0xX9Q==}
-    peerDependencies:
-      solid-js: '>=1.0.0'
+  '@iconify-solid/mdi@1.0.2':
+    resolution: {integrity: sha512-R65E5a2U9dZyjx9l0nkuyk7W4ofm9PvXWEY6g/FI0IALqVAcY+Kz3jb+Jf1n4S+C4kzmPz2LB0U3T1fGhsPC7w==}
 
-  '@iconify/icons-mdi@1.2.48':
-    resolution: {integrity: sha512-1Tiq+iX1d2MzrdDiw45Tc9HuhNgg8H4vvaKNV+kF+jmr/kPG+YyeLMyXUKp4bwv+gheIAgNpZPjuqAPRkmMieA==}
+  '@iconify/css-solid@1.1.0':
+    resolution: {integrity: sha512-wnQixJE5MmfKw3mXdDQcHbdWWaD2kBGLkLSWU86MNUjcnu5vuirNZh8QTCS5An1k8jSoHntnn9qVSOyJjhOa6Q==}
+    peerDependencies:
+      solid-js: '>=1.9.0'
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1124,9 +1121,6 @@ packages:
 
   htmlparser2@10.1.0:
     resolution: {integrity: sha512-VTZkM9GWRAtEpveh7MSF6SjjrpNVNNVJfFup7xTY3UpFtm67foy9HDVXneLtFVt4pMz5kZtgNcvCniNFb1hlEQ==}
-
-  iconify-icon@3.0.2:
-    resolution: {integrity: sha512-DYPAumiUeUeT/GHT8x2wrAVKn1FqZJqFH0Y5pBefapWRreV1BBvqBVMb0020YQ2njmbR59r/IathL2d2OrDrxA==}
 
   immediate@3.0.6:
     resolution: {integrity: sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==}
@@ -2345,14 +2339,16 @@ snapshots:
   '@esbuild/win32-x64@0.27.7':
     optional: true
 
-  '@iconify-icon/solid@3.0.3(solid-js@1.9.12)':
+  '@iconify-solid/mdi@1.0.2(solid-js@1.9.12)':
     dependencies:
-      iconify-icon: 3.0.2
-      solid-js: 1.9.12
+      '@iconify/css-solid': 1.1.0(solid-js@1.9.12)
+    transitivePeerDependencies:
+      - solid-js
 
-  '@iconify/icons-mdi@1.2.48':
+  '@iconify/css-solid@1.1.0(solid-js@1.9.12)':
     dependencies:
       '@iconify/types': 2.0.0
+      solid-js: 1.9.12
 
   '@iconify/types@2.0.0': {}
 
@@ -3065,10 +3061,6 @@ snapshots:
       domhandler: 5.0.3
       domutils: 3.2.2
       entities: 7.0.1
-
-  iconify-icon@3.0.2:
-    dependencies:
-      '@iconify/types': 2.0.0
 
   immediate@3.0.6: {}
 
