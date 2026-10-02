@@ -1,8 +1,6 @@
 import MdiCloseCircle from "@iconify-solid/mdi/close-circle";
 import { exclusionsStorage } from "@/shared/settings/storage";
 
-const [exclusions, setExclusions] = createStore<string[]>([]);
-
 const checkURL = (url: string) => {
   try {
     new URL(url);
@@ -13,28 +11,21 @@ const checkURL = (url: string) => {
 };
 
 export function Exclusions() {
+  const [exclusions, setExclusions] = createStore<string[]>([
+    ...exclusionsStorage.fallback,
+  ]);
   const [input, setInput] = createSignal("");
-  const [isLoading, setIsLoading] = createSignal(true);
 
-  onMount(async () => {
-    setExclusions(await exclusionsStorage.getValue());
-    setIsLoading(false);
-  });
-
-  const unwatch = exclusionsStorage.watch((newExclusions) => {
-    setExclusions(newExclusions);
-  });
+  exclusionsStorage.getValue().then((v) => setExclusions([...v]));
+  const unwatch = exclusionsStorage.watch((v) => setExclusions([...v]));
   onCleanup(unwatch);
-
-  createEffect(() => {
-    if (isLoading()) return;
-    exclusionsStorage.setValue([...exclusions]);
-  });
 
   const handleAdd = () => {
     const pattern = input().trim();
     if (!pattern || !checkURL(pattern) || exclusions.includes(pattern)) return;
-    setExclusions(exclusions.length, pattern);
+    const next = [...exclusions, pattern];
+    setExclusions(next);
+    exclusionsStorage.setValue(next);
     setInput("");
   };
 
@@ -43,7 +34,9 @@ export function Exclusions() {
   const handleRemove = (pattern: string) => {
     setRemoving((prev) => new Set([...prev, pattern]));
     setTimeout(() => {
-      setExclusions((prev) => prev.filter((p) => p !== pattern));
+      const next = exclusions.filter((p) => p !== pattern);
+      setExclusions(next);
+      exclusionsStorage.setValue(next);
       setRemoving((prev) => {
         const next = new Set(prev);
         next.delete(pattern);
